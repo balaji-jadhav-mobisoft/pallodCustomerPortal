@@ -2,6 +2,9 @@ import {defer} from '@shopify/remix-oxygen';
 import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
+import {HEADER_QUERY} from '~/lib/fragments';
+import SalwarSagaCard from '~/components/home-landing/salwar-saga-card/salwar-saga-card';
+import OurCollection from '~/components/home-landing/our-collection/our-collection';
 
 /**
  * @type {MetaFunction}
@@ -33,9 +36,22 @@ async function loadCriticalData({context}) {
     context.storefront.query(FEATURED_COLLECTION_QUERY),
     // Add other queries here, so that they are loaded in parallel
   ]);
+  const [header] = await Promise.all([
+    context.storefront.query(HEADER_QUERY, {
+      cache: context.storefront.CacheLong(),
+      variables: {
+        headerMenuHandle: 'main-menu', // Adjust to your header menu handle
+      },
+    }),
+    // Add other queries here, so that they are loaded in parallel
+  ]);
+
+  const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   return {
     featuredCollection: collections.nodes[0],
+    header,
+    publicStoreDomain,
   };
 }
 
@@ -62,9 +78,22 @@ function loadDeferredData({context}) {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   const data = useLoaderData();
+  const {header} = data;
+  const {menu} = header;
+  const {shop} = header;
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
+      <SalwarSagaCard
+        menu={menu}
+        primaryDomain={shop.primaryDomain.url}
+        publicStoreDomain={data.publicStoreDomain}
+      />
+      <OurCollection
+        menu={menu}
+        primaryDomain={shop.primaryDomain.url}
+        publicStoreDomain={data.publicStoreDomain}
+      />
+      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
       <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
@@ -75,23 +104,23 @@ export default function Homepage() {
  *   collection: FeaturedCollectionFragment;
  * }}
  */
-function FeaturedCollection({collection}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
+// function FeaturedCollection({collection}) {
+//   if (!collection) return null;
+//   const image = collection?.image;
+//   return (
+//     <Link
+//       className="featured-collection"
+//       to={`/collections/${collection.handle}`}
+//     >
+//       {image && (
+//         <div className="featured-collection-image">
+//           <Image data={image} sizes="100vw" />
+//         </div>
+//       )}
+//       <h1>{collection.title}</h1>
+//     </Link>
+//   );
+// }
 
 /**
  * @param {{
@@ -187,9 +216,12 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     }
   }
 `;
-
+/**
+ * @property {HeaderQuery} header
+ */
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @template T @typedef {import('@remix-run/react').MetaFunction<T>} MetaFunction */
 /** @typedef {import('storefrontapi.generated').FeaturedCollectionFragment} FeaturedCollectionFragment */
 /** @typedef {import('storefrontapi.generated').RecommendedProductsQuery} RecommendedProductsQuery */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */

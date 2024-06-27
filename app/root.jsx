@@ -36,6 +36,10 @@ export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
 
 export function links() {
   return [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
+    },
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
     {
@@ -137,7 +141,7 @@ function loadDeferredData({context}) {
 }
 
 /**
- * @param {{children?: React.ReactNode}}
+ * @param {{ children?: React.ReactNode }}
  */
 function Layout({children}) {
   const nonce = useNonce();
@@ -166,6 +170,16 @@ function Layout({children}) {
         )}
         <ScrollRestoration nonce={nonce} />
         <Scripts nonce={nonce} />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+          crossOrigin="anonymous"
+        ></script>
+        <script
+          src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+          integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+          crossOrigin="anonymous"
+        ></script>
       </body>
     </html>
   );

@@ -111,6 +111,31 @@ const MENU_FRAGMENT = `#graphql
     title
     type
     url
+    resource {
+    ... on Collection {
+      id
+      title
+      image {
+        url
+        
+      }
+      products(first: 10) {
+              nodes {
+                handle
+                description
+                descriptionHtml
+                id
+                title
+                images(first: 10) {
+                  nodes {
+                    url
+                  }
+                }
+              }
+            }
+    }
+  }
+
   }
   fragment ChildMenuItem on MenuItem {
     ...MenuItem
@@ -119,6 +144,9 @@ const MENU_FRAGMENT = `#graphql
     ...MenuItem
     items {
       ...ChildMenuItem
+      items {
+      ...ChildMenuItem
+    }
     }
   }
   fragment Menu on Menu {

@@ -1,4 +1,5 @@
 import {createContext, useContext, useState} from 'react';
+import CloseIcon from '~/assets/close-icon.svg';
 
 /**
  * A side bar component with Overlay
@@ -29,9 +30,7 @@ export function Aside({children, heading, type}) {
       <aside>
         <header>
           <h3>{heading}</h3>
-          <button className="close reset" onClick={close}>
-            &times;
-          </button>
+          <img src={CloseIcon} alt="close" onClick={close} />
         </header>
         <main>{children}</main>
       </aside>

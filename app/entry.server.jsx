@@ -8,21 +8,38 @@ import {createContentSecurityPolicy} from '@shopify/hydrogen';
  * @param {number} responseStatusCode
  * @param {Headers} responseHeaders
  * @param {EntryContext} remixContext
- * @param {AppLoadContext} context
  */
 export default async function handleRequest(
   request,
   responseStatusCode,
   responseHeaders,
   remixContext,
-  context,
 ) {
-  const {nonce, header, NonceProvider} = createContentSecurityPolicy({
-    shop: {
-      checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
-      storeDomain: context.env.PUBLIC_STORE_DOMAIN,
+  // Generate the nonce first
+  const {nonce, header, NonceProvider} = createContentSecurityPolicy();
+
+  // Update the Content Security Policy directives to include the nonce
+  const cspHeader = {
+    ...header,
+    directives: {
+      ...header.directives,
+      defaultSrc: [
+        "'self'",
+        `'nonce-${nonce}'`,
+        'https://cdn.shopify.com',
+        'https://shopify.com',
+        'http://localhost:*',
+      ],
+      scriptSrc: [
+        "'self'",
+        `'nonce-${nonce}'`,
+        'https://cdn.shopify.com',
+        'https://shopify.com',
+        'http://localhost:*',
+        'https://cdn.jsdelivr.net',
+      ],
     },
-  });
+  };
 
   const body = await renderToReadableStream(
     <NonceProvider>
@@ -32,7 +49,6 @@ export default async function handleRequest(
       nonce,
       signal: request.signal,
       onError(error) {
-        // eslint-disable-next-line no-console
         console.error(error);
         responseStatusCode = 500;
       },
@@ -44,7 +60,7 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('Content-Security-Policy', cspHeader);
 
   return new Response(body, {
     headers: responseHeaders,
@@ -53,4 +69,3 @@ export default async function handleRequest(
 }
 
 /** @typedef {import('@shopify/remix-oxygen').EntryContext} EntryContext */
-/** @typedef {import('@shopify/remix-oxygen').AppLoadContext} AppLoadContext */

@@ -8,7 +8,7 @@ import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
-
+import PallodIcon from '~/assets/pallod-logo.svg?url';
 /**
  * @param {PageLayoutProps}
  */
@@ -105,7 +105,7 @@ function MobileMenuAside({header, publicStoreDomain}) {
   return (
     header.menu &&
     header.shop.primaryDomain?.url && (
-      <Aside type="mobile" heading="MENU">
+      <Aside type="mobile" heading={<img src={PallodIcon} alt="pallod" />}>
         <HeaderMenu
           menu={header.menu}
           viewport="mobile"
