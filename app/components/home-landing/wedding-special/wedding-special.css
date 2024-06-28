@@ -1,0 +1,181 @@
+:root {
+  --color-light: #fff;
+  --color-light-gold: #ffcf71;
+}
+.container-fluid {
+  padding: 0px 15px;
+}
+.scroll-img-section {
+  scrollbar-width: none;
+}
+.wedding-special-main-container {
+  .wedding-special-container {
+    position: relative;
+    margin-bottom: 70px;
+  }
+  .img-grid-overlay {
+    width: 860px;
+    height: 495px;
+    z-index: 1;
+    margin: 0px 30px 0px 83px;
+  }
+  .img-grid-overlay .row {
+    margin: 0;
+  }
+  .wedding-special-frame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 60%;
+    height: 100%;
+  }
+  .wedding-special-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .wedding-special-img-container {
+    width: 257px;
+    height: 327px;
+    padding: 0px 10px;
+    border-radius: 14px;
+  }
+  .wedding-special-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 13px;
+    border: 2px solid var(--color-light);
+  }
+  .wedding-special-details {
+    z-index: 1;
+    position: absolute;
+    z-index: 1;
+    top: 25%;
+    right: 1%;
+    width: 32%;
+  }
+
+  .wedding-special-details h3 {
+    font-size: 39px;
+    font-family: 'Belleza';
+    color: var(--color-light-gold);
+  }
+  .wedding-special-details p {
+    font-size: 17px;
+    color: var(--color-light);
+    margin: 0px;
+    text-align: center;
+    width: 70%;
+  }
+  .wedding-special-shop-btn {
+    padding: 11px 18px;
+    border: solid 1px var(--color-light-gold);
+    font-size: 14px;
+    background-color: transparent;
+    font-weight: 600;
+    color: var(--color-light-gold);
+    margin-top: 2rem;
+  }
+}
+@media screen and (max-width: 1269px) {
+  .wedding-special-main-container {
+    .wedding-special-container {
+      display: none !important;
+    }
+    .wedding-container-responsive {
+      display: flex !important;
+      margin-bottom: 5rem;
+      .wedding-special-details {
+        width: 100%;
+        margin: 20px 0px;
+        z-index: 1;
+        position: static;
+        p {
+          width: 45%;
+        }
+      }
+      .wedding-special-frame {
+        height: 600px;
+      }
+    }
+    .wedding-special-img-container {
+      height: 100%;
+      width: auto;
+    }
+    .wedding-special-img-container img {
+      height: 310px;
+      width: 200px;
+    }
+  }
+}
+
+@media screen and (max-width: 1181px) {
+  .wedding-special-main-container {
+    .img-grid-overlay {
+      margin: 0px 30px 0px 43px;
+    }
+    .wedding-special-shop-btn {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1013px) {
+  .wedding-special-main-container {
+    .carousel-container {
+      margin-top: 0px;
+    }
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .wedding-special-main-container {
+    .img-grid-overlay {
+      margin-left: 28px;
+    }
+  }
+}
+
+@media screen and (max-width: 706px) {
+  .wedding-special-main-container {
+    .wedding-container-responsive {
+      .scroll-img-section {
+        justify-content: flex-start !important;
+        padding: 0px 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .wedding-special-main-container {
+    .img-grid-overlay {
+      margin-left: 16px;
+    }
+
+    .wedding-special-img-container {
+      img {
+        height: 210px;
+        width: 150px;
+      }
+    }
+    .wedding-container-responsive {
+      margin-bottom: 4rem;
+      .wedding-special-details {
+        width: 100%;
+        h3 {
+          font-size: 20px;
+        }
+        p {
+          font-size: 12px;
+          width: 45%;
+        }
+      }
+      .wedding-special-frame {
+        height: 460px;
+      }
+    }
+  }
+}

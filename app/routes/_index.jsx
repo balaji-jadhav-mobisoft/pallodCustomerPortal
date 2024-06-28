@@ -5,6 +5,9 @@ import {Image, Money} from '@shopify/hydrogen';
 import {HEADER_QUERY} from '~/lib/fragments';
 import SalwarSagaCard from '~/components/home-landing/salwar-saga-card/salwar-saga-card';
 import OurCollection from '~/components/home-landing/our-collection/our-collection';
+import WeddingSpecial from '~/components/home-landing/wedding-special/wedding-special';
+import {COLLECTION_QUERY} from '~/lib/collectionByHandle';
+import WardrobeFavorites from '~/components/home-landing/wardrobe-favorites/wardrobe-favorites';
 
 /**
  * @type {MetaFunction}
@@ -46,12 +49,20 @@ async function loadCriticalData({context}) {
     // Add other queries here, so that they are loaded in parallel
   ]);
 
+  const [weddingSpecialCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'wedding-special'},
+      // Add other queries here, so that they are loaded in parallel
+    }),
+  ]);
+
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
   return {
     featuredCollection: collections.nodes[0],
     header,
     publicStoreDomain,
+    weddingSpecialCollection,
   };
 }
 
@@ -93,8 +104,14 @@ export default function Homepage() {
         primaryDomain={shop.primaryDomain.url}
         publicStoreDomain={data.publicStoreDomain}
       />
+      <WeddingSpecial
+        collection={data.weddingSpecialCollection}
+        primaryDomain={shop.primaryDomain.url}
+        publicStoreDomain={data.publicStoreDomain}
+      />
+      {/* <WardrobeFavorites /> */}
       {/* <FeaturedCollection collection={data.featuredCollection} /> */}
-      <RecommendedProducts products={data.recommendedProducts} />
+      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>
   );
 }

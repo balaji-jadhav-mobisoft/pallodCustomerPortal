@@ -1,80 +1,101 @@
 import React from 'react';
-import SampleImage1 from '~/assets/Carousel_Left_3x.webp';
-import SampleImage2 from '~/assets/Carousel_Right_3x.webp';
 import './our-collection.css';
+import {NavLink} from '@remix-run/react';
 
 const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
-  if (!menu || !menu.items) return null;
+  // Ensure required props are provided
+  if (!menu || !menu.items || !primaryDomain || !publicStoreDomain) return null;
+
+  // Find the "Explore Our Collections" item in the menu
   const collection = menu.items.find(
     (item) => item.title === 'Explore Our Collections',
   );
-  console.log(collection, 'cplol');
-  const collections = [
-    {
-      src: SampleImage1,
-      alt: 'PALLOD',
-      caption: 'Sarees',
-    },
-    {
-      src: SampleImage2,
-      alt: 'PALLOD',
-      caption: 'Lehenga',
-    },
-    {
-      src: SampleImage1,
-      alt: 'PALLOD',
-      caption: 'Indo Western',
-    },
-    {
-      src: SampleImage2,
-      alt: 'PALLOD',
-      caption: 'Kurtis',
-    },
-    {
-      src: SampleImage1,
-      alt: 'PALLOD',
-      caption: 'Salwar Kameez',
-    },
-    {
-      src: SampleImage2,
-      alt: 'PALLOD',
-      caption: 'Occasion',
-    },
-  ];
 
-  const generateCollectionItem = ({src, alt, caption}) => (
+  if (!collection) return null;
+
+  // Map collection items to include necessary information
+  const collections = collection.items
+    .map((item) => {
+      if (!item.url) return null;
+
+      // Determine the URL path for the collection item
+      const url =
+        item.url.includes('myshopify.com') ||
+        item.url.includes(publicStoreDomain) ||
+        item.url.includes(primaryDomain)
+          ? new URL(item.url).pathname
+          : item.url;
+
+      // Return the collection item with required properties
+      return {
+        src: item.resource?.image?.url || '', // Fallback if image URL is null
+        alt: 'PALLOD',
+        caption: item.title,
+        collectionUrl: url,
+      };
+    })
+    .filter((item) => item !== null); // Filter out any null items
+
+  // Generate a collection item for the desktop view
+  const generateCollectionItem = ({src, alt, caption, collectionUrl}) => (
     <div className="col-4 collection-img-container">
-      <div className="img-wrapper">
-        <img src={src} alt={alt} className="zoom-img" />
-        <div className="img-caption">{caption}</div>
-      </div>
+      <NavLink
+        to={collectionUrl}
+        prefetch="intent"
+        style={{textDecoration: 'none'}}
+      >
+        <div className="img-wrapper">
+          <img src={src} alt={alt} className="zoom-img" />
+          <div className="img-caption">{caption}</div>
+        </div>
+      </NavLink>
     </div>
   );
 
-  const generateResponsiveCollectionItem = ({src, alt, caption}) => (
+  // Generate a collection item for the responsive (mobile) view
+  const generateResponsiveCollectionItem = ({
+    src,
+    alt,
+    caption,
+    collectionUrl,
+  }) => (
     <div className="collection-img-container">
-      <div className="img-wrapper">
-        <img src={src} alt={alt} className="zoom-img" />
-        <div className="img-caption">{caption}</div>
-      </div>
+      <NavLink
+        to={collectionUrl}
+        prefetch="intent"
+        style={{textDecoration: 'none'}}
+      >
+        <div className="img-wrapper">
+          <img src={src} alt={alt} className="zoom-img" />
+          <div className="img-caption">{caption}</div>
+        </div>
+      </NavLink>
     </div>
   );
 
   return (
-    <div>
+    <div className="our-collection-container">
       <h3 className="section-header d-flex justify-content-center">
-        Explore Our Collections
+        {collection.title}
       </h3>
       <div className="container-fluid collection-grid">
         <div className="row" id="collectionGrid">
-          {collections.map((item) => generateCollectionItem(item))}
+          {collections.map((item, index) => (
+            <React.Fragment key={index}>
+              {generateCollectionItem(item)}
+            </React.Fragment>
+          ))}
         </div>
       </div>
       <div
         className="container-fluid d-none scroll-img-section overflow-auto collection-grid collection-grid-responsive"
         id="collectionGridResponsive"
       >
-        {collections.map((item) => generateResponsiveCollectionItem(item))}
+        {collections.map((item, index) => (
+          <React.Fragment key={index}>
+            {generateResponsiveCollectionItem(item)}
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );

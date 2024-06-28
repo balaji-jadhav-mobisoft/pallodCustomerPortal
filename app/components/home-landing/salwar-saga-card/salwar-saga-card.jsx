@@ -6,7 +6,7 @@ import {NavLink} from '@remix-run/react';
 
 const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
   if (!menu || !menu.items) return null;
-
+  if (!primaryDomain || !publicStoreDomain) return null;
   // Find the SALWAR SAGA collection
   const collection = menu.items.find((item) => item.title === 'SALWAR SAGA');
 

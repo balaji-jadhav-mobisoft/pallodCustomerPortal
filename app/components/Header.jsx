@@ -342,13 +342,17 @@ function HeaderCtas({isLoggedIn, cart}) {
         <Suspense fallback="Sign in">
           <Await resolve={isLoggedIn} errorElement="Sign in">
             {(isLoggedIn) =>
-              isLoggedIn ? <img src={ProfileIcon} /> : <img src={ProfileIcon} />
+              isLoggedIn ? (
+                <img src={ProfileIcon} alt="profile" />
+              ) : (
+                <img src={ProfileIcon} alt="profile" />
+              )
             }
           </Await>
         </Suspense>
       </NavLink>
 
-      <img src={WishListIcon} />
+      <img src={WishListIcon} alt="wishList" />
 
       <CartToggle cart={cart} />
     </nav>
@@ -454,7 +458,7 @@ function CartBadge({count}) {
         });
       }}
     >
-      <img src={CartIcon} /> {count}
+      <img src={CartIcon} alt="cart" /> {count}
     </a>
   );
 }
