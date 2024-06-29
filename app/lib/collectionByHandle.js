@@ -7,6 +7,8 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    description
+    descriptionHtml
     featuredImage {
       id
       altText
@@ -22,6 +24,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
     }
+    tags
     variants(first: 1) {
       nodes {
         selectedOptions {

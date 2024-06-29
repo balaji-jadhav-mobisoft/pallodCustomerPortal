@@ -4,6 +4,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
+    border-radius: 0px;
   }
   .img-wrapper {
     width: 100%;
@@ -14,6 +15,13 @@
     overflow: hidden;
     position: relative;
     text-align: center;
+  }
+
+  .section-header {
+    font-family: 'Belleza';
+    font-size: 30px;
+    color: #1e1e1e;
+    margin-bottom: 28px;
   }
   .img-wrapper::after {
     content: '';
@@ -54,6 +62,9 @@
   }
   .main-container {
     margin: 0px 108px 70px;
+  }
+  .main-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
   }
 
   .product-title {
@@ -202,22 +213,31 @@
       display: none !important;
     }
 
-    /* #wardrobeItems {
-      display: none !important;
-    } */
-    #wardrobeItemsResponsive,
-    #similarItemsResponsive,
-    #wishlistItemsResponsive {
+    .main-container {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none; /* For Firefox */
+    }
+
+    #wardrobeItems {
       display: flex;
       overflow: scroll;
       scrollbar-width: none;
+      flex-wrap: nowrap !important;
+      padding: 0px 18px;
+    }
+    .main-container::-webkit-scrollbar {
+      display: none; /* For Chrome, Safari, and Opera */
+    }
+
+    .wardrobe-sec {
+      flex: 0 0 80%; /* Adjust to show 2 items per view */
+      margin: 0 10px;
     }
 
     .product-img-wrapper {
-      display: block;
-      overflow: scroll;
       height: 334px;
-      width: 250px;
+      width: 100%;
     }
   }
 }
@@ -226,7 +246,7 @@
   .wardrobe-main-container {
     .wardrobe-header {
       margin: 0px 16px;
-      justify-content: flex-start;
+      justify-content: flex-start !important;
       .view-all-btn {
         font-size: 12px;
       }
@@ -238,17 +258,21 @@
       right: -5%;
     }
     .main-container {
-      margin: 0px 16px 30px;
+      margin: 0px 0px 15px;
     }
 
     .section-header {
       font-size: 25px;
     }
 
-    .collection-grid-responsive {
-      .collection-img-container {
-        margin-right: 10px;
-      }
+    .wardrobe-sec {
+      flex: 0 0 60%; /* Adjust to show 1 item per view */
+      margin: 0px;
+    }
+
+    .product-img-wrapper {
+      height: 334px;
+      width: 100%;
     }
   }
 }

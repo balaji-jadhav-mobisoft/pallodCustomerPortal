@@ -55,6 +55,12 @@ async function loadCriticalData({context}) {
       // Add other queries here, so that they are loaded in parallel
     }),
   ]);
+  const [wardrobeWinnersCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'wardrobe-winners'},
+      // Add other queries here, so that they are loaded in parallel
+    }),
+  ]);
 
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
@@ -63,6 +69,7 @@ async function loadCriticalData({context}) {
     header,
     publicStoreDomain,
     weddingSpecialCollection,
+    wardrobeWinnersCollection,
   };
 }
 
@@ -109,7 +116,11 @@ export default function Homepage() {
         primaryDomain={shop.primaryDomain.url}
         publicStoreDomain={data.publicStoreDomain}
       />
-      {/* <WardrobeFavorites /> */}
+      <WardrobeFavorites
+        collection={data.wardrobeWinnersCollection}
+        primaryDomain={shop.primaryDomain.url}
+        publicStoreDomain={data.publicStoreDomain}
+      />
       {/* <FeaturedCollection collection={data.featuredCollection} /> */}
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
     </div>

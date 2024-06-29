@@ -81,7 +81,9 @@ const wardrobeItems = [
   },
 ];
 
-const WardrobeFavorites = () => {
+const WardrobeFavorites = ({collection, primaryDomain, publicStoreDomain}) => {
+  if (!collection || !primaryDomain || !publicStoreDomain) return null;
+  console.log(collection, 'wardrobe');
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
 
