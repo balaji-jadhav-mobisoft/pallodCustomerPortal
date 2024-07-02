@@ -3,11 +3,8 @@ import {Await, useLoaderData, Link} from '@remix-run/react';
 import {Suspense} from 'react';
 import {Image, Money} from '@shopify/hydrogen';
 import {HEADER_QUERY} from '~/lib/fragments';
-import SalwarSagaCard from '~/components/home-landing/salwar-saga-card/salwar-saga-card';
-import OurCollection from '~/components/home-landing/our-collection/our-collection';
-import WeddingSpecial from '~/components/home-landing/wedding-special/wedding-special';
 import {COLLECTION_QUERY} from '~/lib/collectionByHandle';
-import WardrobeFavorites from '~/components/home-landing/wardrobe-favorites/wardrobe-favorites';
+import HomePageComponent from '~/components/home-landing/home-page/home-page';
 
 /**
  * @type {MetaFunction}
@@ -101,23 +98,9 @@ export default function Homepage() {
   const {shop} = header;
   return (
     <div className="home">
-      <SalwarSagaCard
+      <HomePageComponent
         menu={menu}
-        primaryDomain={shop.primaryDomain.url}
-        publicStoreDomain={data.publicStoreDomain}
-      />
-      <OurCollection
-        menu={menu}
-        primaryDomain={shop.primaryDomain.url}
-        publicStoreDomain={data.publicStoreDomain}
-      />
-      <WeddingSpecial
-        collection={data.weddingSpecialCollection}
-        primaryDomain={shop.primaryDomain.url}
-        publicStoreDomain={data.publicStoreDomain}
-      />
-      <WardrobeFavorites
-        collection={data.wardrobeWinnersCollection}
+        data={data}
         primaryDomain={shop.primaryDomain.url}
         publicStoreDomain={data.publicStoreDomain}
       />

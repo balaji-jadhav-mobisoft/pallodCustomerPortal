@@ -1,6 +1,8 @@
 import React from 'react';
 import SpecialWeddingFrame from '~/assets/Wedding_Special_Frame.svg';
 import './wedding-special.css';
+import {NavLink} from '@remix-run/react';
+import {Link} from 'react-router-dom';
 
 // Component to render individual images
 const WeddingSpecialImage = ({image}) => (
@@ -10,7 +12,12 @@ const WeddingSpecialImage = ({image}) => (
 );
 
 // Component to render the details of the wedding special
-const WeddingSpecialDetails = ({title, description, unionSVGIcon}) => (
+const WeddingSpecialDetails = ({
+  title,
+  description,
+  unionSVGIcon,
+  collection,
+}) => (
   <div className="d-flex flex-column justify-content-center align-items-center wedding-special-details">
     <img
       height={35}
@@ -21,7 +28,9 @@ const WeddingSpecialDetails = ({title, description, unionSVGIcon}) => (
     />
     <h3>{title}</h3>
     <p>{description}</p>
-    <button className="wedding-special-shop-btn">SHOP NOW</button>
+    <Link to={`/collections/${collection?.collection?.handle}`}>
+      <button className="wedding-special-shop-btn">SHOP NOW</button>
+    </Link>
   </div>
 );
 
@@ -36,7 +45,7 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
   const images = products.nodes[0].images.nodes;
 
   return (
-    <div className='wedding-special-main-container'>
+    <div className="wedding-special-main-container">
       <div className="d-flex wedding-special-container">
         <div className="container img-grid-overlay d-flex align-items-center">
           <div className="row">
@@ -48,6 +57,7 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
         </div>
         {/* Render the wedding special details */}
         <WeddingSpecialDetails
+          collection={collection}
           title={title}
           description={description}
           unionSVGIcon={unionSVGIcon}
@@ -75,9 +85,10 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
             <WeddingSpecialImage key={index} image={image} />
           ))}
         </div>
-        <div
+        <Link
           className="d-flex justify-content-center align-items-center"
           style={{zIndex: 1}}
+          to={`/collections/${collection.collection.handle}`}
         >
           <button
             className="d-flex justify-content-center align-items-center wedding-special-shop-btn"
@@ -85,7 +96,7 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
           >
             SHOP NOW
           </button>
-        </div>
+        </Link>
         {/* Background frame image */}
         <div className="wedding-special-frame w-100">
           <img src={SpecialWeddingFrame} alt="Wedding Special Background" />

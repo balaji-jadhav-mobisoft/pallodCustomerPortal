@@ -1,0 +1,172 @@
+.editor-pick-main-container {
+  .section-header {
+    font-family: 'Belleza';
+    font-size: 30px;
+    color: #1e1e1e;
+    margin-bottom: 28px;
+  }
+
+  .zoom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .main-container {
+    margin: 0px 108px 50px;
+  }
+
+  .editor-pick-caption {
+    top: 10%;
+    left: 5%;
+  }
+  .editor-pick-caption h5 {
+    font-size: 25px;
+    font-family: 'Belleza';
+    color: #fff;
+  }
+  .editor-pick-caption h3 {
+    font-family: 'Belleza';
+    font-size: 44px;
+    color: #ffcf71;
+    margin-bottom: 30px;
+    width: 70%;
+  }
+  .editor-pick-caption button {
+    padding: 11px 18px;
+    border: solid 1px #fff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: transparent;
+  }
+  .mobile-carousal {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .editor-pick-main-container {
+    .editor-pick-caption {
+      h5 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 30px;
+      }
+      button {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1013px) {
+  .editor-pick-main-container {
+    .carousel-container {
+      margin-top: 0px;
+    }
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .editor-pick-main-container {
+    .main-container {
+      margin: 0px 45px 50px;
+    }
+
+    .editor-pick-caption {
+      h5 {
+        font-size: 16px;
+      }
+      h3 {
+        font-size: 22px;
+      }
+      button {
+        font-size: 10px;
+        padding: 7px 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .editor-pick-main-container {
+    .carousel-container {
+      margin-bottom: 50px;
+    }
+
+    .mobile-carousal {
+      display: block;
+      padding: 0;
+    }
+    .carousel-item img {
+      object-fit: fill;
+    }
+
+    .carousel-indicators {
+      position: absolute;
+      margin-bottom: 10px;
+    }
+    .indicator.active::after {
+      border: 1px solid #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .editor-pick-main-container {
+    .fluid-container-desktop {
+      display: none !important;
+    }
+    .editors-carousel-container {
+      display: flex !important;
+      .carousel-indicators {
+        position: inherit;
+        margin-top: 10px;
+      }
+      .indicator.active::after {
+        border: 1px solid #000;
+      }
+    }
+    .editor-pick-caption {
+      h5 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 33px;
+      }
+      button {
+        font-size: 12px;
+        padding: 11px 18px;
+        border-radius: 50px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .editor-pick-main-container {
+    .main-container {
+      margin: 0px 15px 10px;
+    }
+
+    .section-header {
+      font-size: 25px;
+    }
+
+    .editor-pick-caption {
+      h5 {
+        font-size: 16px;
+      }
+      h3 {
+        font-size: 25px;
+      }
+      button {
+        font-size: 10px;
+        padding: 7px 14px;
+      }
+    }
+  }
+}

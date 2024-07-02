@@ -1,0 +1,142 @@
+.editor-pick-carousal-container {
+  .carousel-container {
+    margin-top: 156px;
+    overflow: hidden;
+  }
+  .carousel-inner {
+    width: 100%;
+  }
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #editor-pick-section {
+    display: none !important;
+  }
+
+  .indicator {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50%;
+    margin: 0 8px !important;
+    background-color: #bdbdbd !important;
+    padding-inline: 0px;
+    border: none;
+  }
+
+  .indicator.active {
+    background-color: #ffb31e !important;
+    position: relative;
+  }
+
+  .indicator.active::after {
+    content: '';
+    position: absolute;
+    top: -3.6px;
+    left: -3.4px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 1px solid #0a0a0a;
+  }
+
+  .section-header {
+    font-family: 'Belleza';
+    font-size: 30px;
+    color: #1e1e1e;
+    margin-bottom: 28px;
+  }
+
+  .zoom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .main-container {
+    margin: 0px 108px 70px;
+  }
+}
+
+@media screen and (max-width: 1181px) {
+  .editor-pick-carousal-container {
+    .main-container {
+      margin: 0px 60px 70px;
+    }
+  }
+}
+@media screen and (max-width: 1120px) {
+  .editor-pick-carousal-container {
+    .editor-pick-caption {
+      h5 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 30px;
+      }
+      button {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .editor-pick-carousal-container {
+    .main-container {
+      margin: 0px 45px 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .editor-pick-carousal-container {
+    .editors-carousel-container {
+      display: flex !important;
+      .carousel-indicators {
+        position: inherit;
+        margin-top: 10px;
+      }
+      .indicator.active::after {
+        border: 1px solid #000;
+      }
+    }
+    .editor-pick-caption {
+      h5 {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 33px;
+      }
+      button {
+        font-size: 12px;
+        padding: 11px 18px;
+        border-radius: 50px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .editor-pick-carousal-container {
+    /* .main-container {
+      margin: 0px 16px 10px;
+    } */
+
+    .editor-pick-caption {
+      h5 {
+        font-size: 16px;
+      }
+      h3 {
+        font-size: 25px;
+      }
+      button {
+        font-size: 10px;
+        padding: 7px 14px;
+      }
+    }
+  }
+}
