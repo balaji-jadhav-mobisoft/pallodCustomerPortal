@@ -3,7 +3,6 @@ import './our-collection.css';
 import {NavLink} from '@remix-run/react';
 
 const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
-  // Ensure required props are provided
   if (!menu || !menu.items || !primaryDomain || !publicStoreDomain) return null;
 
   // Find the "Explore Our Collections" item in the menu
@@ -28,13 +27,13 @@ const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
 
       // Return the collection item with required properties
       return {
-        src: item.resource?.image?.url || '', // Fallback if image URL is null
+        src: item.resource?.image?.url || '',
         alt: 'PALLOD',
         caption: item.title,
         collectionUrl: url,
       };
     })
-    .filter((item) => item !== null); // Filter out any null items
+    .filter((item) => item !== null);
 
   // Generate a collection item for the desktop view
   const generateCollectionItem = ({src, alt, caption, collectionUrl}) => (
