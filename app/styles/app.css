@@ -32,7 +32,6 @@ aside {
   min-width: var(--aside-width);
   position: fixed;
   left: calc(-1 * var(--aside-width));
-  /* right: calc(-1 * var(--aside-width)); */
   top: 0;
   transition: transform 200ms ease-in-out;
 }
