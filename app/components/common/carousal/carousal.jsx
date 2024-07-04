@@ -31,8 +31,8 @@ const Carousal = ({
 
   const renderOccasionItems = () => {
     return occasionItems
-      .slice(currentStartIndex, currentStartIndex + itemsPerPage)
-      .map((item, index) => (
+      ?.slice(currentStartIndex, currentStartIndex + itemsPerPage)
+      ?.map((item, index) => (
         <OccasionItem key={index} item={item} colClass="col-4" />
       ));
   };
@@ -40,7 +40,7 @@ const Carousal = ({
   const updateButtons = () => {
     const prevButtonDisabled = currentStartIndex === 0;
     const nextButtonDisabled =
-      currentStartIndex + itemsPerPage >= occasionItems.length;
+      currentStartIndex + itemsPerPage >= occasionItems?.length;
 
     return {
       prevButtonDisabled,

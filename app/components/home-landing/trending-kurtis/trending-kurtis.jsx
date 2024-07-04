@@ -6,7 +6,7 @@ const TrendingKurtis = ({collection}) => {
   if (!collection) return null;
 
   // Extract products from the collection
-  const products = collection.collection.products.nodes || [];
+  const products = collection?.collection?.products.nodes || [];
 
   // Map products to trendingKurtisItem with necessary properties
   const trendingKurtisItem = products.map((product) => {

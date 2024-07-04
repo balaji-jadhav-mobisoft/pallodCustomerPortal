@@ -159,7 +159,7 @@ const WardrobeCarousal = ({
       {!dazzling && (
         <div className="d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header">
           <div className="section-header mb-0">
-            {trendingLooks ? collection : collection.collection.title}
+            {trendingLooks ? collection : collection?.collection?.title}
           </div>
           <Link
             to={`/collections/${collection?.collection?.handle}`}

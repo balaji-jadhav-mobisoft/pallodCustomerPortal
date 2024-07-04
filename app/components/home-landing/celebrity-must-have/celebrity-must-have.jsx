@@ -8,7 +8,7 @@ const CelebrityMustHave = ({menu, primaryDomain, publicStoreDomain}) => {
   const shopByOccasionCollection = menu.items.find(
     (item) => item.title === 'Celebratory Must Haves',
   );
-  const occasionItems = shopByOccasionCollection.items.map((item) => {
+  const occasionItems = shopByOccasionCollection?.items.map((item) => {
     if (!item.url) return null;
 
     return {
@@ -26,7 +26,7 @@ const CelebrityMustHave = ({menu, primaryDomain, publicStoreDomain}) => {
         occasionItems={occasionItems}
         itemsPerPage={3}
         url={false}
-        title={shopByOccasionCollection.title}
+        title={shopByOccasionCollection?.title}
         leftIcon={false}
         rightIcon={false}
       />
