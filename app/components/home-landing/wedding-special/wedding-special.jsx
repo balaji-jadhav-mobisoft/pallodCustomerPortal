@@ -40,7 +40,7 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
   if (!collection || !primaryDomain || !publicStoreDomain) return null;
 
   // Destructure collection properties for easier access
-  const {title, description, image, products} = collection.collection;
+  const {title, description, image, products} = collection?.collection;
   const unionSVGIcon = image.url;
   const images = products.nodes[0].images.nodes;
 

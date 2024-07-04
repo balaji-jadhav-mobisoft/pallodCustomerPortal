@@ -17,7 +17,7 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
   );
   if (!designerCollection || !individualDesignerCollection) return null;
 
-  const designerStudioItems = designerCollection.items.map((item) => {
+  const designerStudioItems = designerCollection.items.map((item, index) => {
     if (!item.url) return null;
 
     return {
@@ -25,10 +25,12 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
       subtitle: item.title,
       colClass: 'col-4 designer-scrollable',
       src: item.resource.image.url,
+      key: `designer-${index}`,
     };
   });
+
   const individualDesignerCollectionItems =
-    individualDesignerCollection.items.map((item) => {
+    individualDesignerCollection.items.map((item, index) => {
       if (!item.url) return null;
       // Determine the URL path for the collection item
       const url =
@@ -44,6 +46,7 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
         colClass: 'col-12 col-md-6',
         src: item.resource.image.url,
         url: url,
+        key: `individual-${index}`,
       };
     });
 
@@ -66,26 +69,22 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const renderItems = (items, isGrid = false) =>
-    items.map((item, index) => (
-      <>
-        <div
-          key={index}
-          className={`${item.colClass} collection-img-container`}
-        >
-          <div className="img-wrapper">
-            <img src={item.src} alt={item.alt} className="zoom-img" />
-            <div
-              className={`img-caption d-flex flex-column ${
-                item.textAlign || ''
-              }`}
-            >
-              <div>{item.title}</div>
-              <div className="fs-16">{item.subtitle}</div>
-            </div>
+  const renderItems = (items) =>
+    items.map((item) => (
+      <div
+        key={item.key}
+        className={`${item.colClass} collection-img-container`}
+      >
+        <div className="img-wrapper">
+          <img src={item.src} alt={item.alt} className="zoom-img" />
+          <div
+            className={`img-caption d-flex flex-column ${item.textAlign || ''}`}
+          >
+            <div>{item.title}</div>
+            <div className="fs-16">{item.subtitle}</div>
           </div>
-        </div>{' '}
-      </>
+        </div>
+      </div>
     ));
 
   return (

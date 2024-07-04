@@ -1,0 +1,245 @@
+.elegance-of-saree-container {
+  .scroll-img-section {
+    scrollbar-width: none;
+  }
+  .wedding-special-shop-btn {
+    padding: 11px 18px;
+    border: solid 1px #ffcf71;
+    font-size: 14px;
+    background-color: transparent;
+    font-weight: 600;
+    color: #ffcf71;
+    margin-top: 2rem;
+  }
+  .shop-now-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.6);
+  }
+  .saree-elegance-frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 732px;
+    height: 100%;
+  }
+  .saree-elegance-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .saree-overlay-container {
+    margin-bottom: 70px;
+    height: 643px;
+  }
+  .saree-grid-overlay {
+    width: 916px;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    margin-right: 55px;
+  }
+  .saree-grid-overlay .row {
+    margin: 0;
+  }
+  .saree-elegance-img-container {
+    padding: 0px;
+    padding-right: 24px;
+  }
+  .saree-elegance-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .saree-elegance-details {
+    z-index: 1;
+    margin: 0px 50px;
+    position: absolute;
+    z-index: 1;
+    top: 190px;
+    left: 2%;
+    h3 {
+      font-size: 39px;
+      font-family: 'Belleza';
+      color: #ffcf71;
+    }
+    p {
+      font-size: 17px;
+      color: #fff;
+      margin: 0px;
+      text-align: center;
+      width: 70%;
+    }
+    button {
+      padding: 11px 18px;
+      border: solid 1px #ffcf71;
+      font-size: 14px;
+      background-color: transparent;
+      font-weight: 600;
+      color: #ffcf71;
+      margin-top: 2rem;
+    }
+  }
+}
+@media screen and (max-width: 1379px) {
+  .elegance-of-saree-container {
+    .saree-elegance-details {
+      left: 0%;
+      margin: 0px 0px;
+      h3 {
+        font-size: 32px;
+      }
+      p {
+        font-size: 16px;
+        width: 70%;
+      }
+      button {
+        font-size: 14px;
+      }
+    }
+    .saree-elegance-frame {
+      width: 600px;
+    }
+  }
+}
+
+@media screen and (max-width: 1269px) {
+  .elegance-of-saree-container {
+    .saree-elegance-details {
+      margin: 0px 20px;
+      h3 {
+        font-size: 28px;
+      }
+      p {
+        font-size: 14px;
+      }
+      button {
+        font-size: 12px;
+      }
+    }
+    .saree-elegance-frame {
+      width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 1235px) {
+  .elegance-of-saree-container {
+    .saree-overlay-container {
+      display: none !important;
+    }
+    .saree-container-responsive {
+      display: flex !important;
+      margin-bottom: 50px;
+      padding: 2rem 0;
+      .saree-elegance-details {
+        h3 {
+          font-size: 35px;
+        }
+        p {
+          font-size: 18px;
+        }
+        position: static;
+        padding-bottom: 2rem;
+      }
+      #saree-shop-btn {
+        border-radius: 50px;
+      }
+    }
+    .saree-elegance-row {
+      width: 70%;
+    }
+  }
+}
+@media screen and (max-width: 1181px) {
+  .elegance-of-saree-container {
+    .saree-grid-overlay {
+      margin-right: 7px;
+    }
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .elegance-of-saree-container {
+    .saree-elegance-row {
+      width: 73%;
+    }
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .elegance-of-saree-container {
+    .saree-grid-overlay {
+      margin-right: 7px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .elegance-of-saree-container {
+    .saree-elegance-frame {
+      width: 100%;
+    }
+    .elegance-shop-now {
+      display: none;
+    }
+
+    .saree-elegance-row {
+      width: 75%;
+    }
+
+    .saree-elegance-img-container img {
+      object-fit: fill;
+    }
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .elegance-of-saree-container {
+    .saree-container-responsive {
+      .saree-elegance-img-container {
+        padding-right: 12px;
+      }
+      .pb-4 {
+        padding-bottom: 0.8rem !important;
+      }
+
+      .saree-elegance-details {
+        h3 {
+          font-size: 25px;
+        }
+        p {
+          font-size: 12px;
+          width: 40%;
+        }
+      }
+      #saree-shop-btn {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .elegance-of-saree-container {
+    .saree-grid-overlay {
+      margin-right: 7px;
+    }
+    .wedding-special-img-container {
+      img {
+        height: 210px;
+        width: 150px;
+      }
+    }
+
+    .saree-elegance-row {
+      width: 90%;
+    }
+    .saree-container-responsive {
+      display: flex !important;
+      margin-bottom: 30px;
+    }
+  }
+}

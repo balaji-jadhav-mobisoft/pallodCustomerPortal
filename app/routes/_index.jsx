@@ -34,7 +34,6 @@ export async function loader(args) {
 async function loadCriticalData({context}) {
   const [{collections}] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
-    // Add other queries here, so that they are loaded in parallel
   ]);
   const [header] = await Promise.all([
     context.storefront.query(HEADER_QUERY, {
@@ -43,19 +42,36 @@ async function loadCriticalData({context}) {
         headerMenuHandle: 'main-menu', // Adjust to your header menu handle
       },
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
   const [weddingSpecialCollection] = await Promise.all([
     context.storefront.query(COLLECTION_QUERY, {
       variables: {first: 10, handle: 'wedding-special'},
-      // Add other queries here, so that they are loaded in parallel
     }),
   ]);
   const [wardrobeWinnersCollection] = await Promise.all([
     context.storefront.query(COLLECTION_QUERY, {
       variables: {first: 10, handle: 'wardrobe-winners'},
-      // Add other queries here, so that they are loaded in parallel
+    }),
+  ]);
+  const [trendingKurtisCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'all-time-trending-kurtis'},
+    }),
+  ]);
+  const [eleganceOfSareeCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'elegance-of-saree'},
+    }),
+  ]);
+  const [bottomCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'bottom-collection'},
+    }),
+  ]);
+  const [customerStoriesCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'customer-stories'},
     }),
   ]);
 
@@ -67,6 +83,10 @@ async function loadCriticalData({context}) {
     publicStoreDomain,
     weddingSpecialCollection,
     wardrobeWinnersCollection,
+    eleganceOfSareeCollection,
+    trendingKurtisCollection,
+    bottomCollection,
+    customerStoriesCollection,
   };
 }
 
