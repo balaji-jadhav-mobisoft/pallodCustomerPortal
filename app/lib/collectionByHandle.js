@@ -72,6 +72,7 @@ export const COLLECTION_QUERY = `#graphql
      altText
          }
       description
+      descriptionHtml
       products(
         first: $first,
         last: $last,

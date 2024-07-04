@@ -66,6 +66,7 @@ const HomePageComponent = ({menu, data, primaryDomain, publicStoreDomain}) => {
       />
       <DazzlingDecor
         collection={data.bottomCollection}
+        customerStoriesCollection={data.customerStoriesCollection}
         menu={menu}
         primaryDomain={primaryDomain}
         publicStoreDomain={publicStoreDomain}

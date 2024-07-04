@@ -69,6 +69,11 @@ async function loadCriticalData({context}) {
       variables: {first: 10, handle: 'bottom-collection'},
     }),
   ]);
+  const [customerStoriesCollection] = await Promise.all([
+    context.storefront.query(COLLECTION_QUERY, {
+      variables: {first: 10, handle: 'customer-stories'},
+    }),
+  ]);
 
   const publicStoreDomain = context.env.PUBLIC_STORE_DOMAIN;
 
@@ -81,6 +86,7 @@ async function loadCriticalData({context}) {
     eleganceOfSareeCollection,
     trendingKurtisCollection,
     bottomCollection,
+    customerStoriesCollection,
   };
 }
 

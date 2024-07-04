@@ -2,12 +2,15 @@ import React from 'react';
 import Carousal from '~/components/common/carousal/carousal';
 import './dazzling-decor.css';
 import WardrobeCarousal from '~/components/common/wardrobe-carousal/wardrobe-carousal';
+import TrendingLooks from '../trending-looks/trending-looks';
+import CustomerStories from '../customer-stories/customer-stories';
 
 const DazzlingDecor = ({
   menu,
   primaryDomain,
   publicStoreDomain,
   collection,
+  customerStoriesCollection,
 }) => {
   // Ensure required props are provided
   if (
@@ -15,13 +18,14 @@ const DazzlingDecor = ({
     !menu.items ||
     !primaryDomain ||
     !publicStoreDomain ||
-    !collection
+    !collection ||
+    !customerStoriesCollection
   )
     return null;
 
   // Find the "Explore Our Collections" item in the menu
   const dazzlingDecorCollection = menu.items.find(
-    (item) => item.title === 'Dazzling Decor',
+    (item) => item.title === 'Furnishing',
   );
 
   const dazzlingDecorItems = dazzlingDecorCollection.items.map((item) => {
@@ -45,6 +49,8 @@ const DazzlingDecor = ({
 
   // Extract products from the collection
   const products = collection.collection.products.nodes || [];
+  const customerStoriesCollectionProduct =
+    customerStoriesCollection.collection.products.nodes || [];
 
   // Map products to bottomCollection with necessary properties
   const bottomCollection = products.map((product) => {
@@ -56,6 +62,19 @@ const DazzlingDecor = ({
       description: product.description,
     };
   });
+
+  // Map products to bottomCollection with necessary properties
+  const customerStoriesCollection1 = customerStoriesCollectionProduct.map(
+    (product) => {
+      if (!product) return null;
+
+      return {
+        src: product.images.nodes[0]?.url,
+        hoverSrc: product.images.nodes[0]?.url,
+        description: product.descriptionHtml,
+      };
+    },
+  );
   return (
     <div className="dazzling-decor-container">
       <Carousal
@@ -73,6 +92,11 @@ const DazzlingDecor = ({
         wishList={false}
         dazzling={true}
       />
+      <TrendingLooks />
+      {/* <CustomerStories
+        wardrobeItems={customerStoriesCollection1}
+        collection={customerStoriesCollection}
+      /> */}
     </div>
   );
 };

@@ -1,18 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import './wardrobe-carousal.css';
+import './customer-stories.css';
 import leftIcon from '~/assets/icon_left_chevron.svg';
 import rightIcon from '~/assets/icon_right_chevron.svg';
-import wishListIcon from '~/assets/wishList-icon.svg';
 import {Link} from '@remix-run/react';
 import InstagramIcon from '~/assets/instagram-icon (1).svg';
 
-const WardrobeCarousal = ({
-  collection,
-  wardrobeItems,
-  wishList,
-  dazzling,
-  trendingLooks,
-}) => {
+const CustomerStories = ({collection, wardrobeItems}) => {
   // Return null if required props are not provided
   if (!collection) return null;
 
@@ -79,16 +72,6 @@ const WardrobeCarousal = ({
     }
   };
 
-  // Handle mouse over event to change the image source
-  const handleMouseOver = (e) => {
-    e.currentTarget.src = e.currentTarget.getAttribute('data-hover-src');
-  };
-
-  // Handle mouse out event to revert the image source
-  const handleMouseOut = (e) => {
-    e.currentTarget.src = e.currentTarget.getAttribute('data-original-src');
-  };
-
   // Render the wardrobe items to be displayed
   const renderWardrobeItems = () => {
     const itemsToDisplay = wardrobeItems.slice(
@@ -96,90 +79,38 @@ const WardrobeCarousal = ({
       currentStartIndex + itemsPerPage,
     );
     return itemsToDisplay.map((item) => (
-      <div className="col-3 wardrobe-sec" key={item.src}>
+      <div
+        className="col-3 wardrobe-sec"
+        key={item.src}
+        style={{display: 'flex'}}
+      >
         <div className="product-img-wrapper position-relative">
           {item.src && (
-            <img
-              src={item.src}
-              data-hover-src={item.hoverSrc}
-              data-original-src={item.src}
-              alt={item.title}
-              className="zoom-img"
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}
-            />
-          )}
-          {item.isBestSeller && (
-            <div className="position-absolute top-0 start-0 best-seller">
-              Best Seller
-            </div>
-          )}
-          {wishList && (
-            <div className="position-absolute wishlist-container">
-              <img
-                src={wishListIcon}
-                className="mi-lg mi-wishlist wh-20 d-inline-block"
-                alt="Wishlist Icon"
-              />
-            </div>
+            <img src={item.src} alt={item.title} className="zoom-img" />
           )}
         </div>
-        {item.title && <h6 className="product-title">{item.title}</h6>}
-        <p className="product-description">{item.description}</p>
-        <div className="d-flex flex-row align-items-center justify-content-between">
-          <div className="d-flex align-items-center">
-            {item.discountPrice && (
-              <div className="discount-price me-1">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: `&#8377 ${item.discountPrice}`,
-                  }}
-                />
-              </div>
-            )}
-            {item.productPrice && (
-              <div className="product-price me-1">
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: `&#8377 ${item.productPrice}`,
-                  }}
-                />
-              </div>
-            )}
-            {item.discount && <div className="discount">{item.discount}</div>}
-          </div>
-          {item.isNew && <div className="new-stock">New</div>}
-        </div>
+        {/* <p
+          className="product-description"
+          dangerouslySetInnerHTML={{
+            __html: description,
+          }}
+        ></p> */}
       </div>
     ));
   };
 
   return (
     <div className="wardrobe-carousal-container">
-      {!dazzling && (
-        <div className="d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header">
-          <div className="section-header mb-0">
-            {trendingLooks ? collection : collection.collection.title}
-          </div>
-          <Link
-            to={`/collections/${collection?.collection?.handle}`}
-            className="position-absolute bottom-0 end-0 view-all-btn"
-          >
-            {trendingLooks ? (
-              <span>
-                VISIT US{' '}
-                <img
-                  style={{marginLeft: '5px'}}
-                  src={InstagramIcon}
-                  alt="instagram"
-                />
-              </span>
-            ) : (
-              'VIEW ALL'
-            )}
-          </Link>
-        </div>
-      )}
+      <div className="d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header">
+        <div className="section-header mb-0">{collection.collection.title}</div>
+        <Link
+          to={`/collections/${collection?.collection?.handle}`}
+          className="position-absolute bottom-0 end-0 view-all-btn"
+        >
+          VIEW ALL
+        </Link>
+      </div>
+
       <div className="fluid-container position-relative main-container">
         <div className="row" id="wardrobeItems">
           {renderWardrobeItems()}
@@ -207,4 +138,4 @@ const WardrobeCarousal = ({
   );
 };
 
-export default WardrobeCarousal;
+export default CustomerStories;
