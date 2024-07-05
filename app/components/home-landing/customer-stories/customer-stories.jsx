@@ -1,56 +1,80 @@
 import React, {useState, useEffect} from 'react';
 import './customer-stories.css';
-import leftIcon from '~/assets/icon_left_chevron.svg';
-import rightIcon from '~/assets/icon_right_chevron.svg';
-import {Link} from '@remix-run/react';
-import InstagramIcon from '~/assets/instagram-icon (1).svg';
+import LeftIcon from '~/assets/icon_left_chevron.svg';
+import RightIcon from '~/assets/icon_right_chevron.svg';
 
 const CustomerStories = ({collection, wardrobeItems}) => {
-  // Return null if required props are not provided
-  if (!collection) return null;
-
-  // State to manage the current start index of the displayed items and items per page
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [itemsPerPage, setItemsPerPage] = useState(2); // default to 2 items per page
+  const [isClient, setIsClient] = useState(false);
 
-  // Handle resizing of the window to adjust items per page
   useEffect(() => {
+    setIsClient(true); // Indicates the component is mounted on the client
+  }, []);
+
+  useEffect(() => {
+    // Update itemsPerPage based on window width
     const handleResize = () => {
-      if (window.innerWidth <= 1024 && window.innerWidth > 705) {
-        setItemsPerPage(3);
-      } else {
-        setItemsPerPage(4);
-      }
-      updateButtons();
+      const isMobileView = window.innerWidth <= 705;
+      setItemsPerPage(isMobileView ? 1 : 2);
     };
 
+    // Event listener for window resize
     window.addEventListener('resize', handleResize);
-    handleResize();
-
+    handleResize(); // Initial call to set itemsPerPage
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // Update navigation button states based on the current index and items per page
   useEffect(() => {
-    updateButtons();
-  }, [currentStartIndex, itemsPerPage, wardrobeItems.length]);
+    updateButtons(); // Update navigation buttons whenever startIndex or itemsPerPage changes
+  }, [currentStartIndex, itemsPerPage]);
 
-  // Function to update the state of the navigation buttons
+  // Function to generate HTML for each customer story item
+  const generateCustomerStoryHTML = (story, colClass, key) => (
+    <div
+      className={`${colClass} customer-stories-container bg-white d-flex flex-row`}
+      key={key}
+    >
+      <div className="customer-img-wrapper">
+        <img src={story.src} alt={story.alt} className="zoom-img" />
+      </div>
+      <p
+        style={{display: 'contents'}}
+        dangerouslySetInnerHTML={{__html: isClient ? story?.description : ''}}
+      ></p>
+    </div>
+  );
+
+  // Function to render customer stories based on currentStartIndex and itemsPerPage
+  const renderCustomerStories = () => {
+    const itemsToDisplay = wardrobeItems.slice(
+      currentStartIndex,
+      currentStartIndex + itemsPerPage,
+    );
+    const colClass = itemsPerPage === 1 ? 'col-12' : 'col-6'; // Column class based on itemsPerPage
+    return itemsToDisplay.map((item, index) =>
+      generateCustomerStoryHTML(
+        item,
+        colClass,
+        `customer-story-${index}-${item.src}`,
+      ),
+    );
+  };
+
+  // Update navigation buttons based on currentStartIndex and itemsPerPage
   const updateButtons = () => {
-    const prevButton = document.getElementById('wardrobe-prev');
-    const nextButton = document.getElementById('wardrobe-next');
+    const nextButton = document.getElementById('customer-stories-next');
+    const prevButton = document.getElementById('customer-stories-prev');
 
-    if (prevButton) {
+    if (nextButton && prevButton) {
       prevButton.style.opacity = currentStartIndex === 0 ? '0.5' : '1';
-      prevButton.style.pointerEvents =
-        currentStartIndex === 0 ? 'none' : 'auto';
-    }
-
-    if (nextButton) {
       nextButton.style.opacity =
         currentStartIndex + itemsPerPage >= wardrobeItems.length ? '0.5' : '1';
+
+      prevButton.style.pointerEvents =
+        currentStartIndex === 0 ? 'none' : 'auto';
       nextButton.style.pointerEvents =
         currentStartIndex + itemsPerPage >= wardrobeItems.length
           ? 'none'
@@ -58,80 +82,45 @@ const CustomerStories = ({collection, wardrobeItems}) => {
     }
   };
 
-  // Handle next button click
-  const handleNext = () => {
+  // Handle click event for next button
+  const handleNextClick = () => {
     if (currentStartIndex + itemsPerPage < wardrobeItems.length) {
       setCurrentStartIndex(currentStartIndex + itemsPerPage);
     }
   };
 
-  // Handle previous button click
-  const handlePrev = () => {
+  // Handle click event for previous button
+  const handlePrevClick = () => {
     if (currentStartIndex > 0) {
       setCurrentStartIndex(currentStartIndex - itemsPerPage);
     }
   };
 
-  // Render the wardrobe items to be displayed
-  const renderWardrobeItems = () => {
-    const itemsToDisplay = wardrobeItems.slice(
-      currentStartIndex,
-      currentStartIndex + itemsPerPage,
-    );
-    return itemsToDisplay.map((item) => (
-      <div
-        className="col-3 wardrobe-sec"
-        key={item.src}
-        style={{display: 'flex'}}
-      >
-        <div className="product-img-wrapper position-relative">
-          {item.src && (
-            <img src={item.src} alt={item.title} className="zoom-img" />
-          )}
-        </div>
-        {/* <p
-          className="product-description"
-          dangerouslySetInnerHTML={{
-            __html: description,
-          }}
-        ></p> */}
-      </div>
-    ));
-  };
-
   return (
-    <div className="wardrobe-carousal-container">
-      <div className="d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header">
-        <div className="section-header mb-0">{collection.collection.title}</div>
-        <Link
-          to={`/collections/${collection?.collection?.handle}`}
-          className="position-absolute bottom-0 end-0 view-all-btn"
-        >
-          VIEW ALL
-        </Link>
-      </div>
-
-      <div className="fluid-container position-relative main-container">
-        <div className="row" id="wardrobeItems">
-          {renderWardrobeItems()}
+    <div className="customer-stories-main-container">
+      <h3 className="section-header d-flex justify-content-center">
+        {collection.collection.title}
+      </h3>
+      <div className="fluid-container position-relative customer-stories-section">
+        <div className="row justify-content-between" id="customerStories">
+          {renderCustomerStories()}
         </div>
+        {/* Navigation buttons */}
         <img
-          src={leftIcon}
+          src={LeftIcon}
           height={35}
           width={35}
           className="mi-lg mi-chevron_left wh-34 d-inline-block position-absolute left-scroll"
-          id="wardrobe-prev"
-          onClick={handlePrev}
-          alt="Previous"
+          id="customer-stories-prev"
+          onClick={handlePrevClick}
         />
         <img
-          src={rightIcon}
+          src={RightIcon}
           height={35}
           width={35}
           className="mi-lg mi-chevron_right wh-34 d-inline-block position-absolute right-scroll"
-          id="wardrobe-next"
-          onClick={handleNext}
-          alt="Next"
+          id="customer-stories-next"
+          onClick={handleNextClick}
         />
       </div>
     </div>

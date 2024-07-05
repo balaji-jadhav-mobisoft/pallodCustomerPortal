@@ -28,16 +28,19 @@ const DazzlingDecor = ({
     (item) => item.title === 'Furnishing',
   );
 
-  const dazzlingDecorItems = dazzlingDecorCollection.items.map((item) => {
-    if (!item.url) return null;
+  const dazzlingDecorItems = dazzlingDecorCollection.items.map(
+    (item, index) => {
+      if (!item.url) return null;
 
-    return {
-      title: item.title.split(' ')[0],
-      src: item.resource.image.url,
-      alt: item.title,
-      linkText: 'SHOP NOW',
-    };
-  });
+      return {
+        key: `dazzling-${index}-${item.url}`, // unique key
+        title: item.title.split(' ')[0],
+        src: item.resource.image.url,
+        alt: item.title,
+        linkText: 'SHOP NOW',
+      };
+    },
+  );
 
   // Determine the URL path for the collection item
   const dazzlingDecorUrl =
@@ -53,10 +56,11 @@ const DazzlingDecor = ({
     customerStoriesCollection.collection.products.nodes || [];
 
   // Map products to bottomCollection with necessary properties
-  const bottomCollection = products.map((product) => {
+  const bottomCollection = products.map((product, index) => {
     if (!product) return null;
 
     return {
+      key: `product-${index}-${product.images.nodes[0]?.url}`, // unique key
       src: product.images.nodes[0]?.url,
       hoverSrc: product.images.nodes[0]?.url,
       description: product.description,
@@ -65,10 +69,11 @@ const DazzlingDecor = ({
 
   // Map products to bottomCollection with necessary properties
   const customerStoriesCollection1 = customerStoriesCollectionProduct.map(
-    (product) => {
+    (product, index) => {
       if (!product) return null;
 
       return {
+        key: `customer-story-${index}-${product.images.nodes[0]?.url}`, // unique key
         src: product.images.nodes[0]?.url,
         hoverSrc: product.images.nodes[0]?.url,
         description: product.descriptionHtml,
@@ -93,10 +98,10 @@ const DazzlingDecor = ({
         dazzling={true}
       />
       <TrendingLooks />
-      {/* <CustomerStories
+      <CustomerStories
         wardrobeItems={customerStoriesCollection1}
         collection={customerStoriesCollection}
-      /> */}
+      />
     </div>
   );
 };
