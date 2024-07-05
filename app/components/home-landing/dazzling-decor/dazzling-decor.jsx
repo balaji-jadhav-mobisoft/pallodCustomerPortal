@@ -28,9 +28,11 @@ const DazzlingDecor = ({
     (item) => item.title === 'Furnishing',
   );
 
+
   const dazzlingDecorItems = dazzlingDecorCollection.items.map(
     (item, index) => {
       if (!item.url) return null;
+
 
       return {
         key: `dazzling-${index}-${item.url}`, // unique key
@@ -44,16 +46,16 @@ const DazzlingDecor = ({
 
   // Determine the URL path for the collection item
   const dazzlingDecorUrl =
-    dazzlingDecorCollection.url.includes('myshopify.com') ||
-    dazzlingDecorCollection.url.includes(publicStoreDomain) ||
-    dazzlingDecorCollection.url.includes(primaryDomain)
-      ? new URL(dazzlingDecorCollection.url).pathname
-      : dazzlingDecorCollection.url;
+    dazzlingDecorCollection?.url.includes('myshopify.com') ||
+    dazzlingDecorCollection?.url.includes(publicStoreDomain) ||
+    dazzlingDecorCollection?.url.includes(primaryDomain)
+      ? new URL(dazzlingDecorCollection?.url).pathname
+      : dazzlingDecorCollection?.url;
 
   // Extract products from the collection
-  const products = collection.collection.products.nodes || [];
+  const products = collection?.collection?.products.nodes || [];
   const customerStoriesCollectionProduct =
-    customerStoriesCollection.collection.products.nodes || [];
+    customerStoriesCollection?.collection?.products.nodes || [];
 
   // Map products to bottomCollection with necessary properties
   const bottomCollection = products.map((product, index) => {
@@ -86,7 +88,7 @@ const DazzlingDecor = ({
         occasionItems={dazzlingDecorItems}
         itemsPerPage={3}
         url={dazzlingDecorUrl}
-        title={dazzlingDecorCollection.title}
+        title={dazzlingDecorCollection?.title}
         leftIcon={true}
         rightIcon={true}
         dazzling={true}

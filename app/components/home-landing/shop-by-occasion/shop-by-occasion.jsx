@@ -8,7 +8,7 @@ const ShopByOccasion = ({menu, primaryDomain, publicStoreDomain}) => {
   const shopByOccasionCollection = menu.items.find(
     (item) => item.title === 'Shop By Occasion',
   );
-  const occasionItems = shopByOccasionCollection.items.map((item) => {
+  const occasionItems = shopByOccasionCollection?.items?.map((item) => {
     if (!item.url) return null;
 
     return {
@@ -20,11 +20,11 @@ const ShopByOccasion = ({menu, primaryDomain, publicStoreDomain}) => {
   });
   // Determine the URL path for the collection item
   const shopByOccasionCollectionUrl =
-    shopByOccasionCollection.url.includes('myshopify.com') ||
-    shopByOccasionCollection.url.includes(publicStoreDomain) ||
-    shopByOccasionCollection.url.includes(primaryDomain)
-      ? new URL(shopByOccasionCollection.url).pathname
-      : shopByOccasionCollection.url;
+    shopByOccasionCollection?.url.includes('myshopify.com') ||
+    shopByOccasionCollection?.url.includes(publicStoreDomain) ||
+    shopByOccasionCollection?.url.includes(primaryDomain)
+      ? new URL(shopByOccasionCollection?.url).pathname
+      : shopByOccasionCollection?.url;
 
   return (
     <div>
@@ -32,7 +32,7 @@ const ShopByOccasion = ({menu, primaryDomain, publicStoreDomain}) => {
         occasionItems={occasionItems}
         itemsPerPage={3}
         url={shopByOccasionCollectionUrl}
-        title={shopByOccasionCollection.title}
+        title={shopByOccasionCollection?.title}
         leftIcon={true}
         rightIcon={true}
       />

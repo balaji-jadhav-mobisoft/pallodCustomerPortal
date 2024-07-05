@@ -40,9 +40,9 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
   if (!collection || !primaryDomain || !publicStoreDomain) return null;
 
   // Destructure collection properties for easier access
-  const {title, description, image, products} = collection?.collection;
-  const unionSVGIcon = image.url;
-  const images = products.nodes[0].images.nodes;
+  const {title, description, image, products} = collection?.collection || {};
+  const unionSVGIcon = image?.url || '';
+  const images = products?.nodes[0].images.nodes;
 
   return (
     <div className="wedding-special-main-container">
@@ -50,7 +50,7 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
         <div className="container img-grid-overlay d-flex align-items-center">
           <div className="row">
             {/* Render the first three images */}
-            {images.slice(0, 3).map((image, index) => (
+            {images?.slice(0, 3).map((image, index) => (
               <WeddingSpecialImage key={index} image={image} />
             ))}
           </div>
@@ -81,14 +81,14 @@ const WeddingSpecial = ({collection, primaryDomain, publicStoreDomain}) => {
           style={{zIndex: 1}}
         >
           {/* Render all images in a scrollable section */}
-          {images.map((image, index) => (
+          {images?.map((image, index) => (
             <WeddingSpecialImage key={index} image={image} />
           ))}
         </div>
         <Link
           className="d-flex justify-content-center align-items-center"
           style={{zIndex: 1}}
-          to={`/collections/${collection.collection.handle}`}
+          to={`/collections/${collection?.collection?.handle}`}
         >
           <button
             className="d-flex justify-content-center align-items-center wedding-special-shop-btn"

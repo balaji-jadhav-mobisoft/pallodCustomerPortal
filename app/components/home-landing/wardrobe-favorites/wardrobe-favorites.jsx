@@ -6,10 +6,10 @@ const WardrobeFavorites = ({collection, primaryDomain, publicStoreDomain}) => {
   if (!collection || !primaryDomain || !publicStoreDomain) return null;
 
   // Extract products from the collection
-  const products = collection.collection.products.nodes || [];
+  const products = collection?.collection?.products?.nodes || [];
 
   // Map products to wardrobeItems with necessary properties
-  const wardrobeItems = products.map((product) => {
+  const wardrobeItems = products?.map((product) => {
     if (!product) return null;
 
     const originalPrice = parseFloat(
