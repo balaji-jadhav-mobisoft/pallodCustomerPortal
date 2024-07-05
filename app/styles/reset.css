@@ -63,7 +63,7 @@ body {
   padding: 0;
 }
 
-h1,
+/* h1,
 h2,
 p {
   margin: 0;
@@ -98,7 +98,7 @@ h5 {
 p {
   font-size: 1rem;
   line-height: 1.4;
-}
+} */
 
 a {
   color: #000;
@@ -110,11 +110,11 @@ a:hover {
   cursor: pointer;
 }
 
-hr {
+/* hr {
   border-bottom: none;
   border-top: 1px solid #000;
   margin: 0;
-}
+} */
 
 pre {
   white-space: pre-wrap;

@@ -10,6 +10,7 @@ import EleganceOfSaree from '../elegance-of-saree/elegence-of-saree';
 import TrendingKurtis from '../trending-kurtis/trending-kurtis';
 import CelebrityMustHave from '../celebrity-must-have/celebrity-must-have';
 import DazzlingDecor from '../dazzling-decor/dazzling-decor';
+import FooterSection from '~/components/footer/footer';
 
 const HomePageComponent = ({menu, data, primaryDomain, publicStoreDomain}) => {
   if (!menu || !data || !primaryDomain || !publicStoreDomain) return null;

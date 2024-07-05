@@ -1,0 +1,589 @@
+.footer-container-main {
+  #offcanvasStart {
+    .offcanvas-header {
+      padding: 6px 16px 12px;
+      border-bottom: solid 0.5px #e0e0e0;
+      h5 {
+        height: 50px;
+        width: 100px;
+        margin-bottom: 0px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    .offcanvas-body {
+      padding: 20px 16px;
+      .currency-dropdown {
+        display: flex !important;
+        margin-left: 0px;
+        margin-bottom: 24px;
+        button {
+          flex-grow: 1;
+          padding: 10px;
+          border-radius: 6px;
+          border: solid 1px #e0e0e0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .btn-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #303030;
+            span {
+              margin-right: 10px;
+              color: #9e9e9e;
+            }
+          }
+        }
+        .dropdown-toggle::after {
+          font-size: 24px;
+        }
+      }
+      .nav-item {
+        margin-bottom: 20px;
+      }
+      .nav-link {
+        color: #212121;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        padding: 0rem;
+      }
+      .nav-link.active {
+        color: #e39805 !important;
+        border-bottom: 1px solid #e39805;
+      }
+      ul {
+        margin-bottom: 14px;
+      }
+      .store-locator {
+        padding: 12px 14px;
+        border-radius: 5px;
+        background-color: #fdf3e0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #212121;
+        margin-bottom: 16px;
+        .mi-store_locator,
+        .mi-about_us,
+        .mi-help_info {
+          background-color: #926100;
+          margin-right: 12px;
+        }
+      }
+      .footer-links {
+        margin: 10px 0px 30px;
+        padding: 0 14px;
+        font-size: 14px;
+        color: #303030;
+      }
+      .social-media-section {
+        padding: 0 14px;
+      }
+      .social-media {
+        background-color: #926100;
+      }
+    }
+  }
+  #storeListOffcanvas,
+  #pallodDetailOffcanvas {
+    .offcanvas-header {
+      padding: 12px 16px;
+      border-bottom: solid 0.5px #e0e0e0;
+      h5 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #303030;
+        margin-bottom: 0px;
+      }
+      .btn-close {
+        opacity: 1;
+      }
+    }
+    .offcanvas-body {
+      padding: 16px;
+      .pallod-store {
+        padding: 14px;
+        border-radius: 5px;
+        border: solid 0.5px #808080;
+        background-color: #fcf9f7;
+        margin-bottom: 16px;
+        .store-location {
+          padding: 12px 0px 0px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #212121;
+        }
+        .store-img {
+          height: 160px;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .store-detail-img {
+        height: 190px;
+        margin-bottom: 20px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .address {
+        font-size: 14px;
+        margin-bottom: 20px;
+        text-align: left;
+        color: #303030;
+      }
+      .contact-section {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: left;
+        color: #1e1e1e;
+        text-decoration: underline;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      .get-directions {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 22px;
+        background-color: #000;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+      }
+    }
+  }
+
+  /* .form-check-input:focus {
+    background-color: #1e1e1e !important;
+    border-color: #1e1e1e !important;
+  } */
+
+  .modal-footer {
+    padding-top: 0px;
+    border-top: none;
+    .delete-btn {
+      padding: 14px 22px;
+      background-color: #fff;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      color: #212121;
+    }
+    .save-details-btn {
+      padding: 14px 22px;
+      background-color: #000;
+      margin-left: 8px;
+      border: none;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      border: 1px solid black;
+    }
+    .anyway-btn {
+      padding: 14px 22px;
+      border: solid 1px #9e9e9e;
+      margin-right: 12px;
+      color: #9e9e9e;
+    }
+    .cancel-btn {
+      padding: 14px 22px;
+      border: solid 1px #000;
+      background-color: #fff;
+      margin-right: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+    }
+  }
+
+  #loginOffcanvas {
+    width: 100%;
+    border: none;
+    .offcanvas-header {
+      padding: 12px 16px;
+      h5 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #303030;
+      }
+    }
+    .offcanvas-body {
+      padding: 16px;
+      .currency-dropdown {
+        display: flex !important;
+        margin-left: 0px;
+        margin-top: 6px;
+        margin-bottom: 13px;
+        button {
+          flex-grow: 1;
+          padding: 10px;
+          border-radius: 6px;
+          border: solid 1px #e0e0e0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .btn-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #303030;
+            span {
+              margin-right: 10px;
+              color: #9e9e9e;
+            }
+          }
+        }
+        .dropdown-toggle::after {
+          font-size: 24px;
+        }
+      }
+      .login-btn {
+        width: 100%;
+        padding: 14px 22px;
+        background-color: #000;
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        color: #fff;
+        margin-bottom: 16px;
+      }
+      .logged-user {
+        width: 100%;
+        padding: 9px 14px;
+        border-radius: 6px;
+        background-color: #f2f6ee;
+        margin-bottom: 16px;
+        .user-name {
+          font-size: 16px;
+          font-weight: 600;
+          color: #303030;
+          margin-bottom: 10px;
+        }
+        .mob-no {
+          font-size: 14px;
+          color: #808080;
+        }
+      }
+      .help-btn {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        border: none;
+        background-color: #fff;
+        .help-text {
+          font-size: 14px;
+          font-weight: 500;
+          color: #303030;
+        }
+        .logout-text {
+          font-size: 14px;
+          font-weight: bold;
+          color: #212121;
+        }
+        .mi-logout {
+          background-color: #000;
+        }
+        padding: 11px 0px;
+        .mi-help,
+        .mi-chevron_right,
+        .mi-checkout,
+        .mi-card,
+        .mi-address_book {
+          background-color: #808080;
+        }
+      }
+    }
+  }
+
+  .nav-search-bar {
+    padding: 10px 12px;
+    padding-left: 32px;
+    font-family: 'Mulish';
+    font-size: 16px;
+  }
+  .nav-search-bar::placeholder {
+    color: #bababa;
+  }
+  .nav-search-bar:focus {
+    box-shadow: none;
+  }
+  .nav-search-bar:focus-visible {
+    border: none;
+  }
+
+  .zoom-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .wardrobe-header {
+    margin: 0px 108px;
+  }
+
+  .story-content {
+    font-size: 16px;
+    font-weight: normal;
+    color: #1e1e1e;
+  }
+  .story-writer {
+    font-size: 20px;
+    font-family: 'Belleza';
+    color: #1e1e1e;
+  }
+  .writer-place {
+    font-size: 14px;
+    color: #757575;
+  }
+  .footer-container h5 {
+    font-size: 16px !important;
+    color: #1e1e1e !important;
+    padding-bottom: 12px !important;
+  }
+  .footer-container p {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    color: #1e1e1e !important;
+  }
+  .footer-container .form-check-input:checked {
+    background-color: #1e1e1e !important;
+    border-color: #1e1e1e !important;
+  }
+  .form-check-input:active,
+  .form-check-input:focus {
+    box-shadow: none !important;
+  }
+  .social-media-icon {
+    width: 22px;
+    height: 22px;
+    margin-right: 18px;
+  }
+  .share-app-link-btn {
+    padding: 11px 18px;
+    border-radius: 8px;
+    background-color: #000;
+    color: white;
+    font-size: 14px;
+  }
+  .footer-ruler {
+    margin: 1rem 0;
+    color: inherit;
+    background-color: #e7e7e7;
+    opacity: 0.05;
+  }
+  .customer-support-footer {
+    margin: 40px 0px;
+  }
+
+  .footer-header {
+    color: #1e1e1e;
+    font-family: 'Belleza';
+  }
+  .footer-content {
+    color: rgba(30, 30, 30, 0.75);
+  }
+  .payment-options-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .play-store-img {
+    width: 140px;
+    height: 42px;
+  }
+  .main-footer {
+    margin: 38px 0px 24px;
+  }
+  .accordion-item:active,
+  .accordion-button:focus {
+    box-shadow: none;
+    background-color: #fff;
+  }
+  .accordion-button:not(.collapsed) {
+    color: initial;
+  }
+}
+@media screen and (max-width: 1348px) {
+  .footer-container-main {
+    .footer-container-main {
+      .nav-item {
+        margin-right: 1em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1235px) {
+  .footer-container-main {
+    .ellipsis-text {
+      display: inline-block;
+      max-width: 19ch;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: bottom;
+    }
+  }
+}
+
+@media screen and (max-width: 1013px) {
+  .footer-container-main {
+    #footerPaymentMethods {
+      display: none !important;
+    }
+    #footerPaymentMethodsResponsive {
+      display: flex !important;
+      margin-top: 30px;
+    }
+    .customer-support-footer {
+      justify-content: space-between !important;
+    }
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .footer-container-main {
+    .wardrobe-header {
+      margin: 0px 45px;
+    }
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .footer-container-main {
+    #defaultFooter {
+      display: none !important;
+    }
+    #footerAccordion {
+      display: block !important;
+    }
+    .accordion-button {
+      padding: 1rem 0.25rem;
+      font-size: 16px;
+      font-weight: 600;
+      color: #212121;
+    }
+    .accordion-item {
+      background-color: #fff;
+      border: none;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    .footer-logo {
+      display: none;
+    }
+    .footer-header {
+      font-size: 20px;
+    }
+    .footer-content {
+      font-size: 14px !important;
+    }
+    .modal-img-container {
+      display: none;
+    }
+    .modal-form {
+      padding-top: 0px;
+      padding-bottom: 28px;
+      align-items: flex-start !important;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .footer-container-main {
+    .main-footer {
+      margin: 20px 0px 24px;
+    }
+  }
+}
+@media screen and (max-width: 706px) {
+  .footer-container-main {
+    .customer-support-text {
+      margin: 0px 20px 20px 0px;
+    }
+    .customer-support-footer {
+      padding-bottom: 20px;
+    }
+  }
+}
+@media screen and (max-width: 667px) {
+  .footer-container-main {
+    #footerPaymentMethodsResponsive {
+      flex-direction: column-reverse;
+      .ms-5 {
+        margin-left: 0rem !important;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+@media screen and (max-width: 651px) {
+  .footer-container-main {
+    #loginOffcanvas {
+      display: block !important;
+    }
+
+    #offcanvasStart {
+      .offcanvas-start {
+        width: 312px;
+      }
+    }
+    #storeListOffcanvas,
+    #pallodDetailOffcanvas {
+      .offcanvas-end {
+        width: 375px;
+      }
+    }
+  }
+}
+@media (min-width: 576px) {
+  .footer-container-main {
+    .modal-dialog {
+      max-width: fit-content;
+    }
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .footer-container-main {
+    .wardrobe-header {
+      margin: 0px 16px;
+      justify-content: flex-start !important;
+      .view-all-btn {
+        font-size: 12px;
+      }
+    }
+
+    .share-app-link-btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      background-color: #000;
+      color: white;
+      font-size: 14px;
+    }
+    .share-app-text {
+      display: none;
+    }
+    .share-app-icon {
+      display: inline-block !important;
+      margin-top: 5px;
+    }
+  }
+}
+@media screen and (max-width: 380px) {
+  .footer-container-main {
+    .payment-options-icon {
+      margin-right: 1.5rem !important;
+    }
+  }
+}
