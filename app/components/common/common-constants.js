@@ -1,0 +1,11 @@
+export const RED_COLOR = '#FF0000';
+export const BLUE_COLOR = '#0000FF';
+export const IVORY_COLOR = '#FFFFF0';
+export const PINK_COLOR = '#FFC0CB';
+export const PEACH_COLOR = '#FFDAB9';
+export const ORANGE_COLOR = '#FFA500';
+export const GOLD_COLOR = '#FFD700';
+export const GRAY_COLOR = '#808080';
+export const YELLOW_COLOR = '#FFFF00';
+export const GREEN_COLOR = '#008000';
+export const MAROON_COLOR = '#800000';

@@ -190,7 +190,12 @@ function OrderLineRow({lineItem}) {
         <div>
           {lineItem?.image && (
             <div>
-              <Image data={lineItem.image} width={96} height={96} />
+              <Image
+                data={lineItem.image}
+                width={96}
+                height={96}
+                sizes="(min-width: 45em) 20vw, 50vw"
+              />
             </div>
           )}
           <div>

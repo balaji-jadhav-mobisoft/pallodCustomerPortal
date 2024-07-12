@@ -13,7 +13,12 @@ import MastercardIcon from '~/assets/Master_Card.webp';
 import VisaIcon from '~/assets/Visa_Icon.webp';
 import {NavLink} from '@remix-run/react';
 
-const FooterSection = ({menu, primaryDomainUrl, publicStoreDomain}) => {
+const FooterSection = ({
+  menu,
+  primaryDomainUrl,
+  publicStoreDomain,
+  footerAbout,
+}) => {
   const [contactInputValue, setContactInputValue] = useState('');
   const [contactMethod, setContactMethod] = useState('email');
 
@@ -538,16 +543,7 @@ const FooterSection = ({menu, primaryDomainUrl, publicStoreDomain}) => {
               <h4 className="mb-3 font-20 footer-header">
                 About The Pallod Store
               </h4>
-              <div className="footer-content">
-                Launched in 2009 in Pune, Pallod Store is born out of a fiercely
-                creative spirit and a unique design sensibility. The brand
-                Pallod Store is synonymous with luxury, traditional Indian craft
-                and a distinct and refreshing design. Representing rooted
-                culture and crafts of India and eclectic fusion through its
-                ethnic wear collection is what explains Pallod Store’s design
-                philosophy. The clothing fashion brand also has international
-                attention and global appeal to its outfit designs.
-              </div>
+              <div className="footer-content">{footerAbout.field.value}</div>
             </div>
           </div>
           <div className="d-flex justify-content-center mt-5 footer-content font-16">

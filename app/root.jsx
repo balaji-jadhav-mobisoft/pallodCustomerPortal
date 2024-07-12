@@ -14,7 +14,7 @@ import favicon from '~/assets/favicon.svg';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from '~/components/PageLayout';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import {FOOTER_QUERY, HEADER_QUERY, FOOTER_ABOUT_QUERY} from '~/lib/fragments';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -133,10 +133,26 @@ function loadDeferredData({context}) {
       console.error(error);
       return null;
     });
+
+  const footerAbout = storefront
+    .query(FOOTER_ABOUT_QUERY, {
+      cache: storefront.CacheLong(),
+      variables: {
+        handle: 'footer-about-section', // Adjust to your footer handle
+        type: 'about_the_pallod_store', // Adjust to your type
+      },
+    })
+    .catch((error) => {
+      // Log query errors, but don't throw them so the page can still render
+      console.error(error);
+      return null;
+    });
+
   return {
     cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
+    footerAbout,
   };
 }
 

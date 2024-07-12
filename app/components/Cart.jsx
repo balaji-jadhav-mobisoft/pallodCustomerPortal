@@ -79,6 +79,7 @@ function CartLineItem({layout, line}) {
     <li key={id} className="cart-line">
       {image && (
         <Image
+          sizes="(max-width: 600px) 100vw, 50vw"
           alt={title}
           aspectRatio="1/1"
           data={image}
