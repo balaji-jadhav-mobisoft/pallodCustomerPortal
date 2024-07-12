@@ -5,7 +5,12 @@ import FooterSection from './footer/footer';
 /**
  * @param {FooterProps}
  */
-export function Footer({footer: footerPromise, header, publicStoreDomain}) {
+export function Footer({
+  footer: footerPromise,
+  header,
+  publicStoreDomain,
+  footerAbout: footerAboutPromise,
+}) {
   return (
     <>
       <Suspense>
@@ -13,11 +18,18 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
           {(footer) => (
             <footer className="footer">
               {footer?.menu && header.shop.primaryDomain?.url && (
-                <FooterMenu
-                  menu={footer.menu}
-                  primaryDomainUrl={header.shop.primaryDomain.url}
-                  publicStoreDomain={publicStoreDomain}
-                />
+                <Suspense>
+                  <Await resolve={footerAboutPromise}>
+                    {(footerAbout) => (
+                      <FooterMenu
+                        menu={footer.menu}
+                        primaryDomainUrl={header.shop.primaryDomain.url}
+                        publicStoreDomain={publicStoreDomain}
+                        footerAbout={footerAbout.metaobject}
+                      />
+                    )}
+                  </Await>
+                </Suspense>
               )}
             </footer>
           )}
@@ -35,13 +47,14 @@ export function Footer({footer: footerPromise, header, publicStoreDomain}) {
  * }}
  */
 
-function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
+function FooterMenu({menu, primaryDomainUrl, publicStoreDomain, footerAbout}) {
   return (
     <>
       <FooterSection
         menu={menu}
         primaryDomainUrl={primaryDomainUrl}
         publicStoreDomain={publicStoreDomain}
+        footerAbout={footerAbout}
       />
     </>
   );

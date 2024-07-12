@@ -1,13 +1,15 @@
 import {defer, redirect} from '@shopify/remix-oxygen';
-import {useLoaderData, Link} from '@remix-run/react';
 import {
-  Pagination,
-  getPaginationVariables,
-  Image,
-  Money,
-  Analytics,
-} from '@shopify/hydrogen';
-import {useVariantUrl} from '~/lib/variants';
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from '@remix-run/react';
+import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
+// import '~/components/common/collection-components/collection.css';
+import MainCollectionComponent from '~/components/collection-components/main-collection-component/main-collection-component';
+import {useEffect, useState} from 'react';
+import Loader from '~/components/common/loader/loader';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -20,13 +22,14 @@ export const meta = ({data}) => {
  * @param {LoaderFunctionArgs} args
  */
 export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
+  try {
+    const criticalData = await loadCriticalData(args);
 
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
-
-  return defer({...deferredData, ...criticalData});
+    return defer({...criticalData});
+  } catch (error) {
+    console.error('Error loading collection:', error);
+    throw error;
+  }
 }
 
 /**
@@ -37,6 +40,43 @@ export async function loader(args) {
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
+  const searchParams = new URL(request.url).searchParams;
+  const sortParam = searchParams.get('sort');
+  const filterParam = searchParams.get('filter');
+
+  console.log(sortParam, 'sort');
+  let filters = [];
+  let sortKey = 'CREATED';
+  let reverse = true;
+  switch (sortParam) {
+    case 'High to Low':
+      sortKey = 'PRICE';
+      reverse = true;
+      break;
+    case 'Low to High':
+      sortKey = 'PRICE';
+      reverse = false;
+      break;
+    case 'Best Seller':
+      filters.push({tag: 'Best Seller'});
+      break;
+    case 'On Sale':
+      filters.push({tag: 'On Sale'});
+      break;
+    case 'new':
+      filters.push({tag: 'New'});
+      break;
+    default:
+      break;
+  }
+
+  if (filterParam) {
+    const additionalFilters = JSON.parse(filterParam);
+    filters = [...filters, ...additionalFilters];
+  }
+  if (!handle) {
+    throw redirect('/collections');
+  }
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 8,
   });
@@ -47,8 +87,7 @@ async function loadCriticalData({context, params, request}) {
 
   const [{collection}] = await Promise.all([
     storefront.query(COLLECTION_QUERY, {
-      variables: {handle, ...paginationVariables},
-      // Add other queries here, so that they are loaded in parallel
+      variables: {handle, ...paginationVariables, filters, sortKey, reverse},
     }),
   ]);
 
@@ -69,32 +108,58 @@ async function loadCriticalData({context, params, request}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {LoaderFunctionArgs}
  */
-function loadDeferredData({context}) {
-  return {};
-}
 
 export default function Collection() {
-  /** @type {LoaderReturnData} */
   const {collection} = useLoaderData();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const handleSortChange = async (sortBy) => {
+    try {
+      setIsLoading(true);
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set('sort', sortBy);
+      navigate(`?${newSearchParams.toString()}`);
+      setIsOpen(false);
+    } catch (error) {
+      console.error('Error handling sort change:', error);
+      setIsLoading(false);
+    }
+  };
+  const handleFilterChange = async (filters) => {
+    try {
+      if (filters.length > 0) {
+        setIsLoading(true);
+      }
+      const newSearchParams1 = new URLSearchParams(searchParams);
+      newSearchParams1.set('filter', JSON.stringify(filters));
+      navigate(`?${newSearchParams1.toString()}`);
+      setIsOpen(false);
+    } catch (error) {
+      console.error('Error handling filter change:', error);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (searchParams && isLoading) {
+      setIsLoading(false);
+    }
+  }, [searchParams]);
 
   return (
-    <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
-      <Pagination connection={collection.products}>
-        {({nodes, isLoading, PreviousLink, NextLink}) => (
-          <>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
-            <ProductsGrid products={nodes} />
-            <br />
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
-          </>
-        )}
-      </Pagination>
+    <div className="collection-main">
+      {isLoading && <Loader />}
+      <MainCollectionComponent
+        collection={collection}
+        onSortChange={handleSortChange}
+        onFilterChange={handleFilterChange}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+      />
+
       <Analytics.CollectionView
         data={{
           collection: {
@@ -107,73 +172,94 @@ export default function Collection() {
   );
 }
 
-/**
- * @param {{products: ProductItemFragment[]}}
- */
-function ProductsGrid({products}) {
-  return (
-    <div className="products-grid">
-      {products.map((product, index) => {
-        return (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        );
-      })}
-    </div>
-  );
-}
-
-/**
- * @param {{
- *   product: ProductItemFragment;
- *   loading?: 'eager' | 'lazy';
- * }}
- */
-function ProductItem({product, loading}) {
-  const variant = product.variants.nodes[0];
-  const variantUrl = useVariantUrl(product.handle, variant.selectedOptions);
-  return (
-    <Link
-      className="product-item"
-      key={product.id}
-      prefetch="intent"
-      to={variantUrl}
-    >
-      {product.featuredImage && (
-        <Image
-          alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          data={product.featuredImage}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h4>{product.title}</h4>
-      <small>
-        <Money data={product.priceRange.minVariantPrice} />
-      </small>
-    </Link>
-  );
-}
-
 const PRODUCT_ITEM_FRAGMENT = `#graphql
   fragment MoneyProductItem on MoneyV2 {
     amount
     currencyCode
   }
+  fragment ImageFragment on Image {
+    url
+    altText
+  }
+  fragment MediaFragment on Media {
+    ... on ExternalVideo {
+      id
+      alt
+      mediaContentType
+      originUrl
+      previewImage {
+        ...ImageFragment
+      }
+    }
+    ... on MediaImage {
+      id
+      image {
+        url
+      }
+      mediaContentType
+      previewImage {
+        ...ImageFragment
+      }
+      alt
+    }
+    ... on Video {
+      id
+      mediaContentType
+      previewImage {
+        ...ImageFragment
+      }
+      sources {
+        format
+        mimeType
+        url
+      }
+      alt
+    }
+  }
   fragment ProductItem on Product {
     id
     handle
     title
+    availableForSale
+    descriptionHtml
+    description
     featuredImage {
       id
       altText
       url
       width
       height
+    }
+    images(first: 10) {
+      edges {
+        node {
+          ...ImageFragment
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    media(first: 10) {
+      edges {
+        node {
+          ...MediaFragment
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    options(first: 10) {
+      id
+      name
+      values
     }
     priceRange {
       minVariantPrice {
@@ -183,6 +269,17 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
     }
+    productType
+    totalInventory
+    compareAtPriceRange {
+      minVariantPrice {
+        ...MoneyProductItem
+      }
+      maxVariantPrice {
+        ...MoneyProductItem
+      }
+    }
+    tags
     variants(first: 1) {
       nodes {
         selectedOptions {
@@ -191,6 +288,7 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         }
       }
     }
+
   }
 `;
 
@@ -204,18 +302,41 @@ const COLLECTION_QUERY = `#graphql
     $first: Int
     $last: Int
     $startCursor: String
+    $reverse: Boolean
     $endCursor: String
+    $filters: [ProductFilter!]
+    $sortKey: ProductCollectionSortKeys
   ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
       handle
       title
       description
+      metafield(namespace: "custom", key: "collection_banner") {
+          namespace
+          key
+          value
+          reference {
+            ... on MediaImage {
+            image {
+            id
+            altText
+            url
+            }
+          }
+        }
+      }
+      image {
+        ...ImageFragment
+      }
       products(
         first: $first,
         last: $last,
         before: $startCursor,
-        after: $endCursor
+        after: $endCursor,
+        filters: $filters,
+        sortKey: $sortKey,
+        reverse: $reverse
       ) {
         nodes {
           ...ProductItem
@@ -226,6 +347,18 @@ const COLLECTION_QUERY = `#graphql
           endCursor
           startCursor
         }
+        filters {
+        id
+        label
+        presentation
+        type
+        values {
+          count
+          id
+          input
+          label
+        }
+      }
       }
     }
   }

@@ -19,6 +19,7 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  footerAbout,
 }) {
   return (
     <Aside.Provider>
@@ -36,6 +37,7 @@ export function PageLayout({
       <main>{children}</main>
       <Footer
         footer={footer}
+        footerAbout={footerAbout}
         header={header}
         publicStoreDomain={publicStoreDomain}
       />

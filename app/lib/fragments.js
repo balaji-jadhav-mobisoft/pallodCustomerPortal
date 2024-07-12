@@ -200,3 +200,16 @@ export const FOOTER_QUERY = `#graphql
   }
   ${MENU_FRAGMENT}
 `;
+
+export const FOOTER_ABOUT_QUERY = `#graphql
+  query FooterAbout(
+    $handle: String!
+    $type: String!
+  ) {
+    metaobject(handle: { handle: $handle, type: $type }) {
+      field(key: "description") {
+        value
+      }
+    }
+  }
+`;

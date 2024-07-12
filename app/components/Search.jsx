@@ -128,6 +128,7 @@ function SearchResultsProductsGrid({products, searchTerm}) {
                       data={product.variants.nodes[0].image}
                       alt={product.title}
                       width={50}
+                      sizes="(max-width: 600px) 100vw, 50vw"
                     />
                   )}
                   <div>
@@ -365,6 +366,7 @@ function SearchResultItem({goToSearchResult, item}) {
             src={item.image.url}
             width={50}
             height={50}
+            sizes="(max-width: 600px) 100vw, 50vw"
           />
         )}
         <div>

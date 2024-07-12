@@ -288,7 +288,11 @@ const SubMenuModal = ({data}) => {
               <SubModalSection section={occasionSection} />
             </div>
             <div className="subnav-img">
-              <Image src={image} alt="Wedding Special Image" />
+              <Image
+                src={image}
+                alt="Wedding Special Image"
+                sizes="(max-width: 600px) 100vw, 50vw"
+              />
             </div>
           </div>
         );

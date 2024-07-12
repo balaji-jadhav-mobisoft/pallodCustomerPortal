@@ -200,26 +200,12 @@ button.reset:hover:not(:has(> *)) {
   justify-content: end;
 }
 
-/*
-* --------------------------------------------------
-* components/Footer
-* --------------------------------------------------
-*/
-/* .footer {
-  background: var(--color-dark);
-  margin-top: auto;
+.collection-main {
+  margin: 0px 108px 70px;
+  @media (max-width: 45em) {
+    margin: 0px 10px !important;
+  }
 }
-
-.footer-menu {
-  align-items: center;
-  display: flex;
-  grid-gap: 1rem;
-  padding: 1rem;
-}
-
-.footer-menu a {
-  color: var(--color-light);
-} */
 
 /*
 * --------------------------------------------------
