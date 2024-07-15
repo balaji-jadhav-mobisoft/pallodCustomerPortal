@@ -33,6 +33,13 @@
   }
 }
 
+.on-sale-toggle {
+  padding: 5px;
+  margin-left: 15px;
+  border: solid 1px #e0e0e0 !important;
+  background: #fff;
+}
+
 .view-more-filters-sec {
   font-size: 14px;
   font-weight: 600;

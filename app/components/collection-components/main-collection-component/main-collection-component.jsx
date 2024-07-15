@@ -36,13 +36,6 @@ const MainCollectionComponent = ({
   const dropdownItems = [
     {label: 'Price - High to Low', value: 'High to Low'},
     {label: 'Best Seller', value: 'Best Seller'},
-    {label: 'On Sale', value: 'On Sale'},
-    {label: 'New', value: 'new'},
-    {label: 'Price - Low to High', value: 'Low to High'},
-  ];
-  const dropdownItemsForMobile = [
-    {label: 'Price - High to Low', value: 'High to Low'},
-    {label: 'Best Seller', value: 'Best Seller'},
     {label: 'Price - Low to High', value: 'Low to High'},
   ];
 
@@ -79,9 +72,7 @@ const MainCollectionComponent = ({
     setSelectedItem(item.label);
     handleSortByForWeb(item.value);
   };
-  const handleClickOnToggle = (item) => {
-    setSelectedItem(item.label);
-  };
+
   const handleClickMobileDropdown = (item) => {
     setSelectedItem(item.label);
     handleSortBy(item.value);
@@ -110,7 +101,8 @@ const MainCollectionComponent = ({
   // Toggle button section
   const onSaleButtonRef = useRef(null);
   const newButtonRef = useRef(null);
-
+  const responsiveOnSaleButtonRef = useRef(null);
+  const responsiveNewButtonRef = useRef(null);
   const [activeTags, setActiveTags] = useState([]);
 
   const toggleButtonStyle = (button, item) => {
@@ -133,9 +125,12 @@ const MainCollectionComponent = ({
       );
     }
   };
+
   useEffect(() => {
     const onSaleButton = onSaleButtonRef.current;
     const newButton = newButtonRef.current;
+    const responsiveOnSaleButton = responsiveOnSaleButtonRef.current;
+    const responsiveNewButton = responsiveNewButtonRef.current;
 
     const onSaleButtonClick = () =>
       toggleButtonStyle(onSaleButton, {
@@ -145,12 +140,36 @@ const MainCollectionComponent = ({
     const newButtonClick = () =>
       toggleButtonStyle(newButton, {label: 'New', tags: [{tag: 'New'}]});
 
+    const responsiveOnSaleButtonClick = () =>
+      toggleButtonStyle(responsiveOnSaleButton, {
+        label: 'On Sale',
+        tags: [{tag: 'On Sale'}],
+      });
+    const responsiveNewButtonClick = () =>
+      toggleButtonStyle(responsiveNewButton, {
+        label: 'New',
+        tags: [{tag: 'New'}],
+      });
+
     onSaleButton.addEventListener('click', onSaleButtonClick);
     newButton.addEventListener('click', newButtonClick);
+    responsiveOnSaleButton.addEventListener(
+      'click',
+      responsiveOnSaleButtonClick,
+    );
+    responsiveNewButton.addEventListener('click', responsiveNewButtonClick);
 
     return () => {
       onSaleButton.removeEventListener('click', onSaleButtonClick);
       newButton.removeEventListener('click', newButtonClick);
+      responsiveOnSaleButton.removeEventListener(
+        'click',
+        responsiveOnSaleButtonClick,
+      );
+      responsiveNewButton.removeEventListener(
+        'click',
+        responsiveNewButtonClick,
+      );
     };
   }, [currentCollection]);
 
@@ -177,26 +196,14 @@ const MainCollectionComponent = ({
             ></img>
             Sort By
           </button>
-          <button
-            id="onSaleBtn"
-            ref={onSaleButtonRef}
-            onClick={() =>
-              handleClickOnToggle({label: 'On Sale', tags: [{tag: 'On Sale'}]})
-            }
-          >
+          <button id="onSaleBtn" ref={responsiveOnSaleButtonRef}>
             <img
               src={SaleIcon}
               className="mi-lg align-text-bottom bg-gold mi-sale me-2 wh-18 d-inline-block"
             ></img>
             On Sale
           </button>
-          <button
-            id="newBtn"
-            ref={newButtonRef}
-            onClick={() =>
-              handleClickOnToggle({label: 'New', tags: [{tag: 'New'}]})
-            }
-          >
+          <button id="newBtn" ref={responsiveNewButtonRef}>
             <img
               src={NewIcon}
               className="mi-lg align-text-bottom bg-gold mi-new me-2 wh-18 d-inline-block"
@@ -246,7 +253,7 @@ const MainCollectionComponent = ({
           ></button>
         </div>
         <div className="offcanvas-body">
-          {dropdownItemsForMobile.map((item, index) => (
+          {dropdownItems.map((item, index) => (
             <div
               key={index}
               className={`offcanvas-item ${
@@ -311,6 +318,24 @@ const MainCollectionComponent = ({
                 ))}
               </ul>
             </div>
+            <button
+              id="onSaleBtn"
+              className="on-sale-toggle"
+              ref={onSaleButtonRef}
+            >
+              <img
+                src={SaleIcon}
+                className="mi-lg align-text-bottom bg-gold mi-sale me-2 wh-18 d-inline-block"
+              ></img>
+              On Sale
+            </button>
+            <button id="newBtn" className="on-sale-toggle" ref={newButtonRef}>
+              <img
+                src={NewIcon}
+                className="mi-lg align-text-bottom bg-gold mi-new me-2 wh-18 d-inline-block"
+              ></img>
+              New
+            </button>
           </div>
           {/* product-listing */}
           <div className="row" id="productList">

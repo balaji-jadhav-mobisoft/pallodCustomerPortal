@@ -103,7 +103,6 @@ async function loadCriticalData({context}) {
         headerMenuHandle: 'main-menu', // Adjust to your header menu handle
       },
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
   return {
@@ -138,12 +137,11 @@ function loadDeferredData({context}) {
     .query(FOOTER_ABOUT_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
-        handle: 'footer-about-section', // Adjust to your footer handle
-        type: 'about_the_pallod_store', // Adjust to your type
+        handle: 'footer-about-section',
+        type: 'about_the_pallod_store',
       },
     })
     .catch((error) => {
-      // Log query errors, but don't throw them so the page can still render
       console.error(error);
       return null;
     });
