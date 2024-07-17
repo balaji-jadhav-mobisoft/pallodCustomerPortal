@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import BackArrowIcon from '~/assets/Icon_Back_Arrow.svg';
 import '../main-collection-component/main-collection-component.css';
 import {
+  BLACK_COLOR,
   BLUE_COLOR,
   GOLD_COLOR,
   GRAY_COLOR,
@@ -11,6 +12,7 @@ import {
   ORANGE_COLOR,
   PEACH_COLOR,
   PINK_COLOR,
+  PURPLE_COLOR,
   RED_COLOR,
   YELLOW_COLOR,
 } from '~/components/common/common-constants';
@@ -81,7 +83,6 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
         }
 
         filter.values.forEach((value) => {
-          // console.log(value, 'vall');
           const colorMap = {
             yellow: YELLOW_COLOR,
             red: RED_COLOR,
@@ -94,8 +95,10 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
             maroon: MAROON_COLOR,
             gold: GOLD_COLOR,
             gray: GRAY_COLOR,
+            black: BLACK_COLOR,
+            purple: PURPLE_COLOR,
           };
-
+          console.log(value, 'color===');
           filterSections[sectionId].data.push({
             id: value.id,
             label: value.label,
@@ -169,7 +172,6 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
   const handleApplyFilters = () => {
     // Array to store selected filters in the desired format
     const selectedFiltersArray = [];
-    console.log(selectedFilters, 'sssssssssssss');
     // Loop through selectedFilters and filterProductSection to convert to desired format
     Object.keys(selectedFilters).forEach((sectionId) => {
       const section = filterProductSection.find((sec) => sec.id === sectionId);
@@ -210,7 +212,6 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
     });
 
     // Here you can send selectedFiltersArray to your backend API or further process
-    console.log('Selected Filters Array:', selectedFiltersArray);
     if (onFilterChange) {
       onFilterChange(selectedFiltersArray);
     }

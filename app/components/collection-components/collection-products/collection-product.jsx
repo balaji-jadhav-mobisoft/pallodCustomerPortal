@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './collection-products.css';
 import wishListIcon from '~/assets/wishList-icon.svg';
-import {Pagination} from '@shopify/hydrogen';
+import {Image, Pagination} from '@shopify/hydrogen';
 import NoImage from '~/assets/no-img.png';
+import {Link} from '@remix-run/react';
 
 const CollectionProductList = ({collection}) => {
   const [colClass, setColClass] = useState('col-4');
@@ -66,6 +67,7 @@ const CollectionProductList = ({collection}) => {
 
         const productData = {
           src: product?.images?.edges[0]?.node?.url,
+          handle: product?.handle,
           title: product.title,
           description: product.description,
           productPrice: productPrice,
@@ -106,37 +108,40 @@ const CollectionProductList = ({collection}) => {
               {allItems.map((item) => (
                 <div className={`${colClass} product-container`} key={item.src}>
                   <div className="product-img-wrapper position-relative">
-                    {item.src ? (
-                      <img
-                        src={item.src}
-                        alt={item.title}
-                        className="zoom-img"
-                      />
-                    ) : (
-                      <img
-                        src={NoImage}
-                        alt={'no-image'}
-                        className="zoom-img no-img"
-                      />
-                    )}
-                    {item.isBestSeller && (
-                      <div className="position-absolute top-0 start-0 best-seller">
-                        Best Seller
+                    <Link to={`/products/${item.handle}`} key={item.src}>
+                      {item.src ? (
+                        <Image
+                          src={item.src}
+                          alt={item.title}
+                          className="zoom-img zoom-img-section"
+                          sizes="(max-width: 600px) 100vw, 50vw"
+                        />
+                      ) : (
+                        <img
+                          src={NoImage}
+                          alt={'no-image'}
+                          className="zoom-img no-img"
+                        />
+                      )}
+                      {item.isBestSeller && (
+                        <div className="position-absolute top-0 start-0 best-seller">
+                          Best Seller
+                        </div>
+                      )}
+                      <div className="position-absolute wishlist-container">
+                        <img
+                          src={wishListIcon}
+                          className="mi-lg mi-wishlist wh-20 d-inline-block"
+                          alt="Wishlist Icon"
+                        />
                       </div>
-                    )}
-                    <div className="position-absolute wishlist-container">
-                      <img
-                        src={wishListIcon}
-                        className="mi-lg mi-wishlist wh-20 d-inline-block"
-                        alt="Wishlist Icon"
-                      />
-                    </div>
-                    <div className="position-absolute add-to-bag-container">
-                      <button className="add-to-bag-btn">
-                        <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
-                        Add to Bag
-                      </button>
-                    </div>
+                      <div className="position-absolute add-to-bag-container">
+                        <button className="add-to-bag-btn">
+                          <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                          Add to Bag
+                        </button>
+                      </div>
+                    </Link>
                   </div>
                   <div className="image-title-section">
                     {item.title && (

@@ -9,3 +9,5 @@ export const GRAY_COLOR = '#808080';
 export const YELLOW_COLOR = '#FFFF00';
 export const GREEN_COLOR = '#008000';
 export const MAROON_COLOR = '#800000';
+export const BLACK_COLOR = '#000000';
+export const PURPLE_COLOR = '#A020F0';

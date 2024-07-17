@@ -25,14 +25,12 @@ const DazzlingDecor = ({
 
   // Find the "Explore Our Collections" item in the menu
   const dazzlingDecorCollection = menu.items.find(
-    (item) => item.title === 'Furnishing',
+    (item) => item.title === 'Home Furnishing',
   );
-
 
   const dazzlingDecorItems = dazzlingDecorCollection.items.map(
     (item, index) => {
       if (!item.url) return null;
-
 
       return {
         key: `dazzling-${index}-${item.url}`, // unique key

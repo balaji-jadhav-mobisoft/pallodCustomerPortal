@@ -9,6 +9,7 @@ import PlayStoreLogo from '~/assets/Play_Store_Download.webp';
 import AppleLogo from '~/assets/App_Store_Download.webp';
 import PallodFooterIcon from '~/assets/Pallod_Footer_Logo.webp';
 import PayPalIcon from '~/assets/PayPal_Icon.webp';
+import AmericanExpress from '~/assets/american-express.svg';
 import MastercardIcon from '~/assets/Master_Card.webp';
 import VisaIcon from '~/assets/Visa_Icon.webp';
 import {NavLink} from '@remix-run/react';
@@ -177,7 +178,7 @@ const FooterSection = ({
                 </p>
               </div>
               <div className="col-6 footer-container">
-                <h5>Get Pallod app</h5>
+                <h5>Get The Pallod Store app</h5>
                 <p style={{color: 'rgba(30, 30, 30, 0.75'}}>
                   We will send you a link on your selected media, open it on
                   your phone & download the app.
@@ -496,7 +497,13 @@ const FooterSection = ({
             <div className="customer-support-text font-16">
               Completely Safe & Secure Payment Methods
             </div>
-            <div className="me-0 d-flex flex-row justify-content-between">
+            <div
+              className="me-0 d-flex flex-row justify-content-between"
+              style={{marginLeft: '25px'}}
+            >
+              <div className="payment-options-icon me-4">
+                <img src={AmericanExpress} alt="pallod" className="zoom-img" />
+              </div>
               <div className="payment-options-icon me-4">
                 <img src={PayPalIcon} alt="pallod" className="zoom-img" />
               </div>

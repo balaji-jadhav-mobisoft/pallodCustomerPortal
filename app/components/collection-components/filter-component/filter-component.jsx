@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import '../main-collection-component/main-collection-component.css';
 import CloseIcon from '~/assets/Icon_Close.svg';
 import {
+  BLACK_COLOR,
   BLUE_COLOR,
   GOLD_COLOR,
   GRAY_COLOR,
@@ -11,6 +12,7 @@ import {
   ORANGE_COLOR,
   PEACH_COLOR,
   PINK_COLOR,
+  PURPLE_COLOR,
   RED_COLOR,
   YELLOW_COLOR,
 } from '~/components/common/common-constants';
@@ -81,6 +83,8 @@ const FilterComponent = ({productFilters, onFilterChange}) => {
             maroon: MAROON_COLOR,
             gold: GOLD_COLOR,
             gray: GRAY_COLOR,
+            black: BLACK_COLOR,
+            purple: PURPLE_COLOR,
           };
 
           filterSections[sectionId].data.push({
