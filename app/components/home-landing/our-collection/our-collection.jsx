@@ -3,17 +3,18 @@ import './our-collection.css';
 import {NavLink} from '@remix-run/react';
 
 const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
-  if (!menu || !menu.items || !primaryDomain || !publicStoreDomain) return null;
+  if (!menu || !menu?.items || !primaryDomain || !publicStoreDomain)
+    return null;
 
   // Find the "Explore Our Collections" item in the menu
-  const collection = menu.items.find(
+  const collection = menu?.items.find(
     (item) => item.title === 'Explore Our Collections',
   );
 
   if (!collection) return null;
 
   // Map collection items to include necessary information
-  const collections = collection.items
+  const collections = collection?.items
     .map((item) => {
       if (!item.url) return null;
 

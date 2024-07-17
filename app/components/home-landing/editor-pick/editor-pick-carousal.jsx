@@ -4,7 +4,7 @@ import {NavLink} from '@remix-run/react';
 
 const EditorPickCarousel = ({collection, primaryDomain, publicStoreDomain}) => {
   // Map through collection items and create a list of editor pick items
-  const editorPickItems = collection.items.map((item) => {
+  const editorPickItems = collection?.items.map((item) => {
     if (!item.url) return null;
 
     // Determine the URL path for the collection item

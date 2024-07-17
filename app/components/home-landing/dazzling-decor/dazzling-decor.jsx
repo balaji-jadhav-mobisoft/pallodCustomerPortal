@@ -15,7 +15,7 @@ const DazzlingDecor = ({
   // Ensure required props are provided
   if (
     !menu ||
-    !menu.items ||
+    !menu?.items ||
     !primaryDomain ||
     !publicStoreDomain ||
     !collection ||
@@ -24,11 +24,11 @@ const DazzlingDecor = ({
     return null;
 
   // Find the "Explore Our Collections" item in the menu
-  const dazzlingDecorCollection = menu.items.find(
+  const dazzlingDecorCollection = menu?.items.find(
     (item) => item.title === 'Home Furnishing',
   );
 
-  const dazzlingDecorItems = dazzlingDecorCollection.items.map(
+  const dazzlingDecorItems = dazzlingDecorCollection?.items.map(
     (item, index) => {
       if (!item.url) return null;
 

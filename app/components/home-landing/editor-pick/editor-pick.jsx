@@ -6,12 +6,13 @@ import {NavLink} from '@remix-run/react';
 
 const EditorPick = ({menu, primaryDomain, publicStoreDomain}) => {
   // Ensure required props are provided
-  if (!menu || !menu.items || !primaryDomain || !publicStoreDomain) return null;
+  if (!menu || !menu?.items || !primaryDomain || !publicStoreDomain)
+    return null;
   // Find the "Explore Our Collections" item in the menu
-  const collection = menu.items.find((item) => item.title === 'Editor’s Pick');
+  const collection = menu?.items.find((item) => item.title === 'Editor’s Pick');
 
   if (!collection) return null;
-  const editorPicks = collection.items.map((item) => {
+  const editorPicks = collection?.items.map((item) => {
     if (!item.url) return null;
 
     // Determine the URL path for the collection item

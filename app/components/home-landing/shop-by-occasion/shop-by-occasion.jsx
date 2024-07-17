@@ -3,9 +3,10 @@ import Carousal from '~/components/common/carousal/carousal';
 
 const ShopByOccasion = ({menu, primaryDomain, publicStoreDomain}) => {
   // Ensure required props are provided
-  if (!menu || !menu.items || !primaryDomain || !publicStoreDomain) return null;
+  if (!menu || !menu?.items || !primaryDomain || !publicStoreDomain)
+    return null;
   // Find the "Explore Our Collections" item in the menu
-  const shopByOccasionCollection = menu.items.find(
+  const shopByOccasionCollection = menu?.items.find(
     (item) => item.title === 'Shop By Occasion',
   );
   const occasionItems = shopByOccasionCollection?.items?.map((item) => {

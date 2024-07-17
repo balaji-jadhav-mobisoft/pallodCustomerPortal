@@ -92,7 +92,7 @@ const FooterSection = ({
             <div className="row">
               {['Quick Links', 'More Links', 'Customer Care'].map((title) => {
                 const items =
-                  menu.items.find((item) => item.title === title)?.items || [];
+                  menu?.items.find((item) => item.title === title)?.items || [];
 
                 return (
                   <div key={title} className="col-4 footer-container">
@@ -259,7 +259,7 @@ const FooterSection = ({
             {['Quick Links', 'More Links', 'Customer Care'].map(
               (title, index) => {
                 const items =
-                  menu.items.find((item) => item.title === title)?.items || [];
+                  menu?.items.find((item) => item.title === title)?.items || [];
                 const collapseId = `collapse${title.replace(/\s+/g, '')}`;
 
                 return (

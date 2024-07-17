@@ -5,17 +5,17 @@ import IconRightChevron from '~/assets/icon_right_chevron.svg';
 import {NavLink} from '@remix-run/react';
 
 const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
-  if (!menu || !menu.items) return null;
+  if (!menu || !menu?.items) return null;
   if (!primaryDomain || !publicStoreDomain) return null;
   // Find the SALWAR SAGA collection
-  const collection = menu.items.find((item) => item.title === 'SALWAR SAGA');
+  const collection = menu?.items.find((item) => item.title === 'SALWAR SAGA');
 
   // Exit if collection or its resource is missing
   if (!collection || !collection.resource || !collection.resource.products)
     return null;
 
   // Extract titles from SALWAR SAGA items for caption and description
-  const collectTitle = collection.items.map((item) => ({
+  const collectTitle = collection?.items.map((item) => ({
     title: item.title,
     resource: item.resource, // Assuming resource contains title
   }));

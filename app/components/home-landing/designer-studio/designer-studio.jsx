@@ -5,19 +5,20 @@ import {NavLink} from '@remix-run/react';
 
 const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
   // Ensure required props are provided
-  if (!menu || !menu.items || !primaryDomain || !publicStoreDomain) return null;
+  if (!menu || !menu?.items || !primaryDomain || !publicStoreDomain)
+    return null;
   const [isResponsive, setIsResponsive] = useState(false);
 
   // Find the "Explore Our Collections" item in the menu
-  const designerCollection = menu.items.find(
+  const designerCollection = menu?.items.find(
     (item) => item.title === 'Designer’s Studio',
   );
-  const individualDesignerCollection = menu.items.find(
+  const individualDesignerCollection = menu?.items.find(
     (item) => item.title === 'Individual Designer’s Studio',
   );
   if (!designerCollection || !individualDesignerCollection) return null;
 
-  const designerStudioItems = designerCollection.items.map((item, index) => {
+  const designerStudioItems = designerCollection?.items.map((item, index) => {
     if (!item.url) return null;
 
     return {
@@ -30,7 +31,7 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
   });
 
   const individualDesignerCollectionItems =
-    individualDesignerCollection.items.map((item, index) => {
+    individualDesignerCollection?.items.map((item, index) => {
       if (!item.url) return null;
       // Determine the URL path for the collection item
       const url =

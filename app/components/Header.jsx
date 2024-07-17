@@ -87,7 +87,7 @@ export function HeaderMenu({
 
   // Handle mouse enter event for showing modal data
   const handleMouseEnter = (resourceId) => {
-    const data = menu.items.filter((item) => item.resourceId === resourceId);
+    const data = menu?.items.filter((item) => item.resourceId === resourceId);
     setModalData(data);
   };
 
@@ -134,10 +134,10 @@ export function HeaderMenu({
 
   // Render menu items for categories
   const renderMenuItems = () =>
-    menu.items
+    menu?.items
       .filter((item) => item.title === 'Category')
       .flatMap((item) =>
-        item.items.map((val, index) => {
+        item?.items.map((val, index) => {
           if (!val) return null;
 
           const url =
@@ -246,7 +246,7 @@ const SubModalSection = ({section}) => {
   return (
     <div className="me-5">
       <h5 className="subnav-content-common">{section.title.split('-')[1]}</h5>
-      {section.items?.map((item, index) => {
+      {section?.items?.map((item, index) => {
         const url =
           item.url.includes('myshopify.com') ||
           item.url.includes(publicStoreDomain) ||
@@ -274,7 +274,7 @@ const SubMenuModal = ({data}) => {
     <>
       {data.map((val, index) => {
         if (!val) return null;
-        const [fabricSection, styleSection, occasionSection] = val.items;
+        const [fabricSection, styleSection, occasionSection] = val?.items;
         const image = val?.resource?.image?.url;
 
         return (
