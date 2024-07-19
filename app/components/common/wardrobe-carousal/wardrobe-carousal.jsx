@@ -12,6 +12,9 @@ const WardrobeCarousal = ({
   wishList,
   dazzling,
   trendingLooks,
+  productDetails,
+  similarProduct,
+  moreColorProducts,
 }) => {
   // Return null if required props are not provided
   if (!collection) return null;
@@ -96,8 +99,17 @@ const WardrobeCarousal = ({
       currentStartIndex + itemsPerPage,
     );
     return itemsToDisplay.map((item) => (
-      <div className="col-3 wardrobe-sec" key={item.src}>
-        <div className="product-img-wrapper position-relative">
+      <div
+        className={`col-3 wardrobe-sec  ${
+          moreColorProducts ? 'product-container' : ''
+        }`}
+        key={item.src}
+      >
+        <div
+          className={`position-relative ${
+            productDetails ? 'product-img-wrapper1' : 'product-img-wrapper'
+          }`}
+        >
           {item.src && (
             <img
               src={item.src}
@@ -115,12 +127,24 @@ const WardrobeCarousal = ({
             </div>
           )}
           {wishList && (
-            <div className="position-absolute wishlist-container">
+            <div
+              className={`position-absolute wishlist-container ${
+                moreColorProducts ? 'wishlist-container1' : ''
+              }`}
+            >
               <img
                 src={wishListIcon}
                 className="mi-lg mi-wishlist wh-20 d-inline-block"
                 alt="Wishlist Icon"
               />
+            </div>
+          )}
+          {moreColorProducts && (
+            <div className="position-absolute add-to-bag-container">
+              <button className="add-to-bag-btn">
+                <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                Add to Bag
+              </button>
             </div>
           )}
         </div>
@@ -160,6 +184,9 @@ const WardrobeCarousal = ({
         <div className="d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header">
           <div className="section-header mb-0">
             {trendingLooks ? collection : collection?.collection?.title}
+            {productDetails && collection.title}
+            {similarProduct && !moreColorProducts && 'Similar Products'}
+            {moreColorProducts && 'More From Similar color'}
           </div>
           <Link
             to={`/collections/${collection?.collection?.handle}`}
@@ -180,7 +207,11 @@ const WardrobeCarousal = ({
           </Link>
         </div>
       )}
-      <div className="fluid-container position-relative main-container">
+      <div
+        className={`fluid-container position-relative ${
+          similarProduct ? 'similar-product-container' : 'main-container'
+        }`}
+      >
         <div className="row" id="wardrobeItems">
           {renderWardrobeItems()}
         </div>

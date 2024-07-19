@@ -436,9 +436,9 @@ button.reset:hover:not(:has(> *)) {
   grid-gap: 0.75rem;
 }
 
-.product-options-item {
+/* .product-options-item {
   padding: 0.25rem 0.5rem;
-}
+} */
 
 /*
 * --------------------------------------------------
@@ -736,4 +736,18 @@ body::-webkit-scrollbar {
 
 .mobile-menu-policies {
   color: var(--color-dark-grey);
+}
+
+.view-all-btn {
+  color: #cd6f00;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 512px) {
+  .view-all-btn {
+    font-size: 12px;
+  }
 }

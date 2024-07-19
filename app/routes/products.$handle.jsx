@@ -12,6 +12,7 @@ import {
 } from '@shopify/hydrogen';
 import {getVariantUrl} from '~/lib/variants';
 import {useAside} from '~/components/Aside';
+import ProductDetails from '~/components/product-details/product-details';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -133,30 +134,42 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
+  console.log(selectedVariant.image, 'selected varient=========');
+  console.log(product, 'product----------------');
+  console.log(variants, 'variants----------------============?');
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <ProductMain
-        selectedVariant={selectedVariant}
-        product={product}
-        variants={variants}
-      />
-      <Analytics.ProductView
-        data={{
-          products: [
-            {
-              id: product.id,
-              title: product.title,
-              price: selectedVariant?.price.amount || '0',
-              vendor: product.vendor,
-              variantId: selectedVariant?.id || '',
-              variantTitle: selectedVariant?.title || '',
-              quantity: 1,
-            },
-          ],
-        }}
-      />
-    </div>
+    <>
+      {/* <div className="product">
+        <ProductImage image={selectedVariant?.image} />
+        <ProductMain
+          selectedVariant={selectedVariant}
+          product={product}
+          variants={variants}
+        />
+        <Analytics.ProductView
+          data={{
+            products: [
+              {
+                id: product.id,
+                title: product.title,
+                price: selectedVariant?.price.amount || '0',
+                vendor: product.vendor,
+                variantId: selectedVariant?.id || '',
+                variantTitle: selectedVariant?.title || '',
+                quantity: 1,
+              },
+            ],
+          }}
+        />
+      </div> */}
+      <div className="collection-main">
+        <ProductDetails
+          product={product}
+          variants={variants}
+          selectedVariant={selectedVariant}
+        />
+      </div>
+    </>
   );
 }
 
@@ -383,20 +396,49 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
       width
       height
     }
+    taxable
     price {
       amount
       currencyCode
     }
     product {
-      title
-      handle
-    }
+            availableForSale
+            description
+            descriptionHtml
+            id
+            images(first: 10) {
+              edges {
+                node {
+                  url
+                }
+              }
+            }
+            priceRange {
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            productType
+            title
+            tags
+            totalInventory
+            vendor
+          }
     selectedOptions {
       name
       value
     }
+    weight
+    weightUnit
     sku
     title
+    quantityAvailable
+    currentlyNotInStock
     unitPrice {
       amount
       currencyCode
@@ -410,16 +452,58 @@ const PRODUCT_FRAGMENT = `#graphql
     title
     vendor
     handle
+    totalInventory
+    images(first: 10) {
+      nodes {
+        altText
+        url
+      }
+    }
     descriptionHtml
     description
     options {
       name
       values
     }
+    product_work: metafield(key: "product_work", namespace: "custom") {
+      value
+    }
+    manufactured_packed_by: metafield(
+      key: "manufactured_packed_by"
+      namespace: "custom"
+    ) {
+      value
+    }
+    product_care: metafield(key: "product_care", namespace: "custom") {
+      value
+    }
+    product_note: metafield(key: "product_note", namespace: "custom") {
+      value
+    }
+    size_fit: metafield(key: "size_fit", namespace: "custom") {
+      value
+    }
+    productType
+    tags
+    metafield(namespace: "custom", key: "size_guide_file") {
+      namespace
+      key
+      value
+      reference {
+        ... on MediaImage {
+          image {
+            id
+            altText
+            url
+          }
+        }
+      }
+    }
+    availableForSale
     selectedVariant: variantBySelectedOptions(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
       ...ProductVariant
     }
-    variants(first: 1) {
+    variants(first: 10) {
       nodes {
         ...ProductVariant
       }

@@ -98,7 +98,7 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
             black: BLACK_COLOR,
             purple: PURPLE_COLOR,
           };
-          console.log(value, 'color===');
+
           filterSections[sectionId].data.push({
             id: value.id,
             label: value.label,

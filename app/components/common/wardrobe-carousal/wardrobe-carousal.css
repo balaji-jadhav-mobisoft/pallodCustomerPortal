@@ -16,7 +16,30 @@
     position: relative;
     text-align: center;
   }
-
+  .product-container .add-to-bag-container {
+    width: 101%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 6px 10px;
+    left: -1px;
+    bottom: -1px;
+    position: absolute;
+    transform: translateY(25%);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out,
+      visibility 0.3s ease-in-out;
+  }
+  .product-container .add-to-bag-btn {
+    width: 95%;
+    padding: 11px 22px;
+    background: white;
+    border: solid 1px #808080;
+  }
+  .product-container .product-img-wrapper:hover .add-to-bag-container {
+    transform: translateY(0);
+    opacity: 1;
+  }
   .section-header {
     font-family: 'Belleza';
     font-size: 30px;
@@ -66,6 +89,12 @@
   .main-container::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
   }
+  .similar-product-container {
+    margin: 0px 0px 70px;
+  }
+  .similar-product-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
 
   .product-title {
     font-size: 16px;
@@ -85,10 +114,20 @@
     left: -6%;
     cursor: pointer;
   }
+  /* .product-description {
+    font-size: 16px;
+    color: #303030;
+    margin-bottom: 10px;
+  } */
   .product-description {
     font-size: 16px;
     color: #303030;
     margin-bottom: 10px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
   }
   .product-price {
     font-size: 14px;
@@ -132,10 +171,20 @@
     align-items: center;
     cursor: pointer;
   }
+
+  .wishlist-container1 {
+    bottom: 75px !important;
+  }
   .product-img-wrapper {
     height: 382px;
   }
   .product-img-wrapper:hover .wishlist-container {
+    display: flex;
+  }
+  .product-img-wrapper1 {
+    height: 275px;
+  }
+  .product-img-wrapper1:hover .wishlist-container {
     display: flex;
   }
 }
@@ -193,6 +242,9 @@
     .product-img-wrapper {
       height: 310px;
     }
+    .product-img-wrapper1 {
+      height: 203px;
+    }
   }
 }
 
@@ -239,6 +291,10 @@
       height: 334px;
       width: 100%;
     }
+    .product-img-wrapper1 {
+      height: 227px;
+      width: 100%;
+    }
   }
 }
 
@@ -272,6 +328,10 @@
 
     .product-img-wrapper {
       height: 334px;
+      width: 100%;
+    }
+    .product-img-wrapper1 {
+      height: 227px;
       width: 100%;
     }
   }

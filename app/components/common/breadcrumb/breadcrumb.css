@@ -1,0 +1,29 @@
+.breadcrumb-container {
+  margin-top: 20px !important;
+  overflow: hidden;
+}
+.breadcrumb-item {
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+  .active {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+  }
+}
+@media screen and (max-width: 1267px) {
+  .breadcrumb-container {
+    margin-top: 20px !important;
+  }
+}
+@media screen and (max-width: 1013px) {
+  .breadcrumb-container {
+    margin-top: 12px !important;
+  }
+}
+@media screen and (max-width: 650px) {
+  .breadcrumb-container {
+    display: none;
+  }
+}
