@@ -224,6 +224,13 @@
   }
 }
 
+@media (max-width: 1180px) and (min-width: 706px) {
+  .wardrobe-sec {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+  }
+}
+
 @media screen and (max-width: 876px) {
   .wardrobe-carousal-container {
     .wardrobe-carousal-header {

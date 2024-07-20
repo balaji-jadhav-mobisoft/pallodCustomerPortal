@@ -823,11 +823,31 @@
     }
     #detailsBtnGroupResponsive {
       display: flex !important;
+      flex-direction: row !important;
     }
     .product-detail-headers {
       font-size: 16px;
     }
 
+    .add-to-bag-button {
+      display: flex;
+      padding: 10px 38px !important;
+      margin-left: 55px !important;
+    }
+
+    .go-to-bag-button {
+      display: flex;
+      padding: 0 !important;
+      margin-left: 55px !important;
+    }
+    #wishlistBtn {
+      margin-right: 0px;
+      width: 100% !important;
+      margin-top: 15px;
+    }
+    .form1 {
+      display: flex;
+    }
     /* .product-details-container { */
     .details-section {
       .brand {
@@ -854,15 +874,19 @@
         font-size: 14px;
       }
 
+      #quantityBtn {
+        width: 35% !important;
+      }
+
       .details-btn-group {
         flex-direction: row-reverse !important;
         justify-content: center;
         /* #quantityBtn {
           display: none;
         } */
-        #wishlistBtn {
+        /* #wishlistBtn {
           margin-right: 10px;
-        }
+        } */
         button {
           margin: 0px;
           font-size: 14px;

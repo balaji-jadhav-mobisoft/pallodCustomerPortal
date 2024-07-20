@@ -98,12 +98,12 @@ const WardrobeCarousal = ({
       currentStartIndex,
       currentStartIndex + itemsPerPage,
     );
-    return itemsToDisplay.map((item) => (
+    return itemsToDisplay.map((item, index) => (
       <div
         className={`col-3 wardrobe-sec  ${
           moreColorProducts ? 'product-container' : ''
         }`}
-        key={item.src}
+        key={index}
       >
         <div
           className={`position-relative ${

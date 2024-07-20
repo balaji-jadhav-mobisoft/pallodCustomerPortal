@@ -131,9 +131,9 @@ function getImagesByColor(product) {
 
   return result;
 }
+
 function ProductOptions({option, product}) {
   const imagesByColor = getImagesByColor(product);
-  console.log(imagesByColor, 'imagesByColor');
   return (
     <div key={option.name}>
       {option.name === 'Color' && (
@@ -236,12 +236,6 @@ function ProductMain({
   product,
   variants,
   setProductOutOfStock,
-  incrementQuantity,
-  decrementQuantity,
-  handleQuantityChange,
-  quantity,
-  isAddedToBag,
-  handleAddToBagClick,
   isRemoved,
   handleButtonClick,
 }) {
@@ -255,12 +249,6 @@ function ProductMain({
             selectedVariant={selectedVariant}
             variants={[]}
             setProductOutOfStock={setProductOutOfStock}
-            decrementQuantity={decrementQuantity}
-            handleQuantityChange={handleQuantityChange}
-            incrementQuantity={incrementQuantity}
-            quantity={quantity}
-            isAddedToBag={isAddedToBag}
-            handleAddToBagClick={handleAddToBagClick}
             handleButtonClick={handleButtonClick}
             isRemoved={isRemoved}
           />
@@ -276,12 +264,6 @@ function ProductMain({
               selectedVariant={selectedVariant}
               variants={data?.product?.variants.nodes || []}
               setProductOutOfStock={setProductOutOfStock}
-              decrementQuantity={decrementQuantity}
-              handleQuantityChange={handleQuantityChange}
-              incrementQuantity={incrementQuantity}
-              quantity={quantity}
-              isAddedToBag={isAddedToBag}
-              handleAddToBagClick={handleAddToBagClick}
               handleButtonClick={handleButtonClick}
               isRemoved={isRemoved}
             />
@@ -297,18 +279,40 @@ function ProductForm({
   selectedVariant,
   variants,
   setProductOutOfStock,
-  incrementQuantity,
-  handleQuantityChange,
-  decrementQuantity,
-  quantity,
-  isAddedToBag,
-  handleAddToBagClick,
   isRemoved,
   handleButtonClick,
 }) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
-  setProductOutOfStock(!selectedVariant?.availableForSale);
+  useEffect(() => {
+    // Update the out-of-stock state based on the selected variant
+    if (selectedVariant) {
+      setProductOutOfStock(!selectedVariant.availableForSale);
+    }
+  }, [selectedVariant, setProductOutOfStock]);
+  const [quantity, setQuantity] = useState(1);
+  const [isAddedToBag, setIsAddedToBag] = useState(false);
+
+  // Function to increment quantity
+  const incrementQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  // Function to decrement quantity, minimum 0
+  const decrementQuantity = () => {
+    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
+  };
+
+  // Function to handle quantity change from input
+  const handleQuantityChange = (e) => {
+    const value = parseInt(e.target.value, 100);
+    setQuantity(value >= 0 ? value : 0);
+  };
+
+  // Function to handle "Add to Bag" button click
+  const handleAddToBagClick = () => {
+    setIsAddedToBag(true);
+  };
 
   const handleGoToBag = () => {
     open('cart');
@@ -330,7 +334,6 @@ function ProductForm({
       ]
     : [];
 
-  console.log(isAddedToBag, '================');
   return (
     <div className="product-form">
       <VariantSelector
@@ -384,7 +387,7 @@ function ProductForm({
             </AddToBagButton>
 
             <button
-              className="add-to-bag align-items-center"
+              className="add-to-bag align-items-center go-to-bag-button"
               id="goToBagBtn"
               style={{display: isAddedToBag ? 'flex' : 'none'}}
               onClick={handleGoToBag}
@@ -419,7 +422,7 @@ function AddToBagButton({
   children,
   quantity,
   disabled,
-  lines = [], // Default to empty array
+  lines = [],
   onClick,
   isAddedToBag,
   handleAddToBagClick,
@@ -427,7 +430,7 @@ function AddToBagButton({
   return (
     <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
-        <>
+        <div className="form1">
           <input
             name="analytics"
             type="hidden"
@@ -435,7 +438,7 @@ function AddToBagButton({
           />
           <input name="quantity" type="hidden" value={quantity} />
           <button
-            className="add-to-bag"
+            className="add-to-bag add-to-bag-button"
             id="addToBagBtn"
             type="submit"
             style={{display: isAddedToBag ? 'none' : 'inline-flex'}}
@@ -450,7 +453,7 @@ function AddToBagButton({
             ></img>
             ADD TO BAG
           </button>
-        </>
+        </div>
       )}
     </CartForm>
   );
@@ -474,43 +477,64 @@ function ProductPrice({selectedVariant}) {
     </div>
   );
 }
+
+function getImagesByColor1(product, selectedVariant) {
+  const colorOptions =
+    product?.options?.find((option) => option.name === 'Color')?.values || [];
+  const images = product.images.nodes;
+  // Initialize the result object with arrays for each color option
+  const result = {};
+  colorOptions.forEach((color) => {
+    result[color] = [];
+  });
+
+  // Populate the result object with images grouped by color
+  images.forEach((image) => {
+    if (colorOptions.includes(image.altText)) {
+      result[image.altText].push(image);
+    }
+  });
+
+  // // Extract color dynamically from selectedVariant.title
+
+  function getColorFromTitle(title, colorOptions) {
+    const titleWords = title.split(/ \/ | /).filter(Boolean); // Split by ' / ' or space and remove empty strings
+
+    // Find a match from titleWords in colorOptions
+    const matchedColor = titleWords.find((word) =>
+      colorOptions.includes(word.trim()),
+    );
+
+    return matchedColor || null;
+  }
+  const color = getColorFromTitle(selectedVariant.title, colorOptions);
+
+  if (color && result[color]) {
+    return result[color];
+  } else {
+    console.log('No images found for the selected color');
+    return [];
+  }
+}
+
 const ProductDetails = ({product, variants, selectedVariant}) => {
   if (!product || !variants || !selectedVariant) return null;
 
   const productImages = product?.images?.nodes;
+  const productImages1 = getImagesByColor1(product, selectedVariant);
   const isBestSeller = product.tags.includes('Best Seller');
   const isNew = product.tags.includes('New');
-  const [selectedImage, setSelectedImage] = useState(productImages[0]);
+  const [selectedImage, setSelectedImage] = useState();
   const [isRemoved, setIsRemoved] = useState(false);
-  const [isAddedToBag, setIsAddedToBag] = useState(false);
   const [productOutOfStock, setProductOutOfStock] = useState(true);
   const [homeDecorCategory, setHomeDecorCategory] = useState(false);
   const [isCheckDeliveryOption, setIsCheckDeliveryOption] = useState(false);
-  const [quantity, setQuantity] = useState(0);
   const imgRef = useRef(null);
   const resultRef = useRef(null);
 
-  // Function to increment quantity
-  const incrementQuantity = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  // Function to decrement quantity, minimum 0
-  const decrementQuantity = () => {
-    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
-  };
-
-  // Function to handle quantity change from input
-  const handleQuantityChange = (e) => {
-    const value = parseInt(e.target.value, 100);
-    setQuantity(value >= 0 ? value : 0);
-  };
-
-  // Function to handle "Add to Bag" button click
-  const handleAddToBagClick = () => {
-    setIsAddedToBag(true);
-  };
-
+  useEffect(() => {
+    setSelectedImage(selectedVariant.image);
+  }, [selectedVariant]);
   const handleButtonClick = () => {
     setIsRemoved(!isRemoved);
   };
@@ -626,6 +650,7 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
       );
     };
   }, [imgRef, resultRef]);
+
   // Initialize all tooltips
   useEffect(() => {
     var tooltipTriggerList = [].slice.call(
@@ -666,7 +691,7 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
       {/* <!-- products images carousel for mobile view --> */}
       <div id="productCarousel" className="carousel slide d-none mb-1">
         <div className="carousel-inner" id="carouselProductImages">
-          {productImages.map(({url: imgSrc, altText}, index) => (
+          {productImages1.map(({url: imgSrc, altText}, index) => (
             <div
               className={`carousel-item ${index === 0 ? 'active' : ''}`}
               key={index}
@@ -677,7 +702,7 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
         </div>
 
         <div id="carouselProductIndicators" className="carousel-indicators">
-          {productImages.map((_, index) => (
+          {productImages1.map((_, index) => (
             <button
               type="button"
               data-bs-target="#productCarousel"
@@ -694,7 +719,7 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
       <div className="product-details-container mb-5 d-flex flex-row wardrobe-header">
         {homeDecorCategory ? (
           <div className="w-50 home-decor-section d-flex flex-row pe-0">
-            {productImages.map((val) => (
+            {productImages?.map((val) => (
               <div className="img-container">
                 <img src={val.url} alt={val.altText} />
               </div>
@@ -705,24 +730,28 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
             {/*  sarees images section  */}
             <div className="w-50 image-section d-flex flex-row">
               <div className="product-images d-flex flex-column">
-                {productImages?.map((val, index) => (
-                  <div className="img-container" key={index}>
-                    <img
-                      src={val.url}
-                      alt={`Product Detail ${index + 1}`}
-                      onClick={() => setSelectedImage(val)}
-                      className={val === selectedImage ? 'selected' : ''}
-                    />
-                  </div>
+                {productImages1.map((val, index) => (
+                  <>
+                    <div className="img-container" key={index}>
+                      <img
+                        src={val.url}
+                        alt={`Product Detail ${index + 1}`}
+                        onClick={() => setSelectedImage(val)}
+                        className={
+                          val?.url === selectedImage?.url ? 'selected' : ''
+                        }
+                      />
+                    </div>
+                  </>
                 ))}
               </div>
               <div className="selected-img-section">
                 <div className="selected-img">
                   <img
-                    src={selectedImage.url}
+                    src={selectedImage?.url}
                     alt="Selected Product Image"
                     id="selectedImage"
-                    ref={imgRef}
+                    // ref={imgRef}
                   />
                 </div>
                 <div className="d-flex justify-content-center">
@@ -768,12 +797,6 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
             product={product}
             variants={variants}
             setProductOutOfStock={setProductOutOfStock}
-            decrementQuantity={decrementQuantity}
-            handleQuantityChange={handleQuantityChange}
-            incrementQuantity={incrementQuantity}
-            quantity={quantity}
-            isAddedToBag={isAddedToBag}
-            handleAddToBagClick={handleAddToBagClick}
             handleButtonClick={handleButtonClick}
             isRemoved={isRemoved}
           />
@@ -853,7 +876,7 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
                 id="notifyMe"
                 data-bs-backdrop="static"
                 data-bs-keyboard="false"
-                tabindex="-1"
+                tabIndex="-1"
                 aria-labelledby="notifyMeLabel"
                 aria-hidden="true"
               >
@@ -970,72 +993,35 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
             className="details-btn-group d-none mb-0 mt-3 flex-row"
             id="detailsBtnGroupResponsive"
           >
-            {productOutOfStock ? (
-              <button
-                className="add-to-bag"
-                id="notifyBtn"
-                data-bs-toggle="modal"
-                data-bs-target="#notifyMe"
-              >
-                <img
-                  src={MessageIcon}
-                  className="mi-lg mi-message wh-18 d-inline-block me-2"
-                ></img>
-                NOTIFY ME
-              </button>
-            ) : (
+            {productOutOfStock && (
               <>
-                <button className="quantity bg-white" id="quantityBtn">
-                  <img
-                    src={MinusIcon}
-                    className="mi-lg mi-minus wh-18 d-inline-block me-3"
-                  ></img>
-                  <span className="count">01</span>
-                  <img
-                    src={PlusIcon}
-                    className="mi-lg mi-plus wh-18 d-inline-block ms-3"
-                  ></img>
-                </button>
                 <button
                   className="add-to-bag"
-                  id="addToBagBtn"
-                  style={{display: isAddedToBag ? 'none' : 'inline-flex'}}
-                  onClick={handleAddToBagClick}
+                  id="notifyBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#notifyMe"
                 >
                   <img
-                    src={CheckoutIcon}
-                    className="mi-lg mi-checkout wh-18 d-inline-block me-2"
+                    src={MessageIcon}
+                    className="mi-lg mi-message wh-18 d-inline-block me-2"
                   ></img>
-                  ADD TO BAG
+                  NOTIFY ME
                 </button>
-
                 <button
-                  className="add-to-bag align-items-center"
-                  id="goToBagBtn"
-                  style={{display: isAddedToBag ? 'flex' : 'none'}}
+                  className={`wishlist bg-white ${isRemoved ? 'remove' : ''}`}
+                  id="wishlistBtn"
+                  onClick={handleButtonClick}
                 >
-                  GO TO BAG
                   <img
-                    src={RightArrowIcon}
-                    className="mi-lg mi-right_arrow wh-18 d-inline-block ms-2"
+                    src={isRemoved ? WishlistSelectedRedIcon : WishlistIcon}
+                    className={`mi-lg mi-wishlist_2 d-inline-block me-2 ${
+                      isRemoved ? 'wh-30' : 'wh-18'
+                    }`}
                   ></img>
+                  {isRemoved ? 'REMOVE' : 'WISHLIST'}
                 </button>
               </>
             )}
-
-            <button
-              className={`wishlist bg-white ${isRemoved ? 'remove' : ''}`}
-              id="wishlistBtn"
-              onClick={handleButtonClick}
-            >
-              <img
-                src={isRemoved ? WishlistSelectedRedIcon : WishlistIcon}
-                className={`mi-lg mi-wishlist_2 d-inline-block me-2 ${
-                  isRemoved ? 'wh-30' : 'wh-18'
-                }`}
-              ></img>
-              {isRemoved ? 'REMOVE' : 'WISHLIST'}
-            </button>
           </div>
         </div>
       </div>

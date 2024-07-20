@@ -134,9 +134,6 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product, variants} = useLoaderData();
   const {selectedVariant} = product;
-  console.log(selectedVariant.image, 'selected varient=========');
-  console.log(product, 'product----------------');
-  console.log(variants, 'variants----------------============?');
   return (
     <>
       {/* <div className="product">
