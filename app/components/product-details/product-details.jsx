@@ -106,14 +106,6 @@ const wardrobeItems = [
   },
 ];
 
-const breadcrumbItems = [
-  {name: 'Home', href: '/'},
-  {name: 'Sarees', href: '/'},
-  {
-    name: 'Apple Red Saree In Organza With Bud Embroidered Floral Buttis And Pallu Along',
-  },
-];
-
 function getImagesByColor(product) {
   const colorOptions = product?.options?.find(
     (option) => option.name === 'Color',
@@ -517,8 +509,17 @@ function getImagesByColor1(product, selectedVariant) {
   }
 }
 
-const ProductDetails = ({product, variants, selectedVariant}) => {
-  if (!product || !variants || !selectedVariant) return null;
+const ProductDetails = ({
+  product,
+  variants,
+  selectedVariant,
+  recommendedProducts,
+  collectionHandle,
+  shippingReturnBlog,
+  faqBlog,
+}) => {
+  if (!product || !variants || !selectedVariant || !recommendedProducts)
+    return null;
 
   const productImages = product?.images?.nodes;
   const productImages1 = getImagesByColor1(product, selectedVariant);
@@ -531,6 +532,41 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
   const [isCheckDeliveryOption, setIsCheckDeliveryOption] = useState(false);
   const imgRef = useRef(null);
   const resultRef = useRef(null);
+  const breadcrumbItems = [
+    {name: 'Home', href: '/'},
+    {name: collectionHandle, href: `/collections/${collectionHandle}`},
+    {
+      name: product.title,
+    },
+  ];
+
+  // Map products to wardrobeItems with necessary properties
+  const wardrobeItems1 = recommendedProducts?.productRecommendations?.map(
+    (product) => {
+      if (!product) return null;
+
+      const originalPrice = parseFloat(
+        product.compareAtPriceRange.maxVariantPrice.amount,
+      );
+      const discountedPrice = parseFloat(
+        product.priceRange.minVariantPrice.amount,
+      );
+      const discountPercentage =
+        ((originalPrice - discountedPrice) / originalPrice) * 100;
+
+      return {
+        src: product.images.nodes[0]?.url,
+        hoverSrc: product.images.nodes[0]?.url,
+        title: product.title,
+        description: product.description,
+        // productPrice: originalPrice,
+        discountPrice: discountedPrice,
+        // discount: `${discountPercentage.toFixed(0)}% OFF`,
+        isBestSeller: product.tags.includes('Best Seller'),
+        isNew: product.tags.includes('New'),
+      };
+    },
+  );
 
   useEffect(() => {
     setSelectedImage(selectedVariant.image);
@@ -661,7 +697,18 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
     });
   }, []);
 
-  const collection = {title: 'More From Similar Color', handle: 'handle'};
+  const collection = {
+    collection: {
+      title: 'More From Similar Color',
+      handle: collectionHandle,
+    },
+  };
+  const similarProductCollection = {
+    collection: {
+      title: 'Similar Product',
+      handle: collectionHandle,
+    },
+  };
 
   return (
     <div className="product-details-main-container">
@@ -981,11 +1028,13 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
           {/*  accordions  */}
           <div className="accordion" id="detailsAccordion">
             {/*  Product details Section  */}
-            <ProductDetailsSection />
+            <ProductDetailsSection
+              productDescription={product.descriptionHtml}
+            />
             {/*  Shipping & Returns Section  */}
-            <ShippingAndReturn />
+            <ShippingAndReturn shippingReturnBlog={shippingReturnBlog} />
             {/*  FAQ  */}
-            <FAQ />
+            <FAQ faqBlog={faqBlog} />
           </div>
 
           {/*  responsive btn group of checkout and wishlist  */}
@@ -1025,16 +1074,16 @@ const ProductDetails = ({product, variants, selectedVariant}) => {
           </div>
         </div>
       </div>
-      <div className="similar-product">
+      <div>
         <WardrobeCarousal
-          wardrobeItems={wardrobeItems}
-          collection={collection}
+          wardrobeItems={wardrobeItems1}
+          collection={similarProductCollection}
           wishList={true}
           productDetails={false}
           similarProduct={true}
         />
       </div>
-      <div>
+      <div className="similar-product">
         <WardrobeCarousal
           wardrobeItems={wardrobeItems}
           collection={collection}

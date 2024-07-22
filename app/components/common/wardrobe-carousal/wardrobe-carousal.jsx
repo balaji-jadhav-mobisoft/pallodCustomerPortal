@@ -103,7 +103,7 @@ const WardrobeCarousal = ({
         className={`col-3 wardrobe-sec  ${
           moreColorProducts ? 'product-container' : ''
         }`}
-        key={index}
+        key={item.src}
       >
         <div
           className={`position-relative ${
@@ -181,11 +181,15 @@ const WardrobeCarousal = ({
   return (
     <div className="wardrobe-carousal-container">
       {!dazzling && (
-        <div className="d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header">
+        <div
+          className={`d-flex justify-content-center mb-3 position-relative wardrobe-carousal-header ${
+            similarProduct && !moreColorProducts ? 'similar-product-header' : ''
+          }`}
+        >
           <div className="section-header mb-0">
             {trendingLooks ? collection : collection?.collection?.title}
             {productDetails && collection.title}
-            {similarProduct && !moreColorProducts && 'Similar Products'}
+            {/* {similarProduct && !moreColorProducts} */}
             {moreColorProducts && 'More From Similar color'}
           </div>
           <Link

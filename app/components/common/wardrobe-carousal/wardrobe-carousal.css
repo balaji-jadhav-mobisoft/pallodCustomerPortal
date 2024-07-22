@@ -83,6 +83,9 @@
   .wardrobe-carousal-header {
     margin: 0px 108px;
   }
+  .similar-product-header {
+    margin: 0px 00px;
+  }
   .main-container {
     margin: 0px 108px 70px;
   }
@@ -194,7 +197,7 @@
       margin: 0px 30px 0px 43px;
     }
     .wardrobe-carousal-header {
-      margin: 0px 60px;
+      margin: 0px 0px;
     }
     .left-scroll {
       left: -5%;

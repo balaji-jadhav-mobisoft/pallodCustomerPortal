@@ -108,7 +108,10 @@ const CollectionProductList = ({collection}) => {
               {allItems.map((item) => (
                 <div className={`${colClass} product-container`} key={item.src}>
                   <div className="product-img-wrapper position-relative">
-                    <Link to={`/products/${item.handle}`} key={item.src}>
+                    <Link
+                      to={`/products/${item.handle}/?collectionHandle=${collection.handle}`}
+                      key={item.src}
+                    >
                       {item.src ? (
                         <Image
                           src={item.src}
