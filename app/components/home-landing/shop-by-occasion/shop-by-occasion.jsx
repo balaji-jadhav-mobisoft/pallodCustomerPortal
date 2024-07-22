@@ -14,7 +14,7 @@ const ShopByOccasion = ({menu, primaryDomain, publicStoreDomain}) => {
 
     return {
       title: item.title,
-      src: item.resource.image.url,
+      src: item?.resource?.image?.url,
       alt: item.title,
       linkText: 'SHOP NOW',
     };

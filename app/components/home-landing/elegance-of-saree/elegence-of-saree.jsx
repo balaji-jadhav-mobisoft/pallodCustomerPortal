@@ -38,7 +38,7 @@ const SareeImagesGrid = ({collection}) => {
 const SareeDetails = ({collection}) => (
   <div className="d-flex flex-column justify-content-center align-items-center saree-elegance-details">
     <img
-      src={collection.image.url}
+      src={collection?.image?.url}
       height={40}
       width={40}
       className="mi-lg wh-40 align-middle d-inline-block me-2 bg-gold"
