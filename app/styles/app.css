@@ -212,8 +212,13 @@ button.reset:hover:not(:has(> *)) {
 * components/Cart
 * --------------------------------------------------
 */
-
-.cart-main {
+/* .cart-main {
+  height: 100vh;
+  @media (max-width: 45em) {
+    height: auto;
+  }
+} */
+/* .cart-main {
   height: 100%;
   max-height: calc(100vh - var(--cart-aside-summary-height));
   overflow-y: auto;
@@ -261,7 +266,7 @@ button.reset:hover:not(:has(> *)) {
 .cart-subtotal {
   align-items: center;
   display: flex;
-}
+} */
 /*
 * --------------------------------------------------
 * components/Search

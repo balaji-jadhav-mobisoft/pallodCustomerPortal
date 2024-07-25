@@ -148,7 +148,6 @@ export default function Product() {
   const {product, variants, recommendedProducts, shippingReturnBlog, faqBlog} =
     useLoaderData();
   const {selectedVariant} = product;
-  console.log(faqBlog, '=====faqBlog======');
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const collectionHandle = searchParams.get('collectionHandle');

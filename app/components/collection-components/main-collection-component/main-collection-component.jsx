@@ -8,6 +8,7 @@ import CollectionProductList from '../collection-products/collection-product';
 import FilterComponentOffcanvas from '../filter-component-offcanvas/filter-component-offcanvas';
 import FilterComponent from '../filter-component/filter-component';
 import {useLocation} from '@remix-run/react';
+import Breadcrumb from '~/components/common/breadcrumb/breadcrumb';
 
 const MainCollectionComponent = ({
   collection,
@@ -24,6 +25,12 @@ const MainCollectionComponent = ({
   }, [collection]);
 
   if (!currentCollection) return null;
+
+  const breadcrumbItems = [
+    {name: 'Home', href: '/'},
+    {name: currentCollection.handle, href: `/Home/${currentCollection.handle}`},
+  ];
+
   const collectionMetaFieldBanner =
     currentCollection?.metafield?.reference?.image?.url || '';
 
@@ -221,18 +228,19 @@ const MainCollectionComponent = ({
           aria-controls="offcanvasFilters"
         ></img>
       </div>
+      <Breadcrumb items={breadcrumbItems} />
       {/* discount image */}
-      <div className="main-container discount-img-wrapper">
-        <img
+      {/* <div className="main-container discount-img-wrapper"> */}
+      {/* <img
           src={collectionMetaFieldBanner}
           alt="Pallod Discount"
           className="discount-banner"
-        />
-        {/* <div className="discount-text">
+        /> */}
+      {/* <div className="discount-text">
           <div>Get Flat 10% Off on all product.</div>
           <div>Use Code PALLOD10</div>
         </div> */}
-      </div>
+      {/* </div> */}
 
       {/* sortby offcanvas */}
       <div

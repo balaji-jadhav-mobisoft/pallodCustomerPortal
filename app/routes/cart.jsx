@@ -3,6 +3,7 @@ import {Suspense} from 'react';
 import {CartForm} from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 import {CartMain} from '~/components/Cart';
+import Loader from '~/components/common/loader/loader';
 
 /**
  * @type {MetaFunction}
@@ -90,9 +91,8 @@ export default function Cart() {
   if (!rootData) return null;
 
   return (
-    <div className="cart">
-      <h1>Cart</h1>
-      <Suspense fallback={<p>Loading cart ...</p>}>
+    <div className="">
+      <Suspense fallback={<Loader />}>
         <Await
           resolve={rootData.cart}
           errorElement={<div>An error occurred</div>}

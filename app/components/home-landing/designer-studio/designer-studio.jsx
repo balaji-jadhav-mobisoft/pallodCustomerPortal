@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './designer-studio.css'; // Make sure to include the necessary CSS
-import PallodVideo from '~/assets/bee.mp4';
+import PallodVideo from '~/assets/pallod-video.mov';
 import {NavLink} from '@remix-run/react';
 
 const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {

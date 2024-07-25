@@ -9,6 +9,7 @@ import {
   PredictiveSearchResults,
 } from '~/components/Search';
 import PallodIcon from '~/assets/pallod-logo.svg?url';
+import Loader from './common/loader/loader';
 /**
  * @param {PageLayoutProps}
  */
@@ -51,7 +52,7 @@ export function PageLayout({
 function CartAside({cart}) {
   return (
     <Aside type="cart" heading="CART">
-      <Suspense fallback={<p>Loading cart ...</p>}>
+      <Suspense fallback={<Loader />}>
         <Await resolve={cart}>
           {(cart) => {
             return <CartMain cart={cart} layout="aside" />;

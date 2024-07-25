@@ -25,6 +25,35 @@ export const CART_QUERY_FRAGMENT = `#graphql
     merchandise {
       ... on ProductVariant {
         id
+        product {
+        variants(first: 10) {
+          edges {
+            node {
+              id
+              availableForSale
+              image {
+                url
+                altText
+              }
+              price {
+                amount
+                currencyCode
+              }
+              selectedOptions {
+                name
+                value
+              }
+              product{
+                availableForSale
+                id
+                handle
+                description
+                title
+              }
+            }
+          }
+        }
+      }
         availableForSale
         compareAtPrice {
           ...Money
@@ -47,6 +76,10 @@ export const CART_QUERY_FRAGMENT = `#graphql
           title
           id
           vendor
+          options(first: 10) {
+          name
+          values
+        }
         }
         selectedOptions {
           name

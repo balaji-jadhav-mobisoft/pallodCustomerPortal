@@ -503,7 +503,7 @@
       flex-grow: 1;
       color: #fff;
       justify-content: center;
-      padding: 10px 58px;
+      padding: 10px 55px;
     }
     #notifyBtn {
       flex-grow: 1;
@@ -678,7 +678,15 @@
     cursor: pointer;
   }
 }
-
+@media screen and (max-width: 1379px) {
+  .product-details-main-container {
+    .details-btn-group {
+      .add-to-bag {
+        padding: 10px 19px;
+      }
+    }
+  }
+}
 @media screen and (max-width: 1181px) {
   .wardrobe-header1 {
     margin: 0px 60px;
@@ -697,6 +705,7 @@
       .image-section {
         padding-right: 30px;
       }
+
       .details-section {
         padding-left: 30px;
       }

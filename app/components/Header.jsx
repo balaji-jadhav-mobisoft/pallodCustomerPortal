@@ -1,5 +1,5 @@
 import {Suspense, useEffect, useRef, useState} from 'react';
-import {Await, Form, Link, NavLink} from '@remix-run/react';
+import {Await, Form, Link, NavLink, useNavigate} from '@remix-run/react';
 import {Image, useAnalytics} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import PallodIcon from '~/assets/pallod-logo.svg?url';
@@ -445,6 +445,7 @@ function HeaderMenuMobileToggle() {
  * @param {{count: number}}
  */
 function CartBadge({count}) {
+  const navigate = useNavigate();
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
 
@@ -453,7 +454,8 @@ function CartBadge({count}) {
       href="/cart"
       onClick={(e) => {
         e.preventDefault();
-        open('cart');
+
+        navigate('/cart');
         publish('cart_viewed', {
           cart,
           prevCart,

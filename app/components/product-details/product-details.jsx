@@ -27,7 +27,7 @@ import Breadcrumb from '../common/breadcrumb/breadcrumb';
 import FAQ from './faq/faq';
 import ShippingAndReturn from './shipping-and-returns/shipping-and-return';
 import ProductDetailsSection from './product-details-section/product-details-section';
-import {Await, Link} from '@remix-run/react';
+import {Await, Link, useNavigate} from '@remix-run/react';
 import {
   Analytics,
   CartForm,
@@ -276,6 +276,7 @@ function ProductForm({
 }) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
+  const navigate = useNavigate();
   useEffect(() => {
     // Update the out-of-stock state based on the selected variant
     if (selectedVariant) {
@@ -307,7 +308,8 @@ function ProductForm({
   };
 
   const handleGoToBag = () => {
-    open('cart');
+    // open('cart');
+    navigate('/cart');
     publish('cart_viewed', {
       cart,
       prevCart,
@@ -490,7 +492,7 @@ function getImagesByColor1(product, selectedVariant) {
   // // Extract color dynamically from selectedVariant.title
 
   function getColorFromTitle(title, colorOptions) {
-    const titleWords = title.split(/ \/ | /).filter(Boolean); // Split by ' / ' or space and remove empty strings
+    const titleWords = title.split(/ \/ | /).filter(Boolean);
 
     // Find a match from titleWords in colorOptions
     const matchedColor = titleWords.find((word) =>

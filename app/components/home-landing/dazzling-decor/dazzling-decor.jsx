@@ -52,6 +52,7 @@ const DazzlingDecor = ({
 
   // Extract products from the collection
   const products = collection?.collection?.products.nodes || [];
+
   const customerStoriesCollectionProduct =
     customerStoriesCollection?.collection?.products.nodes || [];
 
