@@ -330,9 +330,11 @@ const CartMainSection = ({
             {/* <div className="code">
                 Code: <span>{2324}</span>
               </div> */}
-            <div className="size">
-              Size: <span>{selectedSize}</span>
-            </div>
+            {selectedSize && (
+              <div className="size">
+                Size: <span>{selectedSize}</span>
+              </div>
+            )}
             <div className="color">
               Color: <span>{color}</span>
             </div>
@@ -379,23 +381,25 @@ const CartMainSection = ({
                 ))}
               </ul>
             </div>
-            <button
-              onClick={() => setMobileSizeModal(true)}
-              className="size-dropdown d-none align-items-center bg-white"
-              id="sizeDropdownMobile"
-              role="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#sizeOffcanvas"
-              aria-controls="#sizeOffcanvas"
-            >
-              {selectedSize}
-              <img
-                src={DownArrow}
-                width={18}
-                height={18}
-                className="bi bi-chevron-down wh-18 d-inline-block ms-2"
-              />
-            </button>
+            {selectedSize && (
+              <button
+                onClick={() => setMobileSizeModal(true)}
+                className="size-dropdown d-none align-items-center bg-white"
+                id="sizeDropdownMobile"
+                role="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#sizeOffcanvas"
+                aria-controls="#sizeOffcanvas"
+              >
+                {selectedSize}
+                <img
+                  src={DownArrow}
+                  width={18}
+                  height={18}
+                  className="bi bi-chevron-down wh-18 d-inline-block ms-2"
+                />
+              </button>
+            )}
           </div>
           <div
             className="delivery-time d-none mt-2 mb-0 align-content-center"
