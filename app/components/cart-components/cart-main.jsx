@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './cart-main.css';
-import Designer1 from '~/assets/wardrobe/Wardrobe_1.webp';
-import Designer2 from '~/assets/wardrobe/Wardrobe_2.webp';
-import Designer3 from '~/assets/wardrobe/Wardrobe_3.webp';
+import Designer1 from '~/assets/wardrobe/wardrobe_1.webp';
+import Designer2 from '~/assets/wardrobe/wardrobe_2.webp';
+import Designer3 from '~/assets/wardrobe/wardrobe_3.webp';
 import DeliveryTruckIcon from '~/assets/Icon_Delivery.svg';
 import DeliveryIcon from '~/assets/Delivery.svg';
 import {useVariantUrl} from '~/lib/variants';
@@ -10,8 +10,8 @@ import {CartForm, Image, Money} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import Wishlist from '~/assets/wishList-icon.svg';
 import CloseIcon from '~/assets/Icon_Close.svg';
-import PlusIcon from '~/assets/product-details/Icon_Plus.svg';
-import MinusIcon from '~/assets/product-details/Icon_Minus.svg';
+import PlusIcon from '~/assets/product-details/icon_plus.svg';
+import MinusIcon from '~/assets/product-details/icon_minus.svg';
 import Loader from '../common/loader/loader';
 import PayPalIcon from '~/assets/PayPal_Icon.webp';
 import MastercardIcon from '~/assets/Master_Card.webp';
@@ -19,6 +19,7 @@ import VisaIcon from '~/assets/Visa_Icon.webp';
 import ChangeAddressModal from './change-address-modal/change-address-modal';
 import DeleteIcon from '~/assets/Delete.svg';
 import DownArrow from '~/assets/icon_down.svg';
+import {quantityArray} from '../common/common-constants';
 
 function CartLinePrice({line, priceType = 'regular', ...passthroughProps}) {
   if (!line?.cost?.amountPerQuantity || !line?.cost?.totalAmount)
@@ -143,6 +144,21 @@ function CartLineRemoveButton({lineIds, children}) {
     </CartForm>
   );
 }
+const MobileSizeSelector = ({sizeOptions, selectedSize, onSizeSelect}) => {
+  return (
+    <div className="quantity-section d-flex flex-row overflow-scroll">
+      {sizeOptions.map((size) => (
+        <div
+          key={size}
+          className={`qty ${selectedSize === size ? 'selected' : ''}`}
+          onClick={() => onSizeSelect(size)}
+        >
+          {size}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const CartMainSection = ({
   line,
@@ -151,8 +167,6 @@ const CartMainSection = ({
   setShowModal,
   setSelectedProducts,
   setLineIdsToRemove,
-  setMobileQuantityModal,
-  setMobileSizeModal,
 }) => {
   const {id, merchandise, quantity} = line;
   const {product, title, image, selectedOptions, availableForSale} =
@@ -160,7 +174,8 @@ const CartMainSection = ({
   const [selectedSize, setSelectedSize] = useState(
     selectedOptions.find((option) => option.name === 'Size')?.value || '',
   );
-
+  const [mobileSizeModal, setMobileSizeModal] = useState(false);
+  const [mobileQuantityModal, setMobileQuantityModal] = useState(false);
   const [currentVariant, setCurrentVariant] = useState(merchandise);
   const [loading, setLoading] = useState(false);
   const sizeOptions =
@@ -174,6 +189,12 @@ const CartMainSection = ({
     setShowModal(true);
   };
 
+  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
+
+  const handleQuantityClick = (quantity) => {
+    setSelectedQuantity(quantity);
+  };
+
   useEffect(() => {
     const newVariant = product.variants.edges.find(
       (variant) =>
@@ -185,8 +206,11 @@ const CartMainSection = ({
     }
   }, [selectedSize, product.variants.edges]);
 
+  const handleSizeSelect = (size) => {
+    setSelectedSize(size);
+  };
   const handleSizeChange = async (event) => {
-    const newSize = event.target.value;
+    const newSize = event?.target?.value || event;
     setSelectedSize(newSize);
     setLoading(true);
     const newVariant = product.variants.edges.find(
@@ -251,6 +275,14 @@ const CartMainSection = ({
     }
   };
 
+  const offCanvasClose = () => {
+    // Close the offcanvas modal
+
+    const offcanvasElement = document.getElementById('quantityOffcanvas');
+    const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+    offcanvas.hide();
+  };
+
   return (
     <div
       className="added-item d-flex flex-row position-relative"
@@ -308,7 +340,9 @@ const CartMainSection = ({
           <div className="d-flex flex-row align-items-baseline">
             <CartLineQuantity line={line} />
             <button
-              onClick={() => setMobileQuantityModal(true)}
+              onClick={() => {
+                setMobileQuantityModal(true);
+              }}
               className="size-dropdown d-none align-items-center bg-white me-3"
               role="button"
               data-bs-toggle="offcanvas"
@@ -316,7 +350,7 @@ const CartMainSection = ({
               aria-controls="#quantityOffcanvas"
               id="qtyBtn"
             >
-              Qty: {9087}
+              Qty: {quantity}
               <img
                 src={DownArrow}
                 width={18}
@@ -354,7 +388,7 @@ const CartMainSection = ({
               data-bs-target="#sizeOffcanvas"
               aria-controls="#sizeOffcanvas"
             >
-              {'L'}
+              {selectedSize}
               <img
                 src={DownArrow}
                 width={18}
@@ -417,6 +451,100 @@ const CartMainSection = ({
           </div>
         </div>
       </div>
+      {/* sizeOffcanvas offcanvas  */}
+      {mobileSizeModal && (
+        <div
+          className="offcanvas offcanvas-bottom"
+          tabIndex="-1"
+          id="sizeOffcanvas"
+          aria-labelledby="sizeOffcanvas"
+          aria-hidden={!mobileSizeModal}
+          style={{display: mobileSizeModal ? 'block' : 'none'}}
+        >
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasLabel">
+              Select Size
+            </h5>
+            <button
+              onClick={() => setMobileSizeModal(false)}
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            />
+          </div>
+          <div className="offcanvas-body">
+            <div className="quantity-section d-flex flex-row overflow-scroll">
+              <MobileSizeSelector
+                sizeOptions={sizeOptions}
+                selectedSize={selectedSize}
+                onSizeSelect={handleSizeSelect}
+              />
+            </div>
+            <div className="offcanvas-footer d-flex">
+              <button
+                className="done-btn"
+                onClick={() => handleSizeChange(selectedSize)}
+              >
+                DONE
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* quantityOffcanvas offcanvas  */}
+      {mobileQuantityModal && (
+        <div
+          className="offcanvas offcanvas-bottom"
+          tabIndex={-1}
+          id="quantityOffcanvas"
+          aria-labelledby="quantityOffcanvasLabel"
+          aria-hidden={!mobileQuantityModal}
+          style={{display: mobileQuantityModal ? 'block' : 'none'}}
+        >
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasLabel">
+              Select Quantity
+            </h5>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            />
+          </div>
+          <div className="offcanvas-body">
+            <div className="quantity-section d-flex flex-row overflow-scroll">
+              {quantityArray.map((qty) => (
+                <div
+                  key={qty}
+                  className={`qty ${
+                    selectedQuantity === qty ? 'selected' : ''
+                  }`}
+                  onClick={() => handleQuantityClick(qty)}
+                >
+                  {qty}
+                </div>
+              ))}
+            </div>
+            <div className="offcanvas-footer d-flex">
+              <CartLineUpdateButton
+                lines={[{id: id, quantity: Number(selectedQuantity)}]}
+              >
+                <button
+                  className="done-btn"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                  onClick={offCanvasClose}
+                >
+                  DONE
+                </button>
+              </CartLineUpdateButton>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -424,16 +552,16 @@ const CartMain = ({cart, layout, hidden}) => {
   const cartHasItems = !!cart && cart.totalQuantity > 0;
   const lines = cart?.lines?.nodes;
   const [showModal, setShowModal] = useState(false);
-  const [mobileSizeModal, setMobileSizeModal] = useState(false);
-  const [mobileQuantityModal, setMobileQuantityModal] = useState(false);
   const [isChangeAddressModalOpen, setIsChangeAddressModalOpen] =
     useState(false);
   const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
   const handleChangeAddressModalClose = () => {
     setIsChangeAddressModalOpen(false);
   };
+
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [lineIdsToRemove, setLineIdsToRemove] = useState([]);
+  const isLoggedIn = true;
 
   const renderCartItems = () => {
     return (
@@ -443,8 +571,6 @@ const CartMain = ({cart, layout, hidden}) => {
             setSelectedProducts={setSelectedProducts}
             setLineIdsToRemove={setLineIdsToRemove}
             setShowModal={setShowModal}
-            setMobileSizeModal={setMobileSizeModal}
-            setMobileQuantityModal={setMobileQuantityModal}
             key={index}
             line={line}
             layout={layout}
@@ -461,25 +587,27 @@ const CartMain = ({cart, layout, hidden}) => {
         {hidden && (
           <>
             <div className="added-items-container">
-              <div className="delivery-address d-flex flex-row justify-content-between">
-                <div className="d-flex flex-column">
-                  <div className="deliver-to">
-                    Delivery to: <span>Radha Mehta, 412101</span>
+              {isLoggedIn && (
+                <div className="delivery-address d-flex flex-row justify-content-between">
+                  <div className="d-flex flex-column">
+                    <div className="deliver-to">
+                      Delivery to: <span>Radha Mehta, 412101</span>
+                    </div>
+                    <div className="location">
+                      Gool Poonawalla Garden, Salisbury Park, Pune
+                    </div>
                   </div>
-                  <div className="location">
-                    Gool Poonawalla Garden, Salisbury Park, Pune
+                  <div className="d-flex align-items-center">
+                    <button
+                      onClick={() => setIsChangeAddressModalOpen(true)}
+                      data-bs-toggle="modal"
+                      data-bs-target="#changeAddress"
+                    >
+                      CHANGE <span className="responsive-hide">ADDRESS</span>
+                    </button>
                   </div>
                 </div>
-                <div className="d-flex align-items-center">
-                  <button
-                    onClick={() => setIsChangeAddressModalOpen(true)}
-                    data-bs-toggle="modal"
-                    data-bs-target="#changeAddress"
-                  >
-                    CHANGE <span className="responsive-hide">ADDRESS</span>
-                  </button>
-                </div>
-              </div>
+              )}
               {lines.length > 0 && (
                 <h3>
                   Added Items <span> ({lines.length})</span>
@@ -500,13 +628,13 @@ const CartMain = ({cart, layout, hidden}) => {
                 </p>
                 <p>*An item's price may vary according to the size selected.</p>
                 <div className="d-flex flex-row links">
-                  <a href className="me-3">
+                  <a href="" className="me-3">
                     SHIPPING POLICY
                   </a>
-                  <a href className="me-3">
+                  <a href="" className="me-3">
                     HELP
                   </a>
-                  <a href className="me-3">
+                  <a href="" className="me-3">
                     CONTACT US
                   </a>
                 </div>
@@ -670,80 +798,6 @@ const CartMain = ({cart, layout, hidden}) => {
               </div>
             )}
           </>
-        )}
-
-        {/* sizeOffcanvas offcanvas  */}
-        {mobileQuantityModal && (
-          <div
-            className="offcanvas offcanvas-bottom"
-            tabIndex="-1"
-            id="sizeOffcanvas"
-            aria-labelledby="sizeOffcanvas"
-          >
-            <div className="offcanvas-header">
-              <h5 className="offcanvas-title" id="offcanvasLabel">
-                Select Size
-              </h5>
-              <button
-                type="button"
-                className="btn-close text-reset"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              />
-            </div>
-            <div className="offcanvas-body">
-              <div className="quantity-section d-flex flex-row overflow-scroll">
-                <div className="qty selected">US 1</div>
-                <div className="qty">US 2</div>
-                <div className="qty">US 3</div>
-                <div className="qty">US 4</div>
-                <div className="qty">US 5</div>
-                <div className="qty">US 6</div>
-                <div className="qty">US 7</div>
-                <div className="qty">US 8</div>
-              </div>
-              <div className="offcanvas-footer d-flex">
-                <button className="done-btn">DONE</button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* quantityOffcanvas offcanvas  */}
-        {mobileSizeModal && (
-          <div
-            className="offcanvas offcanvas-bottom"
-            tabIndex={-1}
-            id="quantityOffcanvas"
-            aria-labelledby="quantityOffcanvasLabel"
-          >
-            <div className="offcanvas-header">
-              <h5 className="offcanvas-title" id="offcanvasLabel">
-                Select Quantity
-              </h5>
-              <button
-                type="button"
-                className="btn-close text-reset"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              />
-            </div>
-            <div className="offcanvas-body">
-              <div className="quantity-section d-flex flex-row overflow-scroll">
-                <div className="qty selected">01</div>
-                <div className="qty">02</div>
-                <div className="qty">03</div>
-                <div className="qty">04</div>
-                <div className="qty">05</div>
-                <div className="qty">06</div>
-                <div className="qty">07</div>
-                <div className="qty">08</div>
-              </div>
-              <div className="offcanvas-footer d-flex">
-                <button className="done-btn">DONE</button>
-              </div>
-            </div>
-          </div>
         )}
       </div>
     </div>

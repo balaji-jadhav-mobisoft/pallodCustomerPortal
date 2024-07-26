@@ -207,6 +207,13 @@ button.reset:hover:not(:has(> *)) {
   }
 }
 
+.footer {
+  background-color: #f8f8f8;
+}
+
+#shadow-host-companion {
+  padding: 0rem;
+}
 /*
 * --------------------------------------------------
 * components/Cart

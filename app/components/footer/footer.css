@@ -409,7 +409,7 @@
   .accordion-item:active,
   .accordion-button:focus {
     box-shadow: none;
-    background-color: #fff;
+    background-color: #f8f8f8;
   }
   .accordion-button:not(.collapsed) {
     color: initial;
@@ -474,6 +474,7 @@
       font-size: 16px;
       font-weight: 600;
       color: #212121;
+      background-color: #f8f8f8;
     }
     .accordion-item {
       background-color: #fff;

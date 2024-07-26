@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import DeleteIcon from '~/assets/Delete.svg';
 import AddIcon from '~/assets/add-icon.svg';
+import BackIcon from '~/assets/Icon_Back_Arrow.svg';
 import '../cart-main.css';
 import AddAddressModal from '../add-address-modal/add-address-modal';
 
@@ -31,6 +32,17 @@ const ChangeAddressModal = ({
     };
   }, [onModalClose]);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isModalOpen]);
   return (
     <div
       className={`modal fade ${isModalOpen ? 'show' : ''}`}
@@ -49,7 +61,9 @@ const ChangeAddressModal = ({
               className="modal-title d-flex align-items-center"
               id="changeAddressLabel"
             >
-              <span
+              <img
+                onClick={onModalClose}
+                src={BackIcon}
                 role="button"
                 data-bs-dismiss="modal"
                 aria-label="Close"

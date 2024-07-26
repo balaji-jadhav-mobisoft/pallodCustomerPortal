@@ -1,19 +1,16 @@
 import React, {Suspense, useEffect, useRef, useState} from 'react';
 import BannerImage from '~/assets/Discount_PLP.webp';
 import './product-details.css';
-import WardrobeImage1 from '~/assets/wardrobe/Wardrobe_1.webp';
-import WardrobeImage2 from '~/assets/wardrobe/Wardrobe_2.webp';
-import WardrobeImage3 from '~/assets/wardrobe/Wardrobe_3.webp';
-import WardrobeImage4 from '~/assets/wardrobe/Wardrobe_4.webp';
-import WardrobeImage11 from '~/assets/wardrobe/Wardrobe_11.webp';
-import WardrobeImage22 from '~/assets/wardrobe/Wardrobe_22.webp';
-import WardrobeImage33 from '~/assets/wardrobe/Wardrobe_33.webp';
-import WardrobeImage44 from '~/assets/wardrobe/Wardrobe_44.webp';
-import ProductDetailImage1 from '~/assets/product-details/Product_Detail_1.webp';
-import ProductDetailImage2 from '~/assets/product-details/Product_Detail_2.webp';
-import ProductDetailImage3 from '~/assets/product-details/Product_Detail_3.webp';
-import PlusIcon from '~/assets/product-details/Icon_Plus.svg';
-import MinusIcon from '~/assets/product-details/Icon_Minus.svg';
+import WardrobeImage1 from '~/assets/wardrobe/wardrobe_1.webp';
+import WardrobeImage2 from '~/assets/wardrobe/wardrobe_2.webp';
+import WardrobeImage3 from '~/assets/wardrobe/wardrobe_3.webp';
+import WardrobeImage4 from '~/assets/wardrobe/wardrobe_4.webp';
+import WardrobeImage11 from '~/assets/wardrobe/wardrobe_11.webp';
+import WardrobeImage22 from '~/assets/wardrobe/wardrobe_22.webp';
+import WardrobeImage33 from '~/assets/wardrobe/wardrobe_33.webp';
+import WardrobeImage44 from '~/assets/wardrobe/wardrobe_44.webp';
+import PlusIcon from '~/assets/product-details/icon_plus.svg';
+import MinusIcon from '~/assets/product-details/icon_minus.svg';
 import WishlistIcon from '~/assets/wishlist-icon (1).svg';
 import WishlistSelectedRedIcon from '~/assets/wishlist_selected_red_icon.svg';
 import CheckoutIcon from '~/assets/BagIcon.svg';
@@ -864,15 +861,6 @@ const ProductDetails = ({
               ],
             }}
           />
-          {/* <h5 className="product-detail-headers">Colors</h5>
-          <div className="colors-option d-flex flex-row">
-            <div className="color-option-img">
-              <img src={ProductDetailImage1} />
-            </div>
-            <div className="color-option-img">
-              <img src={ProductDetailImage2} />
-            </div>
-          </div> */}
 
           {/*  if product is out of stock show below commented section and notify me button with wishlist which is also commented for now  */}
 

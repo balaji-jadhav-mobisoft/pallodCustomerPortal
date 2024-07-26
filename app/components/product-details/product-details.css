@@ -617,12 +617,12 @@
       mask-repeat: no-repeat;
       mask-position: center;
       transition: transform 0.2s ease-in-out;
-      mask-image: url('../../assets/product-details/Icon_Plus.svg');
+      mask-image: url('../../assets/product-details/icon_plus.svg');
     }
 
     .accordion-button:not(.collapsed)::after {
       background-image: none;
-      mask-image: url('../../assets/product-details/Icon_Minus.svg');
+      mask-image: url('../../assets/product-details/icon_minus.svg');
       transform: rotate(0deg);
     }
     .shipping-accordion-content {

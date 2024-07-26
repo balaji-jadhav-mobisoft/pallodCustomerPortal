@@ -1,34 +1,63 @@
 import React, {useState, useEffect} from 'react';
 import '../cart-main.css';
+import BackIcon from '~/assets/Icon_Back_Arrow.svg';
 const AddAddressModal = ({isOpen, onClose}) => {
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] = useState(true);
+  const [shippingAddress, setShippingAddress] = useState({
+    city: '',
+    state: '',
+    country: '',
+  });
+  const [billingAddress, setBillingAddress] = useState({
+    city: '',
+    state: '',
+    country: '',
+  });
+
   useEffect(() => {
     const modalElement = document.getElementById('addAddress');
+    const handleModalClose = () => onClose();
 
-    const handleModalClose = () => {
-      onClose();
-    };
-
-    modalElement.addEventListener('hidden.bs.modal', handleModalClose);
-
-    return () => {
-      modalElement.removeEventListener('hidden.bs.modal', handleModalClose);
-    };
-  }, [onClose]);
-
-  useEffect(() => {
-    const billingDetails = document.getElementById('billingDetails');
-    if (isBillingSameAsShipping) {
-      billingDetails.style.display = 'none';
+    // Handle modal visibility and background scroll
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+      if (modalElement) {
+        modalElement.addEventListener('hidden.bs.modal', handleModalClose);
+      }
     } else {
-      billingDetails.style.display = 'block';
+      document.body.classList.remove('no-scroll');
+      if (modalElement) {
+        modalElement.removeEventListener('hidden.bs.modal', handleModalClose);
+      }
     }
-  }, [isBillingSameAsShipping]);
 
+    // Handle display of billing address details based on checkbox
+    const billingDetails = document.getElementById('billingDetails');
+    if (billingDetails) {
+      billingDetails.style.display = isBillingSameAsShipping ? 'none' : 'block';
+    }
+
+    // Cleanup on component unmount or when modal state changes
+    return () => {
+      if (modalElement) {
+        modalElement.removeEventListener('hidden.bs.modal', handleModalClose);
+      }
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isOpen, isBillingSameAsShipping, onClose]);
   const handleCheckboxChange = () => {
     setIsBillingSameAsShipping(!isBillingSameAsShipping);
   };
 
+  const handleShippingAddressChange = (e) => {
+    const {name, value} = e.target;
+    setShippingAddress((prev) => ({...prev, [name]: value}));
+  };
+
+  const handleBillingAddressChange = (e) => {
+    const {name, value} = e.target;
+    setBillingAddress((prev) => ({...prev, [name]: value}));
+  };
   return (
     <div
       className={`modal fade ${isOpen ? 'show' : ''}`}
@@ -47,7 +76,9 @@ const AddAddressModal = ({isOpen, onClose}) => {
               className="modal-title d-flex align-items-center"
               id="addAddressLabel"
             >
-              <span
+              <img
+                onClick={onClose}
+                src={BackIcon}
                 role="button"
                 data-bs-dismiss="modal"
                 aria-label="Close"
@@ -147,11 +178,18 @@ const AddAddressModal = ({isOpen, onClose}) => {
                     <label htmlFor="city" className="form-label">
                       City
                     </label>
-                    <select value="" className="form-select" id="city">
+                    <select
+                      name="city"
+                      className="form-select"
+                      id="city"
+                      value={shippingAddress.city}
+                      onChange={handleShippingAddressChange}
+                    >
                       <option value="" className="select-placeholder" selected>
                         Select
                       </option>
-                      <option>Select City</option>
+                      <option value="city1">City 1</option>
+                      <option value="city2">City 2</option>
                       {/* Add options here */}
                     </select>
                   </div>
@@ -161,10 +199,18 @@ const AddAddressModal = ({isOpen, onClose}) => {
                     <label htmlFor="state" className="form-label">
                       State / Province
                     </label>
-                    <select value="" className="form-select" id="state">
+                    <select
+                      name="state"
+                      className="form-select"
+                      id="state"
+                      value={shippingAddress.state}
+                      onChange={handleShippingAddressChange}
+                    >
                       <option className="select-placeholder" selected value="">
                         Select
                       </option>
+                      <option value="state1">State 1</option>
+                      <option value="state2">State 2</option>
                       {/* Add options here */}
                     </select>
                   </div>
@@ -172,10 +218,18 @@ const AddAddressModal = ({isOpen, onClose}) => {
                     <label htmlFor="country" className="form-label">
                       Country / Region
                     </label>
-                    <select value="" className="form-select" id="country">
+                    <select
+                      name="country"
+                      className="form-select"
+                      id="country"
+                      value={shippingAddress.country}
+                      onChange={handleShippingAddressChange}
+                    >
                       <option className="select-placeholder" selected value="">
                         Select
                       </option>
+                      <option value="country1">Country 1</option>
+                      <option value="country2">Country 2</option>
                       {/* Add options here */}
                     </select>
                   </div>
@@ -318,11 +372,18 @@ const AddAddressModal = ({isOpen, onClose}) => {
                       <label htmlFor="billingCity" className="form-label">
                         City
                       </label>
-                      <select className="form-select" id="billingCity">
+                      <select
+                        name="city"
+                        className="form-select"
+                        id="billingCity"
+                        value={billingAddress.city}
+                        onChange={handleBillingAddressChange}
+                      >
                         <option className="select-placeholder" selected>
                           Select
                         </option>
-                        <option>Select City</option>
+                        <option value="city1">City 1</option>
+                        <option value="city2">City 2</option>
                         {/* Add options here */}
                       </select>
                     </div>
@@ -332,21 +393,18 @@ const AddAddressModal = ({isOpen, onClose}) => {
                       <label htmlFor="billingState" className="form-label">
                         State / Province
                       </label>
-                      <select className="form-select" id="billingState">
+                      <select
+                        name="state"
+                        className="form-select"
+                        id="billingState"
+                        value={billingAddress.state}
+                        onChange={handleBillingAddressChange}
+                      >
                         <option className="select-placeholder" selected>
                           Select
                         </option>
-                        {/* Add options here */}
-                      </select>
-                    </div>
-                    <div className="col-6">
-                      <label htmlFor="billingCountry" className="form-label">
-                        Country / Region
-                      </label>
-                      <select className="form-select" id="billingCountry">
-                        <option className="select-placeholder" selected>
-                          Select
-                        </option>
+                        <option value="state1">State 1</option>
+                        <option value="state2">State 2</option>
                         {/* Add options here */}
                       </select>
                     </div>
