@@ -374,19 +374,6 @@ const FooterSection = ({
                   ></img>
                   customercare@pallodshop.com
                 </p>
-                <h5 className="mt-5">Follow Us On</h5>
-                <p>
-                  <img
-                    src={FacebookIcon}
-                    className="mi-lg mi-facebook social-media-icon d-inline-block"
-                    alt="Facebook Icon"
-                  ></img>
-                  <img
-                    src={InstagramIcon}
-                    className="mi-lg mi-instagram social-media-icon d-inline-block"
-                    alt="Instagram Icon"
-                  ></img>
-                </p>
               </div>
             </div>
           </div>
