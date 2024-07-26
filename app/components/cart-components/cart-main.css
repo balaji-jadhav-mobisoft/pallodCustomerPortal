@@ -1287,6 +1287,9 @@
   .cart-main-container #sizeDropdownMobile {
     display: flex !important;
   }
+  .cart-main-container .added-items-container .added-item .item-img img {
+    width: auto !important;
+  }
   .cart-main-container #qtyBtn {
     display: flex !important;
   }
