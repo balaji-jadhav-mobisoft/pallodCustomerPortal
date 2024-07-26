@@ -1,5 +1,5 @@
 import React from 'react';
-import LoaderIcon from '~/assets/Iphone-spinner-2 (1).gif';
+import LoaderIcon from '~/assets/spinner.gif';
 import './loader.css';
 
 const Loader = () => (

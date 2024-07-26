@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import DeleteIcon from '~/assets/Delete.svg';
+import DeleteIcon from '~/assets/delete.svg';
 import AddIcon from '~/assets/add-icon.svg';
 import BackIcon from '~/assets/Icon_Back_Arrow.svg';
 import '../cart-main.css';

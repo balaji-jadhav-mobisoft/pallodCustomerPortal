@@ -1,5 +1,4 @@
 import React, {Suspense, useEffect, useRef, useState} from 'react';
-import BannerImage from '~/assets/Discount_PLP.webp';
 import './product-details.css';
 import WardrobeImage1 from '~/assets/wardrobe/wardrobe_1.webp';
 import WardrobeImage2 from '~/assets/wardrobe/wardrobe_2.webp';
@@ -11,9 +10,9 @@ import WardrobeImage33 from '~/assets/wardrobe/wardrobe_33.webp';
 import WardrobeImage44 from '~/assets/wardrobe/wardrobe_44.webp';
 import PlusIcon from '~/assets/product-details/icon_plus.svg';
 import MinusIcon from '~/assets/product-details/icon_minus.svg';
-import WishlistIcon from '~/assets/wishlist-icon (1).svg';
+import WishlistIcon from '~/assets/wishlist-icon-1.svg';
 import WishlistSelectedRedIcon from '~/assets/wishlist_selected_red_icon.svg';
-import CheckoutIcon from '~/assets/BagIcon.svg';
+import CheckoutIcon from '~/assets/bagIcon.svg';
 import LeftArrow from '~/assets/icon_left_chevron.svg';
 import RightArrow from '~/assets/icon_right_chevron.svg';
 import WardrobeCarousal from '../common/wardrobe-carousal/wardrobe-carousal';

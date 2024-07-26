@@ -1,5 +1,5 @@
 import React from 'react';
-import SpecialWeddingFrame from '~/assets/Wedding_Special_Frame.svg';
+import SpecialWeddingFrame from '~/assets/wedding_special_frame.svg';
 import './wedding-special.css';
 import {NavLink} from '@remix-run/react';
 import {Link} from 'react-router-dom';

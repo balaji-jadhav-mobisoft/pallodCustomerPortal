@@ -5,12 +5,12 @@ import WhatsAppIcon from '~/assets/whatsapp.svg';
 import MailIcon from '~/assets/mail.svg';
 import FacebookIcon from '~/assets/facebook-footer.svg';
 import InstagramIcon from '~/assets/instagram-footer.svg';
-import PlayStoreLogo from '~/assets/Play_Store_Download.webp';
-import AppleLogo from '~/assets/App_Store_Download.webp';
-import PallodFooterIcon from '~/assets/Pallod_Footer_Logo.webp';
+import PlayStoreLogo from '~/assets/play_store_download.webp';
+import AppleLogo from '~/assets/app_store_download.webp';
+import PallodFooterIcon from '~/assets/pallod_footer_logo.webp';
 import AmericanExpress from '~/assets/american-express.svg';
-import PayPalIcon from '~/assets/PayPal_Icon.webp';
-import MastercardIcon from '~/assets/Master_Card.webp';
+import PayPalIcon from '~/assets/paypal_icon.webp';
+import MastercardIcon from '~/assets/master_card.webp';
 import VisaIcon from '~/assets/Visa_Icon.webp';
 import {NavLink} from '@remix-run/react';
 
@@ -434,7 +434,7 @@ const FooterSection = ({
               phone & download the app.
             </p>
             <div className="form-check form-check-inline">
-              <input
+              {/* <input
                 className="form-check-input"
                 type="radio"
                 name="contact"
@@ -446,10 +446,22 @@ const FooterSection = ({
               />
               <label className="form-check-label" htmlFor="emailRadioFtr">
                 Email
+              </label> */}
+              <input
+                className="form-check-input"
+                type="radio"
+                name="contact"
+                id="emailRadioFooter"
+                value="email"
+                checked={contactMethod === 'email'}
+                onChange={handleContactMethodChange}
+              />
+              <label className="form-check-label" htmlFor="emailRadioFooter">
+                Email
               </label>
             </div>
             <div className="form-check form-check-inline">
-              <input
+              {/* <input
                 className="form-check-input"
                 type="radio"
                 name="contact"
@@ -461,13 +473,26 @@ const FooterSection = ({
               />
               <label className="form-check-label" htmlFor="phoneRadioFtr">
                 Phone
+              </label> */}
+              <input
+                className="form-check-input"
+                type="radio"
+                name="contact"
+                id="phoneRadioFooter"
+                value="phone"
+                checked={contactMethod === 'phone'}
+                onChange={handleContactMethodChange}
+              />
+              <label className="form-check-label" htmlFor="phoneRadioFooter">
+                Phone
               </label>
             </div>
             <input
               className="form-control border pl-2 my-2 nav-search-bar"
               type="text"
+              name=""
               value={contactInputValue}
-              id="footer-search-ipt"
+              id="footer-search-input"
               placeholder={
                 contactMethod === 'email'
                   ? 'Enter Email Address'

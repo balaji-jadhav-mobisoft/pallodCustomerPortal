@@ -1244,8 +1244,11 @@
   .cart-main-container #closeMobileIcon {
     display: inline-block !important;
     right: 0px;
-    top: 21px;
+    top: 28px;
     /* background-color: #808080; */
+  }
+  .cart-main-container .product-title-section {
+    width: 95%;
   }
   .cart-main-container #wishlistMobileIcon {
     display: flex !important;

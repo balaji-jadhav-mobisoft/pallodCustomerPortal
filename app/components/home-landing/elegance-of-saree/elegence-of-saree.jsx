@@ -1,6 +1,6 @@
 import React from 'react';
 import './elegance-of-saree.css';
-import EleganceBanner from '~/assets/Elegance_Banner.webp';
+import EleganceBanner from '~/assets/elegance_banner.webp';
 import {Link} from '@remix-run/react';
 
 // Component to render the grid of saree images

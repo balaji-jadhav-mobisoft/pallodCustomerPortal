@@ -4,7 +4,7 @@ import leftIcon from '~/assets/icon_left_chevron.svg';
 import rightIcon from '~/assets/icon_right_chevron.svg';
 import wishListIcon from '~/assets/wishList-icon.svg';
 import {Link} from '@remix-run/react';
-import InstagramIcon from '~/assets/instagram-icon (1).svg';
+import InstagramIcon from '~/assets/instagram-icon-1.svg';
 
 const WardrobeCarousal = ({
   collection,
