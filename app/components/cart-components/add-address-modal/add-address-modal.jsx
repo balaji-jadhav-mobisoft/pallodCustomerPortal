@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import '../cart-main.css';
 import BackIcon from '~/assets/Icon_Back_Arrow.svg';
-const AddAddressModal = ({isOpen, onClose}) => {
+const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] = useState(true);
   const [shippingAddress, setShippingAddress] = useState({
     city: '',
@@ -13,6 +13,11 @@ const AddAddressModal = ({isOpen, onClose}) => {
     state: '',
     country: '',
   });
+  const [selectedButton, setSelectedButton] = useState('home');
+
+  const handleButtonClick = (buttonType) => {
+    setSelectedButton(buttonType);
+  };
 
   useEffect(() => {
     const modalElement = document.getElementById('addAddress');
@@ -84,7 +89,7 @@ const AddAddressModal = ({isOpen, onClose}) => {
                 aria-label="Close"
                 className="wh-26 mi-lg mi-back_arrow d-none me-2"
               />
-              Add New Address
+              {type === 'add' ? 'Add New Address' : 'Edit Address'}
             </h5>
             <button
               type="button"
@@ -416,15 +421,21 @@ const AddAddressModal = ({isOpen, onClose}) => {
                     <div>
                       <button
                         type="button"
-                        className="btn save-address-btn me-3 clicked"
+                        className={`btn save-address-btn me-3 ${
+                          selectedButton === 'home' ? 'clicked' : ''
+                        }`}
                         id="homeBtn"
+                        onClick={() => handleButtonClick('home')}
                       >
                         Home
                       </button>
                       <button
                         type="button"
-                        className="btn save-address-btn"
+                        className={`btn save-address-btn ${
+                          selectedButton === 'work' ? 'clicked' : ''
+                        }`}
                         id="workBtn"
+                        onClick={() => handleButtonClick('work')}
                       >
                         Work
                       </button>
@@ -432,6 +443,43 @@ const AddAddressModal = ({isOpen, onClose}) => {
                   </div>
                 </div>
                 <div className="row mb-3">
+                  <div
+                    id="openDays"
+                    style={{
+                      display: selectedButton === 'work' ? 'block' : 'none',
+                    }}
+                  >
+                    <div className="col-12">
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="openSaturday"
+                        />
+                        <label
+                          className="form-check-label address-checkbox"
+                          htmlFor="openSaturday"
+                        >
+                          Open On Saturday
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-12 mb-2">
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="openSunday"
+                        />
+                        <label
+                          className="form-check-label address-checkbox"
+                          htmlFor="openSunday"
+                        >
+                          Open On Sunday
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                   <div className="col-12">
                     <div className="form-check">
                       <input

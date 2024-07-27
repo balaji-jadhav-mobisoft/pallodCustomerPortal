@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import DeleteIcon from '~/assets/delete.svg';
 import AddIcon from '~/assets/add-icon.svg';
 import BackIcon from '~/assets/Icon_Back_Arrow.svg';
@@ -11,8 +11,15 @@ const ChangeAddressModal = ({
   isModalOpen,
   onModalClose,
 }) => {
-  const handleOpenModal = () => {
-    setIsAddAddressModalOpen(false);
+  const [selectedAddress, setSelectedAddress] = useState('defaultAddress');
+  const [modalType, setModalType] = useState('');
+
+  const handleAddressChange = (e) => {
+    setSelectedAddress(e.target.id);
+  };
+  const handleOpenModal = (type) => {
+    setModalType(type);
+    setIsAddAddressModalOpen(true);
   };
 
   const handleCloseModal = () => {
@@ -83,7 +90,7 @@ const ChangeAddressModal = ({
             <div className="saved-address d-flex justify-content-between flex-row">
               <div className="title">Saved Address</div>
               <div
-                onClick={() => setIsAddAddressModalOpen(true)}
+                onClick={() => handleOpenModal('add')}
                 className="add-address-btn d-flex align-items-center"
                 role="button"
               >
@@ -107,8 +114,10 @@ const ChangeAddressModal = ({
                 type="radio"
                 name="addressType"
                 id="defaultAddress"
-                defaultValue="defaultAddress"
                 defaultChecked
+                value="defaultAddress"
+                checked={selectedAddress === 'defaultAddress'}
+                onChange={handleAddressChange}
               />
               <label
                 className="form-check-label d-flex flex-column"
@@ -125,21 +134,29 @@ const ChangeAddressModal = ({
                   <div className="contact-type">Mobile:</div>
                   <div className="content">+91 8989898989</div>
                 </div>
-                <div className="action-btns d-flex flex-row justify-content-between">
-                  <div>
-                    <button className="me-3 deliver-here-btn">
-                      DELIVER HERE
+                {selectedAddress === 'defaultAddress' && (
+                  <div className="action-btns d-flex flex-row justify-content-between">
+                    <div>
+                      <button className="me-3 deliver-here-btn">
+                        DELIVER HERE
+                      </button>
+                      <button
+                        onClick={() => handleOpenModal('edit')}
+                        role="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addAddress"
+                      >
+                        EDIT
+                      </button>
+                    </div>
+                    <button className="d-flex align-items-center">
+                      <img
+                        src={DeleteIcon}
+                        className="mi-lg mi-delete wh-18 d-inline-block"
+                      />
                     </button>
-                    <button>EDIT</button>
                   </div>
-                  {/* button to be shown for default address only */}
-                  <button className="d-flex align-items-center">
-                    <img
-                      src={DeleteIcon}
-                      className="mi-lg mi-delete wh-18 d-inline-block"
-                    />
-                  </button>
-                </div>
+                )}
               </label>
             </div>
             <div className="address-block position-relative">
@@ -150,6 +167,9 @@ const ChangeAddressModal = ({
                 name="addressType"
                 id="otherAddress"
                 defaultValue="otherAddress"
+                value="otherAddress"
+                checked={selectedAddress === 'otherAddress'}
+                onChange={handleAddressChange}
               />
               <label
                 className="form-check-label d-flex flex-column"
@@ -159,6 +179,23 @@ const ChangeAddressModal = ({
                 <div className="address">
                   41/2, Manjula Chambers, 41/2, Manjula Chambers, Kar...
                 </div>
+                {selectedAddress === 'otherAddress' && (
+                  <div className="action-btns d-flex flex-row justify-content-between">
+                    <div>
+                      <button className="me-3 deliver-here-btn">
+                        DELIVER HERE
+                      </button>
+                      <button
+                        role="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addAddress"
+                        onClick={() => handleOpenModal('edit')}
+                      >
+                        EDIT
+                      </button>
+                    </div>
+                  </div>
+                )}
               </label>
             </div>
             <div className="address-block position-relative">
@@ -169,6 +206,9 @@ const ChangeAddressModal = ({
                 name="addressType"
                 id="otherAddress2"
                 defaultValue="otherAddress2"
+                value="otherAddress2"
+                checked={selectedAddress === 'otherAddress2'}
+                onChange={handleAddressChange}
               />
               <label
                 className="form-check-label d-flex flex-column"
@@ -178,6 +218,23 @@ const ChangeAddressModal = ({
                 <div className="address">
                   41/2, Manjula Chambers, 41/2, Manjula Chambers, Kar...
                 </div>
+                {selectedAddress === 'otherAddress2' && (
+                  <div className="action-btns d-flex flex-row justify-content-between">
+                    <div>
+                      <button className="me-3 deliver-here-btn">
+                        DELIVER HERE
+                      </button>
+                      <button
+                        role="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addAddress"
+                        onClick={() => handleOpenModal('edit')}
+                      >
+                        EDIT
+                      </button>
+                    </div>
+                  </div>
+                )}
               </label>
             </div>
             <div className="address-block position-relative">
@@ -188,6 +245,9 @@ const ChangeAddressModal = ({
                 name="addressType"
                 id="otherAddress3"
                 defaultValue="otherAddress3"
+                value="otherAddress3"
+                checked={selectedAddress === 'otherAddress3'}
+                onChange={handleAddressChange}
               />
               <label
                 className="form-check-label d-flex flex-column"
@@ -197,12 +257,29 @@ const ChangeAddressModal = ({
                 <div className="address">
                   41/2, Manjula Chambers, 41/2, Manjula Chambers, Kar...
                 </div>
+                {selectedAddress === 'otherAddress3' && (
+                  <div className="action-btns d-flex flex-row justify-content-between">
+                    <div>
+                      <button className="me-3 deliver-here-btn">
+                        DELIVER HERE
+                      </button>
+                      <button
+                        role="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addAddress"
+                        onClick={() => handleOpenModal('edit')}
+                      >
+                        EDIT
+                      </button>
+                    </div>
+                  </div>
+                )}
               </label>
             </div>
             <div
               className="add-address-btn mt-3 d-flex align-items-center"
               role="button"
-              onClick={() => setIsAddAddressModalOpen(true)}
+              onClick={() => handleOpenModal('add')}
             >
               <img
                 src={AddIcon}
@@ -218,7 +295,7 @@ const ChangeAddressModal = ({
           <div className="modal-footer d-none">
             <button
               className="add-address-fixed"
-              onClick={() => setIsAddAddressModalOpen(true)}
+              onClick={() => handleOpenModal('add')}
             >
               <img
                 src={AddIcon}
@@ -233,6 +310,7 @@ const ChangeAddressModal = ({
           <AddAddressModal
             isOpen={isAddAddressModalOpen}
             onClose={handleCloseModal}
+            type={modalType}
           />
         </div>
       </div>
