@@ -1278,9 +1278,9 @@
     font-weight: 600;
     color: #000;
   }
-  .cart-main-container .quantityBtn {
+  /* .cart-main-container .quantityBtn {
     display: none !important;
-  }
+  } */
   .cart-main-container #sizeDropdown {
     display: none;
   }
@@ -1447,7 +1447,8 @@
     font-size: 12px;
     font-weight: 500;
     color: #303030;
-    background-color: #e0e0e0 !important;
+    /* background-color: #e0e0e0 !important;  comment this section for now*/
+    height: 30px;
   }
   .cart-main-container .price-summary-container h3 {
     font-size: 18px;

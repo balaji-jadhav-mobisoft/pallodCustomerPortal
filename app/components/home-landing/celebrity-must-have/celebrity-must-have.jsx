@@ -12,12 +12,21 @@ const CelebrityMustHave = ({menu, primaryDomain, publicStoreDomain}) => {
   const occasionItems = shopByOccasionCollection?.items.map((item) => {
     if (!item.url) return null;
 
+    // Determine the URL path for the collection item
+    const url =
+      item.url.includes('myshopify.com') ||
+      item.url.includes(publicStoreDomain) ||
+      item.url.includes(primaryDomain)
+        ? new URL(item.url).pathname
+        : item.url;
+
     return {
       title: item.title.split(' ')[0],
       subTitle: item.title.split(' ')[1],
       src: item.resource.image.url,
       alt: item.title,
       linkText: 'SHOP NOW',
+      url: url,
     };
   });
 

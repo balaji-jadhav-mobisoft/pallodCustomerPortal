@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './carousal.css';
-import {NavLink} from '@remix-run/react';
+import {Link, NavLink} from '@remix-run/react';
 import LeftIcon from '~/assets/icon_left_chevron.svg';
 import RightIcon from '~/assets/icon_right_chevron.svg';
 const OccasionItem = ({item, colClass}) => (
@@ -11,7 +11,9 @@ const OccasionItem = ({item, colClass}) => (
         <div className="mb-2">{item.title}</div>
         {item.subTitle && <div className="fs-25 mb-2">{item.subTitle}</div>}
         <div className="d-flex justify-content-center">
-          <div className="shop-now-link">{item.linkText}</div>
+          <Link to={item.url} style={{textDecoration: 'none'}}>
+            <div className="shop-now-link">{item.linkText}</div>
+          </Link>
         </div>
       </div>
     </div>

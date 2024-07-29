@@ -562,6 +562,7 @@ const ProductDetails = ({
         // discount: `${discountPercentage.toFixed(0)}% OFF`,
         isBestSeller: product.tags.includes('Best Seller'),
         isNew: product.tags.includes('New'),
+        handle: product.handle,
       };
     },
   );

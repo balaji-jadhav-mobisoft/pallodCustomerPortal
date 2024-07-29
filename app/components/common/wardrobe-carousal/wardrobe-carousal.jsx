@@ -105,49 +105,54 @@ const WardrobeCarousal = ({
         }`}
         key={item.src}
       >
-        <div
-          className={`position-relative ${
-            productDetails ? 'product-img-wrapper1' : 'product-img-wrapper'
-          }`}
+        <Link
+          to={`/products/${item.handle}/?collectionHandle=${collection?.collection?.handle}`}
+          key={item.src}
         >
-          {item.src && (
-            <img
-              src={item.src}
-              data-hover-src={item.hoverSrc}
-              data-original-src={item.src}
-              alt={item.title}
-              className="zoom-img"
-              onMouseOver={handleMouseOver}
-              onMouseOut={handleMouseOut}
-            />
-          )}
-          {item.isBestSeller && (
-            <div className="position-absolute top-0 start-0 best-seller">
-              Best Seller
-            </div>
-          )}
-          {wishList && (
-            <div
-              className={`position-absolute wishlist-container ${
-                moreColorProducts ? 'wishlist-container1' : ''
-              }`}
-            >
+          <div
+            className={`position-relative ${
+              productDetails ? 'product-img-wrapper1' : 'product-img-wrapper'
+            }`}
+          >
+            {item.src && (
               <img
-                src={wishListIcon}
-                className="mi-lg mi-wishlist wh-20 d-inline-block"
-                alt="Wishlist Icon"
+                src={item.src}
+                data-hover-src={item.hoverSrc}
+                data-original-src={item.src}
+                alt={item.title}
+                className="zoom-img"
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
               />
-            </div>
-          )}
-          {moreColorProducts && (
-            <div className="position-absolute add-to-bag-container">
-              <button className="add-to-bag-btn">
-                <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
-                Add to Bag
-              </button>
-            </div>
-          )}
-        </div>
+            )}
+            {item.isBestSeller && (
+              <div className="position-absolute top-0 start-0 best-seller">
+                Best Seller
+              </div>
+            )}
+            {wishList && (
+              <div
+                className={`position-absolute wishlist-container ${
+                  moreColorProducts ? 'wishlist-container1' : ''
+                }`}
+              >
+                <img
+                  src={wishListIcon}
+                  className="mi-lg mi-wishlist wh-20 d-inline-block"
+                  alt="Wishlist Icon"
+                />
+              </div>
+            )}
+            {moreColorProducts && (
+              <div className="position-absolute add-to-bag-container">
+                <button className="add-to-bag-btn">
+                  <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                  Add to Bag
+                </button>
+              </div>
+            )}
+          </div>
+        </Link>
         {item.title && <h6 className="product-title">{item.title}</h6>}
         <p className="product-description">{item.description}</p>
         <div className="d-flex flex-row align-items-center justify-content-between">

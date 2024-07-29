@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './designer-studio.css'; // Make sure to include the necessary CSS
 import PallodVideo from '~/assets/pallod-video.mov';
-import {NavLink} from '@remix-run/react';
+import {Link, NavLink} from '@remix-run/react';
 
 const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
   // Ensure required props are provided
@@ -20,13 +20,20 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
 
   const designerStudioItems = designerCollection?.items.map((item, index) => {
     if (!item.url) return null;
-
+    // Determine the URL path for the collection item
+    const url =
+      item.url.includes('myshopify.com') ||
+      item.url.includes(publicStoreDomain) ||
+      item.url.includes(primaryDomain)
+        ? new URL(item.url).pathname
+        : item.url;
     return {
       title: item.resource.title,
       subtitle: item.title,
       colClass: 'col-4 designer-scrollable',
       src: item.resource.image.url,
       key: `designer-${index}`,
+      url: url,
     };
   });
 
@@ -58,7 +65,6 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
     designerCollection.url.includes(primaryDomain)
       ? new URL(designerCollection.url).pathname
       : designerCollection.url;
-
   useEffect(() => {
     const handleResize = () => {
       setIsResponsive(window.innerWidth < 768);
@@ -76,15 +82,19 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
         key={item.key}
         className={`${item.colClass} collection-img-container`}
       >
-        <div className="img-wrapper">
-          <img src={item.src} alt={item.alt} className="zoom-img" />
-          <div
-            className={`img-caption d-flex flex-column ${item.textAlign || ''}`}
-          >
-            <div>{item.title}</div>
-            <div className="fs-16">{item.subtitle}</div>
+        <Link to={item.url}>
+          <div className="img-wrapper">
+            <img src={item.src} alt={item.alt} className="zoom-img" />
+            <div
+              className={`img-caption d-flex flex-column ${
+                item.textAlign || ''
+              }`}
+            >
+              <div>{item.title}</div>
+              <div className="fs-16">{item.subtitle}</div>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     ));
 

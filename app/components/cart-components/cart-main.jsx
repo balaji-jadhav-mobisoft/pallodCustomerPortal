@@ -169,6 +169,7 @@ const CartMainSection = ({
   setLineIdsToRemove,
 }) => {
   const {id, merchandise, quantity} = line;
+
   const {product, title, image, selectedOptions, availableForSale} =
     merchandise;
   const [selectedSize, setSelectedSize] = useState(
@@ -341,7 +342,7 @@ const CartMainSection = ({
           </div>
           <div className="d-flex flex-row align-items-baseline">
             <CartLineQuantity line={line} />
-            <button
+            {/* <button
               onClick={() => {
                 setMobileQuantityModal(true);
               }}
@@ -359,7 +360,7 @@ const CartMainSection = ({
                 height={18}
                 className="bi bi-chevron-down wh-18 d-inline-block ms-2"
               />
-            </button>
+            </button> */}
             <div className="dropdown" id="sizeDropdown">
               <ul>
                 {selectedOptions.map((option) => (
@@ -536,14 +537,16 @@ const CartMainSection = ({
               <CartLineUpdateButton
                 lines={[{id: id, quantity: Number(selectedQuantity)}]}
               >
-                <button
-                  className="done-btn"
-                  data-bs-dismiss="offcanvas"
-                  aria-label="Close"
-                  onClick={offCanvasClose}
-                >
-                  DONE
-                </button>
+                <>
+                  <button
+                    className="done-btn"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+                    onClick={offCanvasClose}
+                  >
+                    DONE
+                  </button>
+                </>
               </CartLineUpdateButton>
             </div>
           </div>

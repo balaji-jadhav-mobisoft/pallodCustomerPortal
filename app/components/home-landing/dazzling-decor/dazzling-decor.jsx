@@ -31,6 +31,13 @@ const DazzlingDecor = ({
   const dazzlingDecorItems = dazzlingDecorCollection?.items.map(
     (item, index) => {
       if (!item.url) return null;
+      // Determine the URL path for the collection item
+      const url =
+        item.url.includes('myshopify.com') ||
+        item.url.includes(publicStoreDomain) ||
+        item.url.includes(primaryDomain)
+          ? new URL(item.url).pathname
+          : item.url;
 
       return {
         key: `dazzling-${index}-${item.url}`, // unique key
@@ -38,6 +45,7 @@ const DazzlingDecor = ({
         src: item.resource.image.url,
         alt: item.title,
         linkText: 'SHOP NOW',
+        url: url,
       };
     },
   );
@@ -65,6 +73,7 @@ const DazzlingDecor = ({
       src: product.images.nodes[0]?.url,
       hoverSrc: product.images.nodes[0]?.url,
       description: product.description,
+      handle: product.handle,
     };
   });
 
