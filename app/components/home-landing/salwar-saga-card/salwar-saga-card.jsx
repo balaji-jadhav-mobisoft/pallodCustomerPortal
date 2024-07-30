@@ -8,34 +8,30 @@ const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
   if (!menu || !menu?.items) return null;
   if (!primaryDomain || !publicStoreDomain) return null;
   // Find the SALWAR SAGA collection
-  const collection = menu?.items.find((item) => item.title === 'SALWAR SAGA');
+  // const collection = menu?.items.find((item) => item.title === 'SALWAR SAGA');
+  const collection = menu?.items.find(
+    (item) => item.title === 'Home screen main carousel',
+  );
 
   // Exit if collection or its resource is missing
   if (!collection || !collection.resource || !collection.resource.products)
     return null;
 
-  // Extract titles from SALWAR SAGA items for caption and description
-  const collectTitle = collection?.items.map((item) => ({
-    title: item.title,
-    resource: item.resource, // Assuming resource contains title
-  }));
-
-  const {products} = collection.resource;
-
-  // Prepare carouselData based on products
-  const carouselData = products.nodes.map((product) => {
+  const carouselData = collection?.items.map((item) => {
     const url =
-      collection.url.includes('myshopify.com') ||
-      collection.url.includes(publicStoreDomain) ||
-      collection.url.includes(primaryDomain)
-        ? new URL(collection.url).pathname
-        : collection.url;
+      item.url.includes('myshopify.com') ||
+      item.url.includes(publicStoreDomain) ||
+      item.url.includes(primaryDomain)
+        ? new URL(item.url).pathname
+        : item.url;
     return {
-      caption: collectTitle[0]?.resource?.title || 'SALWAR SAGA',
-      description: collectTitle[0].title || 'For The Exceptional You',
-      leftImgSrc: collection.resource.image.url,
+      caption: item.resource.title,
+      resource: item.resource,
+      leftImgSrc:
+        item.resource.collection_background_image.reference?.image.url,
       rightImgSrc:
-        product.images.nodes.length > 0 ? product.images.nodes[0].url : '',
+        item.resource.collection_banner_images.references?.nodes[0]?.image?.url,
+      description: item.title,
       productUrl: url,
     };
   });

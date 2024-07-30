@@ -148,10 +148,41 @@ const MENU_FRAGMENT = `#graphql
     ... on Collection {
       id
       title
+      handle
       image {
         url
         
       }
+      collection_banner_images: metafield(
+              key: "collection_banner_images"
+              namespace: "custom"
+            ) {
+              key
+              references(first: 10) {
+                nodes {
+                  ... on MediaImage {
+                    id
+                    image {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+            collection_background_image: metafield(
+              key: "collection_background_image"
+              namespace: "custom"
+            ) {
+              key
+              reference {
+                ... on MediaImage {
+                  image {
+                    id
+                    url
+                  }
+                }
+              }
+            }
       products(first: 10) {
               nodes {
                 handle

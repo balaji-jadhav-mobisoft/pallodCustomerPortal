@@ -10,7 +10,7 @@ const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
   const collection = menu?.items.find(
     (item) => item.title === 'Explore Our Collections',
   );
-
+  console.log(collection, 'collection');
   if (!collection) return null;
 
   // Map collection items to include necessary information
