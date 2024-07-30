@@ -7,6 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import {json} from '@shopify/remix-oxygen';
 import {CUSTOMER_ORDERS_QUERY} from '~/graphql/customer-account/CustomerOrdersQuery';
+import {MyOrders} from '../components/my-orders/my-orders';
 
 /**
  * @type {MetaFunction}
@@ -51,9 +52,9 @@ export default function Orders() {
   const {customer} = useLoaderData();
   const {orders} = customer;
   return (
-    <div className="orders">
+      <div>
       {orders.nodes.length ? <OrdersTable orders={orders} /> : <EmptyOrders />}
-    </div>
+      </div>
   );
 }
 
@@ -62,13 +63,13 @@ export default function Orders() {
  */
 function OrdersTable({orders}) {
   return (
-    <div className="acccount-orders">
+    <div>
       {orders?.nodes.length ? (
         <Pagination connection={orders}>
           {({nodes, isLoading, PreviousLink, NextLink}) => {
             return (
               <>
-                <PreviousLink>
+                {/* <PreviousLink>
                   {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
                 </PreviousLink>
                 {nodes.map((order) => {
@@ -76,7 +77,8 @@ function OrdersTable({orders}) {
                 })}
                 <NextLink>
                   {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-                </NextLink>
+                </NextLink> */}
+                <MyOrders orders={orders} />
               </>
             );
           }}
