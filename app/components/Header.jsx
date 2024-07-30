@@ -323,6 +323,29 @@ export function TopHeader() {
   );
 }
 
+function Logout() {
+  return (
+    <Form className="account-logout" method="POST" action="/account/logout">
+      <button className="help-btn" type="submit">
+        <div className="d-flex flex-row justify-content-between logout-text align-items-center">
+          <img
+            src={LogoutIcon}
+            height={18}
+            width={18}
+            className="mi-lg mi-logout wh-18 d-inline-block me-2"
+          ></img>
+          LOGOUT
+        </div>
+        <img
+          src={RightIconChevron}
+          height={18}
+          width={18}
+          className="mi-lg mi-chevron_right wh-18 d-inline-block"
+        ></img>
+      </button>
+    </Form>
+  );
+}
 /**
  * @param {Pick<HeaderProps, 'isLoggedIn' | 'cart'>}
  */
@@ -506,23 +529,7 @@ function HeaderCtas({isLoggedIn, cart}) {
                         ></img>
                       </button>
                     </NavLink>
-                    <button className="help-btn">
-                      <div className="d-flex flex-row justify-content-between logout-text align-items-center">
-                        <img
-                          src={LogoutIcon}
-                          height={18}
-                          width={18}
-                          className="mi-lg mi-logout wh-18 d-inline-block me-2"
-                        ></img>
-                        LOGOUT
-                      </div>
-                      <img
-                        src={RightIconChevron}
-                        height={18}
-                        width={18}
-                        className="mi-lg mi-chevron_right wh-18 d-inline-block"
-                      ></img>
-                    </button>
+                    <Logout />
                   </div>
                 )}
                 <div
@@ -1126,6 +1133,7 @@ function HeaderCtas({isLoggedIn, cart}) {
                     </button>
 
                     <NavLink
+                      onClick={() => setIsOffcanvas(false)}
                       to="/account/addresses"
                       style={{textDecoration: 'none'}}
                     >
@@ -1152,6 +1160,7 @@ function HeaderCtas({isLoggedIn, cart}) {
                 {isOffcanvas && (
                   <HeaderMobileOffcanvas
                     isOffcanvas={isOffcanvas}
+                    setIsOffcanvas={setIsOffcanvas}
                     isLoggedOut={true}
                   />
                 )}

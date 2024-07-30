@@ -9,7 +9,7 @@ import RightIconChevron from '~/assets/icon_right_chevron.svg';
 import AddressBookIcon from '~/assets/icon-address-book.svg';
 import LogoutIcon from '~/assets/Icon_Logout.svg';
 import HelpIcon from '~/assets/icon_help.svg';
-const HeaderMobileOffcanvas = ({isOffcanvas, isLoggedOut}) => {
+const HeaderMobileOffcanvas = ({isOffcanvas, isLoggedOut, setIsOffcanvas}) => {
   return (
     <div
       className={`offcanvas offcanvas-end ${isOffcanvas ? 'show' : ''}`}
@@ -90,7 +90,11 @@ const HeaderMobileOffcanvas = ({isOffcanvas, isLoggedOut}) => {
                 ></img>
               </div>
             </div>
-            <NavLink to="/account/orders" style={{textDecoration: 'none'}}>
+            <NavLink
+              to="/account/orders"
+              style={{textDecoration: 'none'}}
+              onClick={() => setIsOffcanvas(false)}
+            >
               <button className="help-btn navigate-to-my-orders">
                 <div className="d-flex flex-row justify-content-between help-text align-items-center">
                   <img
@@ -110,7 +114,11 @@ const HeaderMobileOffcanvas = ({isOffcanvas, isLoggedOut}) => {
                 ></img>
               </button>
             </NavLink>
-            <NavLink to="/account/addresses" style={{textDecoration: 'none'}}>
+            <NavLink
+              to="/account/addresses"
+              style={{textDecoration: 'none'}}
+              onClick={() => setIsOffcanvas(false)}
+            >
               <button className="help-btn navigate-to-address-book">
                 <div className="d-flex flex-row justify-content-between help-text align-items-center">
                   <img
@@ -129,7 +137,11 @@ const HeaderMobileOffcanvas = ({isOffcanvas, isLoggedOut}) => {
                 ></img>
               </button>
             </NavLink>
-            <NavLink to="/" style={{textDecoration: 'none'}}>
+            <NavLink
+              to="/"
+              style={{textDecoration: 'none'}}
+              onClick={() => setIsOffcanvas(false)}
+            >
               <button className="help-btn navigate-to-help">
                 <div className="d-flex flex-row justify-content-between help-text align-items-center">
                   <img

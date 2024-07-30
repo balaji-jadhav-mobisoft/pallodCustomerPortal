@@ -10,6 +10,7 @@ import {
   DELETE_ADDRESS_MUTATION,
   CREATE_ADDRESS_MUTATION,
 } from '~/graphql/customer-account/CustomerAddressMutations';
+import AddressBook from '~/components/customer-account-section/address-book/address-book';
 
 /**
  * @type {MetaFunction}
@@ -305,7 +306,8 @@ export default function Addresses() {
 
   return (
     <div className="account-addresses">
-      <h2>Addresses</h2>
+      <AddressBook customer={customer} />
+      {/* <h2>Addresses</h2>
       <br />
       {!addresses.nodes.length ? (
         <p>You have no addresses saved.</p>
@@ -323,7 +325,7 @@ export default function Addresses() {
             defaultAddress={defaultAddress}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 }

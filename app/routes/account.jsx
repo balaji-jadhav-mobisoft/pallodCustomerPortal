@@ -1,6 +1,8 @@
 import {json} from '@shopify/remix-oxygen';
 import {Form, NavLink, Outlet, useLoaderData} from '@remix-run/react';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
+import CustomerAccountSection from '~/components/customer-account-section/customer-account-section';
+import CustomerAccountMenu from '~/components/customer-account-section/customer-account-menu/customer-account-menu';
 
 export function shouldRevalidate() {
   return true;
@@ -33,20 +35,16 @@ export default function AccountLayout() {
   /** @type {LoaderReturnData} */
   const {customer} = useLoaderData();
 
-  const heading = customer
-    ? customer.firstName
-      ? `Welcome, ${customer.firstName}`
-      : `Welcome to your account.`
-    : 'Account Details';
-
   return (
-    <div className="account">
-      <h1>{heading}</h1>
+    <div className="main-container">
+      <CustomerAccountSection customer={customer} />
+      <CustomerAccountMenu customer={customer} />
+      {/* <h1>{heading}</h1>
       <br />
       <AccountMenu />
       <br />
       <br />
-      <Outlet context={{customer}} />
+      <Outlet context={{customer}} /> */}
     </div>
   );
 }
