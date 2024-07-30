@@ -15,6 +15,15 @@ import AboutUsIcon from '~/assets/about-us-icon.svg';
 import RightIcon from '~/assets/right-icon.svg';
 import InstagramIcon from '~/assets/instagram-icon.svg';
 import FacebookIcon from '~/assets/facebook-icon.svg';
+import EditIcon from '~/assets/icon-edit.svg';
+import OrderIcon from '~/assets/checkout.svg';
+import RightIconChevron from '~/assets/icon_right_chevron.svg';
+import AddressBookIcon from '~/assets/icon-address-book.svg';
+import LogoutIcon from '~/assets/Icon_Logout.svg';
+import HelpIcon from '~/assets/icon_help.svg';
+import CheckIcon from '~/assets/Icon_Check.svg';
+import BackArrowIcon from '~/assets/Icon_Back_Arrow.svg';
+import HeaderMobileOffcanvas from './common/header-profile-offcanvas/header-profile-offcanvas';
 
 /**
  * @param {HeaderProps}
@@ -319,6 +328,46 @@ export function TopHeader() {
  */
 
 function HeaderCtas({isLoggedIn, cart}) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOffcanvas, setIsOffcanvas] = useState(false);
+  const dropdownRef = useRef(null);
+  const profileIconRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target) &&
+      profileIconRef.current &&
+      !profileIconRef.current.contains(event.target)
+    ) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+  useEffect(() => {
+    if (isOffcanvas) {
+      const offcanvasElement = document.getElementById('loginOffcanvas');
+      const bootstrapOffcanvas = new window.bootstrap.Offcanvas(
+        offcanvasElement,
+      );
+      bootstrapOffcanvas.show();
+
+      offcanvasElement.addEventListener('hidden.bs.offcanvas', () => {
+        setIsOffcanvas(false);
+      });
+    }
+  }, [isOffcanvas]);
+
   return (
     <nav className="header-ctas" role="navigation">
       <SearchForm className="header-search" />
@@ -342,19 +391,775 @@ function HeaderCtas({isLoggedIn, cart}) {
           </Link>
         </div>
       </div>
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) =>
-              isLoggedIn ? (
-                <img src={ProfileIcon} alt="profile" />
-              ) : (
-                <img src={ProfileIcon} alt="profile" />
-              )
-            }
-          </Await>
-        </Suspense>
-      </NavLink>
+
+      <Suspense fallback="Sign in">
+        <Await resolve={isLoggedIn} errorElement="Sign in">
+          {(isLoggedIn) =>
+            !isLoggedIn ? (
+              <>
+                <button
+                  id="profileIcon"
+                  ref={profileIconRef}
+                  onClick={toggleDropdown}
+                  className="profile-icon-button"
+                >
+                  <img src={ProfileIcon} alt="profile" />
+                </button>
+                <button
+                  onClick={() => setIsOffcanvas(true)}
+                  className="profile-offcanvas-icon d-none"
+                  style={{border: 'none', background: 'none'}}
+                  role="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#loginOffcanvas"
+                  aria-controls="loginOffcanvas"
+                >
+                  <img src={ProfileIcon} alt="profile" />
+                </button>
+                {isDropdownOpen && (
+                  <div
+                    ref={dropdownRef}
+                    id="dropdownContent"
+                    className="dropdown-content"
+                  >
+                    <div
+                      className="logged-user d-flex flex-row justify-content-between"
+                      role="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#editProfile"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <div className="d-flex flex-column">
+                        <div className="user-name">Hello, Radha Mehta</div>
+                        <div className="mob-no">+91 9734756841</div>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <img
+                          src={EditIcon}
+                          height={18}
+                          width={18}
+                          className="mi-lg mi-edit wh-18 d-inline-block"
+                        ></img>
+                      </div>
+                    </div>
+                    <NavLink
+                      to="/account/orders"
+                      style={{textDecoration: 'none'}}
+                    >
+                      <button className="help-btn navigate-to-my-orders">
+                        <div className="d-flex flex-row justify-content-between help-text align-items-center">
+                          <img
+                            src={OrderIcon}
+                            height={18}
+                            width={18}
+                            className="mi-lg mi-checkout wh-18 d-inline-block me-2"
+                          ></img>
+                          My Orders
+                        </div>
+
+                        <img
+                          src={RightIconChevron}
+                          height={18}
+                          width={18}
+                          className="mi-lg mi-chevron_right wh-18 d-inline-block"
+                        ></img>
+                      </button>
+                    </NavLink>
+                    <NavLink
+                      to="/account/addresses"
+                      style={{textDecoration: 'none'}}
+                    >
+                      <button className="help-btn navigate-to-address-book">
+                        <div className="d-flex flex-row justify-content-between help-text align-items-center">
+                          <img
+                            src={AddressBookIcon}
+                            height={18}
+                            width={18}
+                            className="mi-lg mi-address_book wh-18 d-inline-block me-2"
+                          ></img>
+                          Address Book
+                        </div>
+                        <img
+                          src={RightIconChevron}
+                          height={18}
+                          width={18}
+                          className="mi-lg mi-chevron_right wh-18 d-inline-block"
+                        ></img>
+                      </button>
+                    </NavLink>
+                    <NavLink to="/" style={{textDecoration: 'none'}}>
+                      <button className="help-btn navigate-to-help">
+                        <div className="d-flex flex-row justify-content-between help-text align-items-center">
+                          <img
+                            src={HelpIcon}
+                            height={18}
+                            width={18}
+                            className="mi-lg mi-help wh-18 d-inline-block me-2"
+                          ></img>
+                          Help & Support
+                        </div>
+                        <img
+                          src={RightIconChevron}
+                          height={18}
+                          width={18}
+                          className="mi-lg mi-chevron_right wh-18 d-inline-block"
+                        ></img>
+                      </button>
+                    </NavLink>
+                    <button className="help-btn">
+                      <div className="d-flex flex-row justify-content-between logout-text align-items-center">
+                        <img
+                          src={LogoutIcon}
+                          height={18}
+                          width={18}
+                          className="mi-lg mi-logout wh-18 d-inline-block me-2"
+                        ></img>
+                        LOGOUT
+                      </div>
+                      <img
+                        src={RightIconChevron}
+                        height={18}
+                        width={18}
+                        className="mi-lg mi-chevron_right wh-18 d-inline-block"
+                      ></img>
+                    </button>
+                  </div>
+                )}
+                <div
+                  className="modal fade"
+                  id="editProfile"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex="-1"
+                  aria-labelledby="editProfileLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5
+                          className="modal-title d-flex align-items-center"
+                          id="editProfileLabel"
+                        >
+                          <img
+                            src={BackArrowIcon}
+                            height={26}
+                            width={26}
+                            className="d-none mi-lg mi-back_arrow wh-26 me-2"
+                            role="button"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></img>
+                          Edit Profile
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        <form id="editProfileForm">
+                          <div className="row">
+                            <div className="col-12 mb-3 position-relative">
+                              <label
+                                htmlFor="mobileNumber"
+                                className="form-label"
+                              >
+                                Mobile Number
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="mobileNumber"
+                                value="+91 9789898989"
+                                disabled
+                              />
+                              <img
+                                src={CheckIcon}
+                                width={14}
+                                height={14}
+                                className="mi-lg mi-check wh-14 d-inline-block position-absolute"
+                              ></img>
+                              <span
+                                className="change-number position-absolute"
+                                role="button"
+                                id="changeProfileBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#changeRegNo"
+                                data-bs-dismiss="modal"
+                              >
+                                CHANGE
+                              </span>
+                            </div>
+                            <div className="col-12 mb-3 position-relative">
+                              <label
+                                htmlFor="emailId"
+                                className="form-label required"
+                              >
+                                Email ID
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control mb-1"
+                                id="emailId"
+                                value="m.radha92@gmail.com"
+                                required
+                                disabled
+                              />
+                              <img
+                                src={CheckIcon}
+                                width={14}
+                                height={14}
+                                className="mi-lg email-check mi-check wh-14 d-inline-block position-absolute"
+                              ></img>
+                              <span
+                                className="change-number position-absolute"
+                                role="button"
+                                id="changeEmailBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#changeRegEmail"
+                                data-bs-dismiss="modal"
+                              >
+                                CHANGE
+                              </span>
+                            </div>
+                            <div className="col-12 col-sm-6 mb-3">
+                              <label
+                                htmlFor="firstName"
+                                className="form-label required"
+                              >
+                                First Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control error-border mb-1"
+                                id="firstName"
+                                placeholder="Enter First Name"
+                                required
+                              />
+                            </div>
+                            <div className="col-12 col-sm-6 mb-3">
+                              <label
+                                htmlFor="lastName"
+                                className="form-label required"
+                              >
+                                Last Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control error-border mb-1"
+                                id="lastName"
+                                placeholder="Enter Last Name"
+                                required
+                              />
+                            </div>
+
+                            <div className="mb-3 sub-header">
+                              Alternate Mobile Number Details
+                            </div>
+                            <div className="col-12 col-sm-6">
+                              <label
+                                htmlFor="mobNumber"
+                                className="form-label required"
+                              >
+                                Mobile Number
+                              </label>
+                              <div className="d-flex flex-row">
+                                <input
+                                  type="text"
+                                  className="form-control"
+                                  id="countryCode"
+                                  value="+91"
+                                  disabled
+                                />
+                                <input
+                                  type="tel"
+                                  className="form-control"
+                                  id="mobNumber"
+                                  placeholder="Enter Mobile Number"
+                                  required
+                                />
+                              </div>
+                              <div className="validation-text">
+                                This will help to recover your account if needed
+                              </div>
+                            </div>
+                            <div className="col-12 col-sm-6">
+                              <label
+                                htmlFor="hintName"
+                                className="form-label required"
+                              >
+                                Hint Name
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control mb-1"
+                                id="hintName"
+                                placeholder="Enter Hint Name"
+                                required
+                              />
+                              <div className="validation-text">
+                                Hint Name will help you to identify alternate
+                                number
+                              </div>
+                            </div>
+                          </div>
+                        </form>
+
+                        <div className="d-none responsive-btn-group">
+                          <button className="save-btn" data-bs-dismiss="modal">
+                            SAVE DETAILS
+                          </button>
+                          <hr />
+                          <button
+                            className="delete-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteConfirmation"
+                            data-bs-dismiss="modal"
+                          >
+                            DELETE ACCOUNT
+                          </button>
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="delete-btn"
+                          data-bs-toggle="modal"
+                          data-bs-target="#deleteConfirmation"
+                          data-bs-dismiss="modal"
+                        >
+                          DELETE ACCOUNT
+                        </button>
+                        <button
+                          type="button"
+                          className="save-details-btn"
+                          data-bs-dismiss="modal"
+                        >
+                          SAVE DETAILS
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <!-- delete profile modal --> */}
+                <div
+                  className="modal fade"
+                  id="deleteConfirmation"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex="-1"
+                  aria-labelledby="deleteConfirmationLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5
+                          className="modal-title d-flex align-items-center"
+                          id="deleteConfirmation"
+                        >
+                          <span
+                            className="d-none mi-lg mi-back_arrow wh-26 me-2"
+                            role="button"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                          ></span>
+                          Delete Account
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="delete-alert">
+                          Are you sure you want to delete your account?
+                        </div>
+                        <div className="delete-alert-text">
+                          By deleting your account, you will lose access to your
+                          order history, saved addresses, and preferences.
+                          Please note that this action is permanent and cannot
+                          be reversed. Your account data will be permanently
+                          deleted from our system and cannot be recovered.
+                          <div className="mt-2">
+                            If you have any questions or need assistance, please
+                            contact our support team.
+                          </div>
+                        </div>
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            id="agreeToTerms"
+                          />
+                          <label
+                            className="form-check-label agree-checkbox"
+                            htmlFor="agreeToTerms"
+                          >
+                            I agree to all the terms and conditions*
+                          </label>
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="delete-btn anyway-btn"
+                          data-bs-dismiss="modal"
+                        >
+                          DELETE ANYWAY
+                        </button>
+                        <button
+                          type="button"
+                          className="save-details-btn"
+                          data-bs-dismiss="modal"
+                        >
+                          KEEP ACCOUNT
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <!-- change registered number modal --> */}
+                <div
+                  className="modal fade"
+                  id="changeRegNo"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex="-1"
+                  aria-labelledby="changeRegNoLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="changeRegNoLabel">
+                          2-Step Verification Required
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="delete-alert verification-alert">
+                          For enhanced security, select a previously used mobile
+                          number to receive a one-time password.
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="mobileNumber"
+                            className="form-label required"
+                          >
+                            Mobile Number
+                          </label>
+                          <div className="d-flex flex-row">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="countryCode"
+                              value="+91"
+                              disabled
+                            />
+                            <input
+                              type="tel"
+                              className="form-control"
+                              id="mobileNumber"
+                              value="9734756841"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="cancel-btn"
+                          data-bs-dismiss="modal"
+                        >
+                          CANCEL
+                        </button>
+                        <button
+                          type="button"
+                          className="save-details-btn"
+                          data-bs-dismiss="modal"
+                          data-bs-toggle="modal"
+                          data-bs-target="#verifyOtp"
+                        >
+                          REQUEST OTP
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <!-- change registered email modal --> */}
+                <div
+                  className="modal fade"
+                  id="changeRegEmail"
+                  data-bs-backdrop="static"
+                  data-bs-keyboard="false"
+                  tabIndex="-1"
+                  aria-labelledby="changeRegEmailLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
+                        <h5 className="modal-title" id="changeRegEmailLabel">
+                          2-Step Verification Required
+                        </h5>
+                        <button
+                          type="button"
+                          className="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body">
+                        <div className="delete-alert verification-alert">
+                          For enhanced security, select a previously used mobile
+                          number to receive a one-time password.
+                        </div>
+                        <div>
+                          <label
+                            htmlFor="email"
+                            className="form-label required"
+                          >
+                            Email ID
+                          </label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            id="email"
+                            value="mradha@gmail.com"
+                            required
+                          />
+                        </div>
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="cancel-btn"
+                          data-bs-dismiss="modal"
+                        >
+                          CANCEL
+                        </button>
+                        <button
+                          type="button"
+                          className="save-details-btn"
+                          data-bs-dismiss="modal"
+                          data-bs-toggle="modal"
+                          data-bs-target="#verifyOtpEmail"
+                        >
+                          REQUEST OTP
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* <!-- 2 step verification number offcanvas --> */}
+                <div
+                  className="offcanvas offcanvas-bottom"
+                  tabIndex="-1"
+                  id="twoStepVerification"
+                  aria-labelledby="twoStepVerificationLabel"
+                >
+                  <div className="offcanvas-header">
+                    <h5
+                      className="offcanvas-title"
+                      id="twoStepVerificationLabel"
+                    >
+                      2-Step Verification Required
+                    </h5>
+                    <button
+                      type="button"
+                      className="btn-close text-reset"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div className="offcanvas-body">
+                    <div className="delete-alert verification-alert">
+                      For enhanced security, select a previously used mobile
+                      number to receive a one-time password.
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="mobileNumber"
+                        className="form-label required"
+                      >
+                        Mobile Number
+                      </label>
+                      <div className="d-flex flex-row">
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="countryCode"
+                          value="+91"
+                          disabled
+                        />
+                        <input
+                          type="tel"
+                          className="form-control"
+                          id="mobileNumber"
+                          value="9999999999"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="req-otp-btn"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                      data-bs-toggle="modal"
+                      data-bs-target="#verifyOtp"
+                    >
+                      REQUEST OTP
+                    </button>
+                  </div>
+                </div>
+
+                {/* <!-- 2 step verification email offcanvas --> */}
+                <div
+                  className="offcanvas offcanvas-bottom"
+                  tabIndex="-1"
+                  id="twoStepVerificationEmail"
+                  aria-labelledby="twoStepVerificationEmailLabel"
+                >
+                  <div className="offcanvas-header">
+                    <h5
+                      className="offcanvas-title"
+                      id="twoStepVerificationEmailLabel"
+                    >
+                      2-Step Verification Required
+                    </h5>
+                    <button
+                      type="button"
+                      className="btn-close text-reset"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div className="offcanvas-body">
+                    <div className="delete-alert verification-alert">
+                      For enhanced security, select a previously used mobile
+                      number to receive a one-time password.
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="form-label required">
+                        Email ID
+                      </label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        id="email"
+                        placeholder="Enter Email ID"
+                        required
+                      />
+                    </div>
+
+                    <button
+                      type="button"
+                      className="req-otp-btn"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                      data-bs-toggle="modal"
+                      data-bs-target="#verifyOtpEmail"
+                    >
+                      REQUEST OTP
+                    </button>
+                  </div>
+                </div>
+
+                {/* <!-- login/logout offcanvas --> */}
+                {isOffcanvas && (
+                  <HeaderMobileOffcanvas isOffcanvas={isOffcanvas} />
+                )}
+              </>
+            ) : (
+              <>
+                <button
+                  id="profileIcon"
+                  ref={profileIconRef}
+                  onClick={toggleDropdown}
+                  className="profile-icon-button"
+                >
+                  <img src={ProfileIcon} alt="profile" />
+                </button>
+                <button
+                  onClick={() => setIsOffcanvas(true)}
+                  className="profile-offcanvas-icon d-none"
+                  style={{border: 'none', background: 'none'}}
+                  role="button"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#loginOffcanvas"
+                  aria-controls="loginOffcanvas"
+                >
+                  <img src={ProfileIcon} alt="profile" />
+                </button>
+                {isDropdownOpen && (
+                  <div
+                    ref={dropdownRef}
+                    id="dropdownContent"
+                    className="dropdown-content"
+                  >
+                    <button className="logout-button">
+                      <NavLink
+                        prefetch="intent"
+                        to="/account"
+                        style={{textDecoration: 'none', color: '#fff'}}
+                      >
+                        LOGIN/SIGN UP
+                      </NavLink>
+                    </button>
+
+                    <NavLink
+                      to="/account/addresses"
+                      style={{textDecoration: 'none'}}
+                    >
+                      <button className="help-btn navigate-to-help">
+                        <div className="d-flex flex-row justify-content-between help-text align-items-center">
+                          <img
+                            src={HelpIcon}
+                            height={18}
+                            width={18}
+                            className="mi-lg mi-help wh-18 d-inline-block me-2"
+                          ></img>
+                          Help & Support
+                        </div>
+                        <img
+                          src={RightIconChevron}
+                          height={18}
+                          width={18}
+                          className="mi-lg mi-chevron_right wh-18 d-inline-block"
+                        ></img>
+                      </button>
+                    </NavLink>
+                  </div>
+                )}
+                {isOffcanvas && (
+                  <HeaderMobileOffcanvas
+                    isOffcanvas={isOffcanvas}
+                    isLoggedOut={true}
+                  />
+                )}
+              </>
+            )
+          }
+        </Await>
+      </Suspense>
 
       <img src={WishListIcon} alt="wishList" />
 

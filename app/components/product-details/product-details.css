@@ -826,7 +826,9 @@
         }
       }
     }
-
+    .carousel-indicators {
+      z-index: 0 !important;
+    }
     #detailsBtnGroup {
       display: none !important;
     }
