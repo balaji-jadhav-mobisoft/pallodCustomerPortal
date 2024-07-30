@@ -70,7 +70,7 @@ const CollectionProductList = ({collection}) => {
           handle: product?.handle,
           title: product.title,
           description: product.description,
-          productPrice: productPrice,
+          // productPrice: productPrice,
           discountPrice: discountedPrice,
           isBestSeller: product.tags.includes('Best Seller'),
           isNew: product.tags.includes('New'),
