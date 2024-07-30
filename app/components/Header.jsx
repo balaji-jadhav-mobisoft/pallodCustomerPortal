@@ -395,7 +395,7 @@ function HeaderCtas({isLoggedIn, cart}) {
       <Suspense fallback="Sign in">
         <Await resolve={isLoggedIn} errorElement="Sign in">
           {(isLoggedIn) =>
-            !isLoggedIn ? (
+            isLoggedIn ? (
               <>
                 <button
                   id="profileIcon"
