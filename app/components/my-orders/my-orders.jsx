@@ -118,12 +118,161 @@ function OrdersTable({orders}) {
           );
         }}
       </Pagination>
+      <OrdersFilter />
     </div>
   );
 }
 
+function OrdersFilter() {
+  return (
+    <>
+      <div
+        className="modal fade"
+        id="orderFilters"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="orderFiltersLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="orderFiltersLabel">Filter Orders</h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body d-flex flex-row">
+              <div className="status-section w-50">
+                <h5>Status</h5>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="statusRadio"
+                    id="all"
+                  />
+                  <label className="form-check-label" for="all"> All </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="statusRadio"
+                    id="onTheWay"
+                  />
+                  <label className="form-check-label" for="onTheWay">
+                    On the way
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="statusRadio"
+                    id="delivered"
+                  />
+                  <label className="form-check-label" for="delivered">
+                    Delivered
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="statusRadio"
+                    id="cancelled"
+                  />
+                  <label className="form-check-label" for="cancelled">
+                    Cancelled
+                  </label>
+                </div>
+              </div>
+              <div className="time-section w-50">
+                <h5>Time</h5>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="timeRadio"
+                    id="anytime"
+                  />
+                  <label className="form-check-label" for="all"> Anytime </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="timeRadio"
+                    id="last30Days"
+                  />
+                  <label className="form-check-label" for="last30Days">
+                    Last 30 days
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="timeRadio"
+                    id="last6Months"
+                  />
+                  <label className="form-check-label" for="last6Months">
+                    Last 6 months
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="timeRadio"
+                    id="lastYear"
+                  />
+                  <label className="form-check-label" for="lastYear">
+                    Last year
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="clear-btn" data-bs-dismiss="modal">
+                CLEAR FILTER
+              </button>
+              <button type="button" className="apply-btn" data-bs-dismiss="modal">
+                APPLY
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
 /**
- * @param {{order: OrderLineItemFullFragment}}
+ * @param {{lineItem: OrderLineItemFullFragment}}
+ */
+function OrderLineRows({lineItem}) {
+  return (
+        <>
+          {lineItem?.image && (
+              <Image
+                data={lineItem.image}
+                width={lineItem.width}
+                height={lineItem.height}
+                sizes="(min-width: 45em) 20vw, 50vw"
+              />
+          )}
+        </>
+  );
+}
+
+/**
+ * @param {{order: OrderItemFragment}}
  */
 function OrderItem({order}) {
   return (
@@ -135,7 +284,9 @@ function OrderItem({order}) {
       >
         <div className="d-flex flex-row">
           <div className="order-item-img">
-            <img src={CelebrityImage} alt="Order 1 Image" />
+            {order.lineItems.nodes.map((lineItem, lineItemIndex) => (
+              <OrderLineRows key={lineItemIndex} lineItem={lineItem} />
+            ))}
           </div>
           <div className="d-flex flex-column flex-grow-1">
             <div className="order-status on-the-way d-flex align-items-center">
@@ -167,7 +318,13 @@ function OrderItem({order}) {
               <div className="d-flex flex-column ps-4">
                 <div className="detail-title">Shipped To</div>
                 <div className="detail-content">
-                  John Mathew <span>(Home)</span>
+                  {order?.shippingAddress ? (
+                  <address>
+                    {order.shippingAddress.name}
+                  </address>
+                ) : (
+                  <p>No shipping address defined</p>
+                )}
                 </div>
               </div>
             </div>

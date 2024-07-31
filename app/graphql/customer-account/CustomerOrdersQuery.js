@@ -14,6 +14,26 @@ export const ORDER_ITEM_FRAGMENT = `#graphql
     id
     number
     processedAt
+    shippingAddress {
+      name
+    }
+    lineItems(first: 1) {
+      nodes {
+        ...OrderLineItemFull
+      }
+    }
+  }
+  fragment OrderLineItemFull on LineItem {
+    id
+    title
+    quantity
+    image {
+      altText
+      height
+      url
+      id
+      width
+    }
   }
 `;
 
