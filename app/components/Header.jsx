@@ -483,6 +483,7 @@ function HeaderCtas({isLoggedIn, cart}) {
                     <NavLink
                       to="/account/orders"
                       style={{textDecoration: 'none'}}
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       <button className="help-btn navigate-to-my-orders">
                         <div className="d-flex flex-row justify-content-between help-text align-items-center">
@@ -506,6 +507,7 @@ function HeaderCtas({isLoggedIn, cart}) {
                     <NavLink
                       to="/account/addresses"
                       style={{textDecoration: 'none'}}
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       <button className="help-btn navigate-to-address-book">
                         <div className="d-flex flex-row justify-content-between help-text align-items-center">
@@ -525,7 +527,11 @@ function HeaderCtas({isLoggedIn, cart}) {
                         ></img>
                       </button>
                     </NavLink>
-                    <NavLink to="/" style={{textDecoration: 'none'}}>
+                    <NavLink
+                      to="/"
+                      style={{textDecoration: 'none'}}
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
                       <button className="help-btn navigate-to-help">
                         <div className="d-flex flex-row justify-content-between help-text align-items-center">
                           <img
