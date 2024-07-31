@@ -101,6 +101,18 @@ export function HeaderMenu({
     }
   };
 
+  useEffect(() => {
+    if (modalData) {
+      document.body.classList.add('hide-scroll');
+    } else {
+      document.body.classList.remove('hide-scroll');
+    }
+
+    return () => {
+      document.body.classList.remove('hide-scroll');
+    };
+  }, [modalData]);
+
   // Handle mouse enter event for showing modal data
   const handleMouseEnter = (resourceId) => {
     const data = menu?.items.filter((item) => item.resourceId === resourceId);
@@ -128,7 +140,7 @@ export function HeaderMenu({
             <span className="rupees-text fs-14 fw-500">INR</span>
           </span>
         </button>
-        <ul
+        {/* <ul
           className="dropdown-menu"
           aria-labelledby="dropdownMenuButton"
           style={{width: '100%'}}
@@ -143,7 +155,7 @@ export function HeaderMenu({
               700
             </Link>
           </li>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

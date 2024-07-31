@@ -19,6 +19,10 @@ img {
   border-radius: 4px;
 }
 
+.hide-scroll {
+  overflow: hidden;
+}
+
 /*
 * --------------------------------------------------
 * components/Asidee
