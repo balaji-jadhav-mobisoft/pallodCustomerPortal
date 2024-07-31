@@ -1155,7 +1155,7 @@ function HeaderCtas({isLoggedIn, cart}) {
 
                     <NavLink
                       onClick={() => setIsOffcanvas(false)}
-                      to="/account/addresses"
+                      to="/"
                       style={{textDecoration: 'none'}}
                     >
                       <button className="help-btn navigate-to-help">
