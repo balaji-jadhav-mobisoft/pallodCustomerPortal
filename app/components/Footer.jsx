@@ -10,31 +10,41 @@ export function Footer({
   header,
   publicStoreDomain,
   footerAbout: footerAboutPromise,
+  pallodAboutBlog: pallodAboutBlogPromise,
 }) {
   return (
     <>
-      <Suspense>
-        <Await resolve={footerPromise}>
-          {(footer) => (
-            <footer className="footer">
-              {footer?.menu && header.shop.primaryDomain?.url && (
-                <Suspense>
-                  <Await resolve={footerAboutPromise}>
-                    {(footerAbout) => (
-                      <FooterMenu
-                        menu={footer.menu}
-                        primaryDomainUrl={header.shop.primaryDomain.url}
-                        publicStoreDomain={publicStoreDomain}
-                        footerAbout={footerAbout.metaobject}
-                      />
-                    )}
-                  </Await>
-                </Suspense>
-              )}
-            </footer>
-          )}
-        </Await>
-      </Suspense>
+      <>
+        <Suspense>
+          <Await resolve={footerPromise}>
+            {(footer) => (
+              <footer className="footer">
+                {footer?.menu && header.shop.primaryDomain?.url && (
+                  <Suspense>
+                    <Await resolve={footerAboutPromise}>
+                      {(footerAbout) => (
+                        <Suspense>
+                          <Await resolve={pallodAboutBlogPromise}>
+                            {(pallodAboutBlog) => (
+                              <FooterMenu
+                                menu={footer.menu}
+                                primaryDomainUrl={header.shop.primaryDomain.url}
+                                publicStoreDomain={publicStoreDomain}
+                                footerAbout={footerAbout.metaobject}
+                                pallodAboutBlog={pallodAboutBlog}
+                              />
+                            )}
+                          </Await>
+                        </Suspense>
+                      )}
+                    </Await>
+                  </Suspense>
+                )}
+              </footer>
+            )}
+          </Await>
+        </Suspense>
+      </>
     </>
   );
 }
@@ -47,7 +57,13 @@ export function Footer({
  * }}
  */
 
-function FooterMenu({menu, primaryDomainUrl, publicStoreDomain, footerAbout}) {
+function FooterMenu({
+  menu,
+  primaryDomainUrl,
+  publicStoreDomain,
+  footerAbout,
+  pallodAboutBlog,
+}) {
   return (
     <>
       <FooterSection
@@ -55,6 +71,7 @@ function FooterMenu({menu, primaryDomainUrl, publicStoreDomain, footerAbout}) {
         primaryDomainUrl={primaryDomainUrl}
         publicStoreDomain={publicStoreDomain}
         footerAbout={footerAbout}
+        pallodAboutBlog={pallodAboutBlog}
       />
     </>
   );

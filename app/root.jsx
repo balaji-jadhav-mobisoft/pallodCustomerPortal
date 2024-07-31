@@ -15,6 +15,7 @@ import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY, FOOTER_ABOUT_QUERY} from '~/lib/fragments';
+import {BLOGS_QUERY} from './lib/productBlogs';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -146,11 +147,16 @@ function loadDeferredData({context}) {
       return null;
     });
 
+  const pallodAboutBlog = storefront.query(BLOGS_QUERY, {
+    variables: {handle: 'pallod-about'},
+  });
+
   return {
     cart: cart.get(),
     isLoggedIn: customerAccount.isLoggedIn(),
     footer,
     footerAbout,
+    pallodAboutBlog,
   };
 }
 

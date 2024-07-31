@@ -19,10 +19,10 @@ const FooterSection = ({
   primaryDomainUrl,
   publicStoreDomain,
   footerAbout,
+  pallodAboutBlog,
 }) => {
   const [contactInputValue, setContactInputValue] = useState('');
   const [contactMethod, setContactMethod] = useState('email');
-
   useEffect(() => {
     const sets = [
       {
@@ -562,7 +562,10 @@ const FooterSection = ({
               <h4 className="mb-3 font-20 footer-header">
                 About The Pallod Store
               </h4>
-              <div className="footer-content">{footerAbout?.field?.value}</div>
+              <div className="footer-content">
+                {footerAbout?.field?.value ||
+                  pallodAboutBlog?.blog?.articles?.edges[0].node.content}
+              </div>
             </div>
           </div>
           <div className="d-flex justify-content-center mt-5 footer-content font-16">
