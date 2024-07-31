@@ -462,8 +462,10 @@ function HeaderCtas({isLoggedIn, cart}) {
                     >
                       <div className="d-flex flex-column">
                         <div className="user-name">
-                          Hello,{' '}
-                          {`${customer?.firstName} ${customer?.lastName}`}
+                          Hello,
+                          {customer?.firstName || customer?.lastName
+                            ? `${customer?.firstName} ${customer?.lastName}`
+                            : ''}
                         </div>
                         <div className="mob-no">
                           {customer?.defaultAddress?.phoneNumber}

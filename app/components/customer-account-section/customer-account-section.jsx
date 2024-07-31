@@ -15,10 +15,15 @@ const CustomerAccountSection = ({customer}) => {
       >
         <div className="d-flex flex-column">
           <div className="username">
-            Hello, <span>{`${customer.firstName} ${customer.lastName}`}</span>
+            Hello,{' '}
+            <span>
+              {customer?.firstName || customer?.lastName
+                ? `${customer?.firstName} ${customer?.lastName}`
+                : ''}
+            </span>
           </div>
           <div className="contact-info">
-            {customerContact} | {userEmail}
+            {customerContact ? `${customerContact} | ` : ''}{userEmail}
           </div>
         </div>
         <div
