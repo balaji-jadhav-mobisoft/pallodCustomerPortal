@@ -1125,7 +1125,10 @@ function HeaderCtas({isLoggedIn, cart}) {
 
                 {/* <!-- login/logout offcanvas --> */}
                 {isOffcanvas && (
-                  <HeaderMobileOffcanvas isOffcanvas={isOffcanvas} />
+                  <HeaderMobileOffcanvas
+                    isOffcanvas={isOffcanvas}
+                    setIsOffcanvas={setIsOffcanvas}
+                  />
                 )}
               </>
             ) : (

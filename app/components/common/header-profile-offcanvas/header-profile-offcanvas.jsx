@@ -1,4 +1,4 @@
-import {NavLink} from '@remix-run/react';
+import {Link, NavLink} from '@remix-run/react';
 import React from 'react';
 import BackArrowIcon from '~/assets/Icon_Back_Arrow.svg';
 import WishListIcon from '~/assets/wishList-icon.svg';
@@ -36,12 +36,16 @@ const HeaderMobileOffcanvas = ({isOffcanvas, isLoggedOut, setIsOffcanvas}) => {
             width={20}
             className="mi-lg mi-wishlist_2 wh-20 d-inline-block me-4"
           ></img>
-          <img
-            src={CartIcon}
-            height={20}
-            width={20}
-            className="mi-lg mi-checkout wh-20 d-inline-block"
-          ></img>
+          <Link to="/cart" style={{marginTop: '-5px'}}>
+            <img
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+              src={CartIcon}
+              height={20}
+              width={20}
+              className="mi-lg mi-checkout wh-20 d-inline-block"
+            ></img>
+          </Link>
         </div>
       </div>
       <div className="offcanvas-body">

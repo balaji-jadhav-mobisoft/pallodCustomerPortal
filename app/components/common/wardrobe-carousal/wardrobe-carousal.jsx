@@ -195,7 +195,7 @@ const WardrobeCarousal = ({
             {trendingLooks ? collection : collection?.collection?.title}
             {productDetails && collection.title}
             {/* {similarProduct && !moreColorProducts} */}
-            {moreColorProducts && 'More From Similar color'}
+            {/* {moreColorProducts && 'More From Similar color'} */}
           </div>
           <Link
             to={`/collections/${collection?.collection?.handle}`}

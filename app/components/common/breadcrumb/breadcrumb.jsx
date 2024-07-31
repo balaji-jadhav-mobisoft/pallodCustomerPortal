@@ -7,7 +7,7 @@ const Breadcrumb = ({items}) => {
     <nav
       style={{'--bs-breadcrumb-divider': "'>'"}}
       aria-label="breadcrumb"
-      className="main-container breadcrumb-container mb-0"
+      className="breadcrumb-container mb-0"
     >
       <ol className="breadcrumb">
         {items.map((item, index) => (
