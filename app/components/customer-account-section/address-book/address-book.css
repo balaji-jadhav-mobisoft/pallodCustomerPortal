@@ -267,7 +267,7 @@
       }
       .modal-content {
         width: 100%;
-        height: 100%;
+        height: 100% !important;
         border-radius: 0px;
         .modal-body {
           padding: 16px;
@@ -311,14 +311,15 @@
       }
     }
     .my-orders-list {
-      height: 100%;
-      max-height: none;
+      height: 100% !important;
+      max-height: none !important;
+      margin: 10px 10px !important;
       .nav-section {
         display: none !important;
       }
-      .default-type {
+      /* .default-type {
         margin-top: 72px;
-      }
+      } */
       .action-btns {
         flex-direction: column !important;
         .remove-edit-btns {
@@ -333,8 +334,8 @@
         }
       }
       .address-block {
-        border: none;
-        border-bottom: solid 1px #e0e0e0;
+        border: none !important;
+        border-bottom: solid 1px #e0e0e0 !important;
         padding: 0px 0px 27px 0px;
         margin-bottom: 18px;
         .address-category {

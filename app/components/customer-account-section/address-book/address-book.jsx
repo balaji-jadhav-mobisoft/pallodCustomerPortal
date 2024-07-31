@@ -3,6 +3,8 @@ import EditIcon from '~/assets/icon-edit.svg';
 import RightIcon from '~/assets/plus_icon.svg';
 import delivered_icon from '~/assets/delivery.svg';
 import Icon_back_Arrow from '~/assets/Icon_Back_Arrow.svg';
+import WishListEmptyImage from '~/assets/Empty_Address.webp';
+import PlusIcon from '~/assets/plus-icon-white.svg';
 import './address-book.css';
 
 const AddressBook = ({customer}) => {
@@ -10,7 +12,11 @@ const AddressBook = ({customer}) => {
   const [selectedAddress, setSelectedAddress] = useState('defaultAddress');
   const [isBillingSameAsShipping, setIsBillingSameAsShipping] = useState(true);
   const [selectedButton, setSelectedButton] = useState('home');
-
+  const [shippingAddress, setShippingAddress] = useState({
+    city: '',
+    state: '',
+    country: '',
+  });
   const handleAddressChange = (e) => {
     setSelectedAddress(e.target.id);
   };
@@ -18,6 +24,10 @@ const AddressBook = ({customer}) => {
     setSelectedButton(buttonType);
   };
 
+  const handleShippingAddressChange = (e) => {
+    const {name, value} = e.target;
+    setShippingAddress((prev) => ({...prev, [name]: value}));
+  };
   // useEffect(() => {
   //   const billingDetails = document.getElementById('billingDetails');
   //   if (isBillingSameAsShipping) {
@@ -44,7 +54,12 @@ const AddressBook = ({customer}) => {
     }, ${address.zoneCode || ''}, ${address.zip || ''}`;
   };
 
-  const AddressBlock = ({address, selectedAddress, handleAddressChange}) => {
+  const AddressBlock = ({
+    address,
+    selectedAddress,
+    handleAddressChange,
+    remove,
+  }) => {
     return (
       <div className="address-block position-relative ">
         {/* <div className="address-category position-absolute">Work</div> */}
@@ -78,7 +93,7 @@ const AddressBook = ({customer}) => {
           {selectedAddress === address.id && (
             <div className="action-btns d-flex flex-row justify-content-between">
               <div className="d-flex remove-edit-btns">
-                <button className="me-3">REMOVE</button>{' '}
+                {remove && <button className="me-3">REMOVE</button>}
                 <button data-bs-toggle="modal" data-bs-target="#addAddress">
                   EDIT
                 </button>
@@ -213,11 +228,22 @@ const AddressBook = ({customer}) => {
                       <label htmlFor="city" className="form-label">
                         City
                       </label>
-                      <select className="form-select" id="city">
-                        <option className="select-placeholder" selected>
+                      <select
+                        name="city"
+                        className="form-select"
+                        id="city"
+                        value={shippingAddress.city}
+                        onChange={handleShippingAddressChange}
+                      >
+                        <option
+                          value=""
+                          className="select-placeholder"
+                          selected
+                        >
                           Select
                         </option>
-                        <option>Select City</option>
+                        <option value="city1">City 1</option>
+                        <option value="city2">City 2</option>
                         {/* Add options here */}
                       </select>
                     </div>
@@ -227,10 +253,22 @@ const AddressBook = ({customer}) => {
                       <label htmlFor="state" className="form-label">
                         State / Province
                       </label>
-                      <select className="form-select" id="state">
-                        <option className="select-placeholder" selected>
+                      <select
+                        name="state"
+                        className="form-select"
+                        id="state"
+                        value={shippingAddress.state}
+                        onChange={handleShippingAddressChange}
+                      >
+                        <option
+                          className="select-placeholder"
+                          selected
+                          value=""
+                        >
                           Select
                         </option>
+                        <option value="state1">State 1</option>
+                        <option value="state2">State 2</option>
                         {/* Add options here */}
                       </select>
                     </div>
@@ -238,10 +276,22 @@ const AddressBook = ({customer}) => {
                       <label htmlFor="country" className="form-label">
                         Country / Region
                       </label>
-                      <select className="form-select" id="country">
-                        <option className="select-placeholder" selected>
+                      <select
+                        name="country"
+                        className="form-select"
+                        id="country"
+                        value={shippingAddress.country}
+                        onChange={handleShippingAddressChange}
+                      >
+                        <option
+                          className="select-placeholder"
+                          selected
+                          value=""
+                        >
                           Select
                         </option>
+                        <option value="country1">Country 1</option>
+                        <option value="country2">Country 2</option>
                         {/* Add options here */}
                       </select>
                     </div>
@@ -526,85 +576,93 @@ const AddressBook = ({customer}) => {
       <div className=" d-flex flex-row mb-4">
         <div className="my-orders-list d-flex flex-column flex-grow-1">
           {/* empty address section */}
-          {/* <h3>Saved Address</h3>
-    <div
-      class="d-flex justify-content-center align-items-center flex-grow-1"
-    >
-      <div
-        class="empty-section d-flex flex-column justify-content-center align-items-center"
-      >
-        <div class="empty-img">
-          <img
-            src="../static/images/wishlist-empty/Empty_Address.webp"
-            alt="No Orders"
-          />
-        </div>
-        <div class="no-orders-header">SAVE YOUR ADDRESSES NOW</div>
-        <div class="no-orders-text">
-          Add your home and office addresses and enjoy faster checkout
-        </div>
-        <button class="continue-shopping-btn d-flex align-items-center" data-bs-toggle="modal"
-          data-bs-target="#addAddress">
-          <span
-            class="mi-lg mi-add bg-white wh-20 d-inline-block me-2"
-          ></span
-          >ADD NEW ADDRESS
-        </button>
-      </div>
-    </div> */}
-          <div className="nav-section d-flex flex-row justify-content-between align-items-center">
-            <h3>
-              Saved Address
-              {addresses?.nodes?.length ? ` (${addresses?.nodes?.length})` : ''}
-            </h3>
-            <button
-              className="add-new-address-btn d-flex align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#addAddress"
-            >
-              <img
-                src={RightIcon}
-                className="mi-lg mi-add wh-18 me-2 d-inline-block"
-              />
-              ADD NEW ADDRESS
-            </button>
-          </div>
-          {/* default address */}
-          <h5 className="address-type default-type">DEFAULT ADDRESS:</h5>
-          {defaultAddress && (
-            <div className="default-address">
-              <AddressBlock
-                address={defaultAddress}
-                selectedAddress={selectedAddress}
-                handleAddressChange={handleAddressChange}
-              />
-            </div>
+          {addresses?.nodes?.length === 0 ? (
+            <>
+              <div className="d-flex justify-content-center align-items-center flex-grow-1">
+                <div className="empty-section d-flex flex-column justify-content-center align-items-center">
+                  <div className="empty-img">
+                    <img src={WishListEmptyImage} alt="No Orders" />
+                  </div>
+                  <div className="no-orders-header">
+                    SAVE YOUR ADDRESSES NOW
+                  </div>
+                  <div className="no-orders-text">
+                    Add your home and office addresses and enjoy faster checkout
+                  </div>
+                  <button
+                    className="continue-shopping-btn d-flex align-items-center"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addAddress"
+                  >
+                    <img
+                      src={PlusIcon}
+                      className="mi-lg mi-add wh-20 d-inline-block me-2"
+                    ></img>
+                    ADD NEW ADDRESS
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="nav-section d-flex flex-row justify-content-between align-items-center">
+                <h3>
+                  Saved Address
+                  {addresses?.nodes?.length
+                    ? ` (${addresses?.nodes?.length})`
+                    : ''}
+                </h3>
+                <button
+                  className="add-new-address-btn d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addAddress"
+                >
+                  <img
+                    src={RightIcon}
+                    className="mi-lg mi-add wh-18 me-2 d-inline-block"
+                  />
+                  ADD NEW ADDRESS
+                </button>
+              </div>
+              {/* default address */}
+              <h5 className="address-type default-type">DEFAULT ADDRESS:</h5>
+              {defaultAddress && (
+                <div className="default-address">
+                  <AddressBlock
+                    address={defaultAddress}
+                    selectedAddress={selectedAddress}
+                    handleAddressChange={handleAddressChange}
+                  />
+                </div>
+              )}
+              {/* other address */}
+              <h5 className="address-type">OTHER ADDRESS:</h5>
+              <div>
+                {otherAddresses?.map((address) => (
+                  <AddressBlock
+                    key={address.id}
+                    address={address}
+                    selectedAddress={selectedAddress}
+                    handleAddressChange={handleAddressChange}
+                    remove={true}
+                  />
+                ))}
+              </div>
+              <div className="d-none add-address-fixed">
+                <button
+                  className="d-flex align-items-center"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addAddress"
+                >
+                  <img
+                    src={PlusIcon}
+                    className="mi-lg mi-add wh-20 d-inline-block me-2"
+                  />
+                  ADD NEW ADDRESS
+                </button>
+              </div>
+            </>
           )}
-          {/* other address */}
-          <h5 className="address-type">OTHER ADDRESS:</h5>
-          <div>
-            {otherAddresses?.map((address) => (
-              <AddressBlock
-                key={address.id}
-                address={address}
-                selectedAddress={selectedAddress}
-                handleAddressChange={handleAddressChange}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="d-none add-address-fixed">
-          <button
-            className="d-flex align-items-center"
-            data-bs-toggle="modal"
-            data-bs-target="#addAddress"
-          >
-            <img
-              src={RightIcon}
-              className="mi-lg mi-add wh-20 d-inline-block me-2"
-            />
-            ADD NEW ADDRESS
-          </button>
         </div>
       </div>
     </div>
