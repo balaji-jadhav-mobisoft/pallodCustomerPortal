@@ -106,9 +106,9 @@ const ChangeAddressModal = ({
             </div>
             {/* addresses */}
             <div className="address-block position-relative">
-              <div className="address-category default-category position-absolute">
+              {/* <div className="address-category default-category position-absolute">
                 Home
-              </div>
+              </div> */}
               <input
                 className="form-check-input"
                 type="radio"
@@ -160,7 +160,7 @@ const ChangeAddressModal = ({
               </label>
             </div>
             <div className="address-block position-relative">
-              <div className="address-category position-absolute">Work</div>
+              {/* <div className="address-category position-absolute">Work</div> */}
               <input
                 className="form-check-input"
                 type="radio"
@@ -199,7 +199,7 @@ const ChangeAddressModal = ({
               </label>
             </div>
             <div className="address-block position-relative">
-              <div className="address-category position-absolute">Work</div>
+              {/* <div className="address-category position-absolute">Work</div> */}
               <input
                 className="form-check-input"
                 type="radio"
@@ -238,7 +238,7 @@ const ChangeAddressModal = ({
               </label>
             </div>
             <div className="address-block position-relative">
-              <div className="address-category position-absolute">Work</div>
+              {/* <div className="address-category position-absolute">Work</div> */}
               <input
                 className="form-check-input"
                 type="radio"

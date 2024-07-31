@@ -1,5 +1,12 @@
 import {Suspense, useEffect, useRef, useState} from 'react';
-import {Await, Form, Link, NavLink, useNavigate} from '@remix-run/react';
+import {
+  Await,
+  Form,
+  Link,
+  NavLink,
+  useLoaderData,
+  useNavigate,
+} from '@remix-run/react';
 import {Image, useAnalytics} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import PallodIcon from '~/assets/pallod-logo.svg?url';
@@ -355,6 +362,7 @@ function HeaderCtas({isLoggedIn, cart}) {
   const [isOffcanvas, setIsOffcanvas] = useState(false);
   const dropdownRef = useRef(null);
   const profileIconRef = useRef(null);
+  const {customer} = useLoaderData();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
@@ -453,8 +461,13 @@ function HeaderCtas({isLoggedIn, cart}) {
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       <div className="d-flex flex-column">
-                        <div className="user-name">Hello, Radha Mehta</div>
-                        <div className="mob-no">+91 9734756841</div>
+                        <div className="user-name">
+                          Hello,{' '}
+                          {`${customer?.firstName} ${customer?.lastName}`}
+                        </div>
+                        <div className="mob-no">
+                          {customer?.defaultAddress?.phoneNumber}
+                        </div>
                       </div>
                       <div className="d-flex align-items-center">
                         <img

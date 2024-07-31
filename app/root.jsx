@@ -9,6 +9,7 @@ import {
   useRouteLoaderData,
   ScrollRestoration,
   isRouteErrorResponse,
+  useLoaderData,
 } from '@remix-run/react';
 import favicon from '~/assets/favicon.svg';
 import resetStyles from '~/styles/reset.css?url';
@@ -16,6 +17,7 @@ import appStyles from '~/styles/app.css?url';
 import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY, FOOTER_ABOUT_QUERY} from '~/lib/fragments';
 import {BLOGS_QUERY} from './lib/productBlogs';
+import {CUSTOMER_DETAILS_QUERY} from './graphql/customer-account/CustomerDetailsQuery';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -65,8 +67,18 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  const {storefront, env} = args.context;
+  const {storefront, env, customerAccount} = args.context;
+  const isLoggedIn = await customerAccount.isLoggedIn();
 
+  let customerData = null;
+
+  if (isLoggedIn) {
+    const {data, errors} = await customerAccount.query(CUSTOMER_DETAILS_QUERY);
+    if (errors?.length || !data?.customer) {
+      throw new Error('Customer not found');
+    }
+    customerData = data.customer;
+  }
   return defer(
     {
       ...deferredData,
@@ -80,6 +92,7 @@ export async function loader(args) {
         checkoutDomain: env.PUBLIC_CHECKOUT_DOMAIN,
         storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       },
+      customer: customerData,
     },
     {
       headers: {

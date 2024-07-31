@@ -18,14 +18,14 @@ const AddressBook = ({customer}) => {
     setSelectedButton(buttonType);
   };
 
-  useEffect(() => {
-    const billingDetails = document.getElementById('billingDetails');
-    if (isBillingSameAsShipping) {
-      billingDetails.style.display = 'none';
-    } else {
-      billingDetails.style.display = 'block';
-    }
-  }, [isBillingSameAsShipping]);
+  // useEffect(() => {
+  //   const billingDetails = document.getElementById('billingDetails');
+  //   if (isBillingSameAsShipping) {
+  //     billingDetails.style.display = 'none';
+  //   } else {
+  //     billingDetails.style.display = 'block';
+  //   }
+  // }, [isBillingSameAsShipping]);
 
   const handleCheckboxChange = () => {
     setIsBillingSameAsShipping(!isBillingSameAsShipping);
@@ -47,7 +47,7 @@ const AddressBook = ({customer}) => {
   const AddressBlock = ({address, selectedAddress, handleAddressChange}) => {
     return (
       <div className="address-block position-relative ">
-        <div className="address-category position-absolute">Work</div>
+        {/* <div className="address-category position-absolute">Work</div> */}
         <input
           className="form-check-input"
           type="radio"
@@ -148,7 +148,7 @@ const AddressBook = ({customer}) => {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-12 col-sm-6 mb-3">
+                    <div className="col-12 col-sm-12 mb-3">
                       <label
                         htmlFor="mobileNumber"
                         className="form-label required"
@@ -163,7 +163,7 @@ const AddressBook = ({customer}) => {
                         required
                       />
                     </div>
-                    <div className="col-12 col-sm-6 mb-3">
+                    {/* <div className="col-12 col-sm-6 mb-3">
                       <label htmlFor="email" className="form-label required">
                         Email ID
                       </label>
@@ -174,7 +174,7 @@ const AddressBook = ({customer}) => {
                         placeholder="Enter Email ID"
                         required
                       />
-                    </div>
+                    </div> */}
                   </div>
                   <div className="row mb-3">
                     <div className="col-12">
@@ -246,7 +246,7 @@ const AddressBook = ({customer}) => {
                       </select>
                     </div>
                   </div>
-                  <div className="row mb-3">
+                  {/* <div className="row mb-3">
                     <div className="col-12">
                       <div className="form-check">
                         <input
@@ -265,9 +265,9 @@ const AddressBook = ({customer}) => {
                         </label>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   {/* billing address form */}
-                  <div className="mt-2 mb-2" id="billingDetails">
+                  {/* <div className="mt-2 mb-2" id="billingDetails">
                     <h5 className="mb-3 billing-detail-header">
                       Billing Details
                     </h5>
@@ -389,7 +389,6 @@ const AddressBook = ({customer}) => {
                             Select
                           </option>
                           <option>Select City</option>
-                          {/* Add options here */}
                         </select>
                       </div>
                     </div>
@@ -402,7 +401,6 @@ const AddressBook = ({customer}) => {
                           <option className="select-placeholder" selected>
                             Select
                           </option>
-                          {/* Add options here */}
                         </select>
                       </div>
                       <div className="col-6">
@@ -413,12 +411,11 @@ const AddressBook = ({customer}) => {
                           <option className="select-placeholder" selected>
                             Select
                           </option>
-                          {/* Add options here */}
                         </select>
                       </div>
                     </div>
-                  </div>
-                  <div className="row mb-3">
+                  </div> */}
+                  {/* <div className="row mb-3">
                     <div className="col-12">
                       <label className="form-label">Save address as</label>
                       <div>
@@ -506,7 +503,7 @@ const AddressBook = ({customer}) => {
                         </label>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

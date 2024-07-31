@@ -37,10 +37,10 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
     }
 
     // Handle display of billing address details based on checkbox
-    const billingDetails = document.getElementById('billingDetails');
-    if (billingDetails) {
-      billingDetails.style.display = isBillingSameAsShipping ? 'none' : 'block';
-    }
+    // const billingDetails = document.getElementById('billingDetails');
+    // if (billingDetails) {
+    //   billingDetails.style.display = isBillingSameAsShipping ? 'none' : 'block';
+    // }
 
     // Cleanup on component unmount or when modal state changes
     return () => {
@@ -118,7 +118,7 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-12 col-sm-6 mb-3">
+                  <div className="col-12 col-sm-12 mb-3">
                     <label
                       htmlFor="mobileNumber"
                       className="form-label required"
@@ -133,7 +133,7 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                       required
                     />
                   </div>
-                  <div className="col-12 col-sm-6 mb-3">
+                  {/* <div className="col-12 col-sm-6 mb-3">
                     <label htmlFor="email" className="form-label required">
                       Email ID
                     </label>
@@ -144,7 +144,7 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                       placeholder="Enter Email ID"
                       required
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="row mb-3">
                   <div className="col-12">
@@ -239,7 +239,7 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                     </select>
                   </div>
                 </div>
-                <div className="row mb-3">
+                {/* <div className="row mb-3">
                   <div className="col-12">
                     <div className="form-check">
                       <input
@@ -258,9 +258,9 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* billing address form */}
-                <div className="mt-2 mb-2" id="billingDetails">
+                {/* <div className="mt-2 mb-2" id="billingDetails">
                   <h5 className="mb-3 billing-detail-header">
                     Billing Details
                   </h5>
@@ -389,7 +389,6 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                         </option>
                         <option value="city1">City 1</option>
                         <option value="city2">City 2</option>
-                        {/* Add options here */}
                       </select>
                     </div>
                   </div>
@@ -410,12 +409,11 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                         </option>
                         <option value="state1">State 1</option>
                         <option value="state2">State 2</option>
-                        {/* Add options here */}
                       </select>
                     </div>
                   </div>
-                </div>
-                <div className="row mb-3">
+                </div> */}
+                {/* <div className="row mb-3">
                   <div className="col-12">
                     <label className="form-label">Save address as</label>
                     <div>
@@ -495,7 +493,7 @@ const AddAddressModal = ({isOpen, onClose, type = 'add'}) => {
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </form>
             </div>
           </div>
