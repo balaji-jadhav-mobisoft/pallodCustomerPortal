@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './designer-studio.css'; // Make sure to include the necessary CSS
-import PallodVideo from '~/assets/pallod-video.mov';
+import PallodVideo from '~/assets/pallod-video.webm';
 import {Link, NavLink} from '@remix-run/react';
 
 const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
@@ -112,11 +112,7 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
             VIEW ALL
           </NavLink>
         </div>
-        <div
-          className="fluid-container main-container"
-          style={{marginBottom: '30px'}}
-          id="designerStudio"
-        >
+        <div className="fluid-container main-container" id="designerStudio">
           <div className="row" id="designerStudioItems">
             {!isResponsive && renderItems(designerStudioItems)}
             {!isResponsive && renderItems(individualDesignerCollectionItems)}
@@ -136,8 +132,15 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
         </div>
       </div>
       <div className="video-banner1">
-        <video controls className="col-12 col-md-12">
-          <source src={PallodVideo} type="video/mp4" />
+        <video
+          className="col-12 col-md-12"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+        >
+          <source src={PallodVideo} type="video/webm" />
         </video>
       </div>
     </>

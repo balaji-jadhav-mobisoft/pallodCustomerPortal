@@ -63,3 +63,7 @@ export const quantityArray = [
   '49',
   '50',
 ];
+
+export const FACEBOOK_LINK = 'https://www.facebook.com/pallodofficial?mibextid=ZbWKwL';
+export const INSTAGRAM_LINK =
+  'https://www.instagram.com/pallodofficial?igsh=bWV4dmlkd3MwejNt';

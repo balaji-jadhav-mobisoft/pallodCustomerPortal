@@ -72,11 +72,14 @@
 }
 .video-banner1 {
   margin-bottom: 70px;
-  /* height: 40vh; */
   video {
     height: auto;
     width: 100vw;
   }
+}
+
+#designerStudio {
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 1181px) {
@@ -93,13 +96,30 @@
       font-size: 30px;
     }
   }
-  .video-banner1 {
+  /* .video-banner1 {
     height: 220px;
     margin-bottom: 200px;
-    /* video {
-      height: 100%;
-      width: 100%;
-    } */
+  } */
+
+  .video-banner1 {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-top: 56.25%;
+    overflow: hidden;
+  }
+
+  .video-banner1 video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 90%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+  #designerStudio {
+    margin-bottom: 15px;
   }
 }
 @media screen and (max-width: 876px) {

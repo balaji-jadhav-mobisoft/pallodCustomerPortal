@@ -64,11 +64,15 @@ export default function Page() {
   const {page} = useLoaderData();
 
   return (
-    <div className="page">
+    <div className="main-container-page-section">
       <header>
-        <h1>{page.title}</h1>
+        <h1 className="page-title">{page.title}</h1>
       </header>
-      <main dangerouslySetInnerHTML={{__html: page.body}} />
+
+      <main
+        className="page-body"
+        dangerouslySetInnerHTML={{__html: page.body}}
+      />
     </div>
   );
 }

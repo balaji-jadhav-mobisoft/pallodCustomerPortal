@@ -66,7 +66,7 @@
     height: 599px;
   }
   .carousel-left img {
-    object-fit: cover;
+    /* object-fit: cover; */
   }
   .carousel-right {
     width: 58%;
@@ -75,7 +75,7 @@
 
   .carousel-right img {
     /* object-fit: cover; */
-    object-fit: fill;
+    /* object-fit: fill; */
   }
   .carousel-caption {
     position: absolute;
@@ -92,6 +92,7 @@
     font-family: 'Belleza';
     font-size: 50px;
     color: #e29808;
+    text-transform: uppercase;
   }
   .carousel-caption p {
     font-size: 18px;

@@ -3,6 +3,7 @@ import './salwar-saga-card.css';
 import IconLeftChevron from '~/assets/icon_left_chevron.svg';
 import IconRightChevron from '~/assets/icon_right_chevron.svg';
 import {NavLink} from '@remix-run/react';
+import {Image} from '@shopify/hydrogen';
 
 const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
   if (!menu || !menu?.items) return null;
@@ -52,19 +53,21 @@ const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
             >
               <div className="carousel-img-container d-flex justify-content-center">
                 <div className="carousel-left">
-                  <img
+                  <Image
                     src={item.leftImgSrc}
                     style={{borderRadius: '0px'}}
                     className="d-block"
                     alt="Collection"
+                    sizes="(max-width: 600px) 100vw, 50vw"
                   />
                 </div>
                 <div className="carousel-right">
-                  <img
+                  <Image
                     src={item.rightImgSrc}
                     style={{borderRadius: '0px'}}
                     className="d-block"
                     alt={item.caption}
+                    sizes="(max-width: 600px) 100vw, 50vw"
                   />
                 </div>
               </div>

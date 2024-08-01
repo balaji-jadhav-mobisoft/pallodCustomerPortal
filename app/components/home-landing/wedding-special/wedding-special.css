@@ -20,7 +20,10 @@
     margin: 0px 30px 0px 83px;
   }
   .img-grid-overlay .row {
+    position: absolute;
     margin: 0;
+    top: 17%;
+    right: 32%;
   }
   .wedding-special-frame {
     position: absolute;

@@ -1132,6 +1132,33 @@ body::-webkit-scrollbar {
   color: var(--color-dark-grey);
 }
 
+.page-title {
+  width: 289px;
+  height: 35px;
+  flex-grow: 0;
+  font-family: Belleza;
+  font-size: 30px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #212121;
+}
+
+.page-body {
+  flex-grow: 0;
+  font-family: Mulish;
+  font-size: 16px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+}
+
 .view-all-btn {
   color: #cd6f00;
   font-weight: 600;
@@ -1142,6 +1169,28 @@ body::-webkit-scrollbar {
 
 .modal-backdrop {
   z-index: 1 !important;
+}
+
+.main-container-page-section {
+  margin: 0px 108px 70px;
+}
+
+@media screen and (max-width: 1181px) {
+  .main-container-page-section {
+    margin: 0px 60px 70px;
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .main-container-page-section {
+    margin: 0px 45px 50px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-container-page-section {
+    margin: 0px 15px 30px 15px;
+  }
 }
 @media screen and (max-width: 651px) {
   #editProfile,

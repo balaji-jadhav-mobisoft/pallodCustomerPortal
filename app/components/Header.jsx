@@ -31,6 +31,7 @@ import HelpIcon from '~/assets/icon_help.svg';
 import CheckIcon from '~/assets/Icon_Check.svg';
 import BackArrowIcon from '~/assets/Icon_Back_Arrow.svg';
 import HeaderMobileOffcanvas from './common/header-profile-offcanvas/header-profile-offcanvas';
+import {FACEBOOK_LINK, INSTAGRAM_LINK} from './common/common-constants';
 
 /**
  * @param {HeaderProps}
@@ -88,9 +89,23 @@ export function HeaderMenu({
   const className = `header-menu-${viewport}`;
 
   const headerMenuMobileCard = [
-    {image: StoreIcon, title: 'Store Locator'},
-    {image: HelpInfoIcon, title: 'Help & Support'},
-    {image: AboutUsIcon, title: 'About Us'},
+    {image: StoreIcon, title: 'Store Locator', link: '/'},
+    {image: HelpInfoIcon, title: 'Help & Support', link: '/pages/help-support'},
+    {image: AboutUsIcon, title: 'About Us', link: '/pages/about-us'},
+  ];
+  const headerMenuMobileTermsAndPrivacyPage = [
+    {title: 'Terms Of Use', link: 'pages/terms-of-use'},
+    {title: 'Privacy Policy', link: '/pages/privacy-policy'},
+  ];
+  const headerMenuMobileSocialMediaIcon = [
+    {
+      image: InstagramIcon,
+      link: INSTAGRAM_LINK,
+    },
+    {
+      image: FacebookIcon,
+      link: FACEBOOK_LINK,
+    },
   ];
 
   // Close aside function for mobile
@@ -220,8 +235,11 @@ export function HeaderMenu({
   const renderMobileCards = () => (
     <div>
       {headerMenuMobileCard.map((card, index) => (
-        <div
+        <Link
+          style={{textDecoration: 'none'}}
+          to={card.link}
           key={index}
+          onClick={closeAside}
           className="row border justify-content-between header-menu-mobile-card-container"
         >
           <div className="d-flex col-9">
@@ -231,22 +249,34 @@ export function HeaderMenu({
           <div className="col-2 mobile-card-right-icon">
             <img src={RightIcon} alt="right arrow" />
           </div>
-        </div>
+        </Link>
       ))}
-      <Link to="/" className="text-decoration-none" onClick={closeAside}>
-        {['Terms Of Use', 'Privacy Policy'].map((val, index) => (
-          <div key={index} className="m-10 mt-20 mobile-menu">
-            {val}
-          </div>
+      <div>
+        {headerMenuMobileTermsAndPrivacyPage.map((val, index) => (
+          <Link
+            style={{display: 'block'}}
+            to={val.link}
+            onClick={closeAside}
+            key={index}
+            className="m-10 mt-20 mobile-menu text-decoration-none"
+          >
+            {val.title}
+          </Link>
         ))}
         <div className="d-flex">
-          {[InstagramIcon, FacebookIcon].map((val, index) => (
-            <div key={index} className="m-10">
-              {<img className="d-flex" src={val} alt="social" />}
-            </div>
+          {headerMenuMobileSocialMediaIcon.map((val, index) => (
+            <a
+              target="_blank"
+              href={val.link}
+              onClick={closeAside}
+              key={index}
+              className="m-10 text-decoration-none"
+            >
+              {<img className="d-flex" src={val.image} alt="social" />}
+            </a>
           ))}
         </div>
-      </Link>
+      </div>
     </div>
   );
 
@@ -374,8 +404,8 @@ function HeaderCtas({isLoggedIn, cart}) {
   const [isOffcanvas, setIsOffcanvas] = useState(false);
   const dropdownRef = useRef(null);
   const profileIconRef = useRef(null);
-  const {customer} = useLoaderData();
-
+  const data = useLoaderData();
+  const customer = data?.customer;
   const toggleDropdown = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };

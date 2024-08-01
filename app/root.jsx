@@ -43,6 +43,14 @@ export function links() {
       rel: 'stylesheet',
       href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
     },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Belleza&display=swap',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Concert+One&family=Montserrat&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap',
+    },
     {rel: 'stylesheet', href: resetStyles},
     {rel: 'stylesheet', href: appStyles},
     {

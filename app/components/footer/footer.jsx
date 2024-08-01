@@ -13,6 +13,7 @@ import PayPalIcon from '~/assets/paypal_icon.webp';
 import MastercardIcon from '~/assets/master_card.webp';
 import VisaIcon from '~/assets/Visa_Icon.webp';
 import {NavLink} from '@remix-run/react';
+import {FACEBOOK_LINK, INSTAGRAM_LINK} from '../common/common-constants';
 
 const FooterSection = ({
   menu,
@@ -165,16 +166,28 @@ const FooterSection = ({
                 </p>
                 <h5 className="mt-5">Follow Us On</h5>
                 <p>
-                  <img
-                    src={FacebookIcon}
-                    className="mi-lg mi-facebook social-media-icon d-inline-block"
-                    alt="Facebook Icon"
-                  ></img>
-                  <img
-                    src={InstagramIcon}
-                    className="mi-lg mi-instagram social-media-icon d-inline-block"
-                    alt="Instagram Icon"
-                  ></img>
+                  <a
+                    href={FACEBOOK_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={FacebookIcon}
+                      className="mi-lg mi-facebook social-media-icon d-inline-block"
+                      alt="Facebook Icon"
+                    ></img>
+                  </a>
+                  <a
+                    href={INSTAGRAM_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={InstagramIcon}
+                      className="mi-lg mi-instagram social-media-icon d-inline-block"
+                      alt="Instagram Icon"
+                    ></img>
+                  </a>
                 </p>
               </div>
               <div className="col-6 footer-container">
@@ -421,19 +434,6 @@ const FooterSection = ({
               phone & download the app.
             </p>
             <div className="form-check form-check-inline">
-              {/* <input
-                className="form-check-input"
-                type="radio"
-                name="contact"
-                id="emailRadioFtr"
-                value="email"
-                defaultChecked={false}
-                checked={contactMethod === 'email'}
-                onChange={handleContactMethodChange}
-              />
-              <label className="form-check-label" htmlFor="emailRadioFtr">
-                Email
-              </label> */}
               <input
                 className="form-check-input"
                 type="radio"
@@ -448,19 +448,6 @@ const FooterSection = ({
               </label>
             </div>
             <div className="form-check form-check-inline">
-              {/* <input
-                className="form-check-input"
-                type="radio"
-                name="contact"
-                id="phoneRadioFtr"
-                value="phone"
-                checked={contactMethod === 'phone'}
-                onChange={handleContactMethodChange}
-                defaultChecked={false}
-              />
-              <label className="form-check-label" htmlFor="phoneRadioFtr">
-                Phone
-              </label> */}
               <input
                 className="form-check-input"
                 type="radio"
