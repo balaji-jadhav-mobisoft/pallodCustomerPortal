@@ -3,11 +3,12 @@ import SpecialWeddingFrame from '~/assets/wedding_special_frame.svg';
 import './wedding-special.css';
 import {NavLink} from '@remix-run/react';
 import {Link} from 'react-router-dom';
+import {Image} from '@shopify/hydrogen';
 
 // Component to render individual images
 const WeddingSpecialImage = ({image}) => (
   <div className="col-4 wedding-special-img-container">
-    <img src={image.url} alt="Wedding Special Image" />
+    <Image src={image.url} alt="Wedding Special Image" />
   </div>
 );
 
@@ -19,7 +20,7 @@ const WeddingSpecialDetails = ({
   collection,
 }) => (
   <div className="d-flex flex-column justify-content-center align-items-center wedding-special-details">
-    <img
+    <Image
       height={35}
       width={35}
       src={unionSVGIcon}

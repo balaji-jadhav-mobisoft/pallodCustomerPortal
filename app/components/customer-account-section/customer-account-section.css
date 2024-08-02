@@ -548,10 +548,7 @@
       font-weight: normal;
       color: #1e1e1e;
     }
-    .form-check-input:checked {
-      /* background-color: $defaultTextBlackColor;
-      border-color: $defaultTextBlackColor; */
-    }
+
     .form-check-input:active,
     .form-check-input:focus {
       box-shadow: none;

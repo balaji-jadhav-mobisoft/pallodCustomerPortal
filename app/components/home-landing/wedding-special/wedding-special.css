@@ -25,6 +25,7 @@
     top: 17%;
     right: 32%;
   }
+
   .wedding-special-frame {
     position: absolute;
     top: 0;
@@ -47,7 +48,7 @@
   .wedding-special-img-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
     border-radius: 13px;
     border: 2px solid var(--color-light);
   }

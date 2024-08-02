@@ -32,6 +32,7 @@ import CheckIcon from '~/assets/Icon_Check.svg';
 import BackArrowIcon from '~/assets/Icon_Back_Arrow.svg';
 import HeaderMobileOffcanvas from './common/header-profile-offcanvas/header-profile-offcanvas';
 import {FACEBOOK_LINK, INSTAGRAM_LINK} from './common/common-constants';
+import IconDownChevron from '~/assets/icon_down_chevron.svg';
 
 /**
  * @param {HeaderProps}
@@ -175,61 +176,221 @@ export function HeaderMenu({
     </div>
   );
 
+  const useViewport = () => {
+    const [viewport, setViewport] = useState('desktop');
+
+    useEffect(() => {
+      const handleResize = () => {
+        if (window.innerWidth >= 1379) {
+          setViewport('desktop');
+        } else if (window.innerWidth >= 1269) {
+          setViewport('small-desktop');
+        } else if (window.innerWidth >= 1024) {
+          setViewport('tablet-landscape');
+        } else if (window.innerWidth >= 768) {
+          setViewport('tablet');
+        } else {
+          setViewport('mobile');
+        }
+      };
+
+      window.addEventListener('resize', handleResize);
+      handleResize(); // Set initial viewport
+
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return viewport;
+  };
+
   // Render menu items for categories
-  const renderMenuItems = () =>
-    menu?.items
-      .filter((item) => item.title === 'Category')
-      .flatMap((item) =>
-        item?.items.map((val, index) => {
-          if (!val) return null;
+  const renderMenuItems = () => {
+    const viewportSize = useViewport();
 
-          const url =
-            val.url.includes('myshopify.com') ||
-            val.url.includes(publicStoreDomain) ||
-            val.url.includes(primaryDomainUrl)
-              ? new URL(val.url).pathname
-              : val.url;
+    const categoryItems =
+      menu?.items
+        .filter((item) => item.title === 'Category')
+        .flatMap((item) => item?.items.filter(Boolean)) || [];
 
-          const image = val?.resource?.image?.url;
+    const getVisibleItemsCount = () => {
+      if (viewportSize === 'desktop') {
+        return 8;
+      } else if (viewportSize === 'small-desktop') {
+        return 8;
+      } else if (viewportSize === 'tablet-landscape') {
+        return 5;
+      } else if (viewportSize === 'tablet') {
+        return 4;
+      } else {
+        return categoryItems.length;
+      }
+    };
 
-          return (
-            <NavLink
-              key={index}
-              to={url}
-              className={`header-menu-item ${
-                viewport === 'desktop' ? 'nav-link' : 'nav-link-mobile'
-              }`}
-              onClick={closeAside}
-              prefetch="intent"
-              style={{textDecoration: 'none'}}
+    const visibleItemsCount = getVisibleItemsCount();
+    const firstEightItems = categoryItems.slice(0, visibleItemsCount);
+    const remainingItems = categoryItems.slice(visibleItemsCount);
+
+    return (
+      <>
+        {viewport === 'desktop'
+          ? firstEightItems.map((val, index) => {
+              const url =
+                val.url.includes('myshopify.com') ||
+                val.url.includes(publicStoreDomain) ||
+                val.url.includes(primaryDomainUrl)
+                  ? new URL(val.url).pathname
+                  : val.url;
+
+              const image = val?.resource?.image?.url;
+
+              return (
+                <NavLink
+                  key={index}
+                  to={url}
+                  className={`header-menu-item ${
+                    viewport === 'desktop' ? 'nav-link' : 'nav-link-mobile'
+                  }`}
+                  onClick={closeAside}
+                  prefetch="intent"
+                  style={{textDecoration: 'none'}}
+                >
+                  {viewport === 'desktop' ? (
+                    <span
+                      onMouseEnter={() => handleMouseEnter(val.resourceId)}
+                      className="header-category-menus"
+                      style={{padding: '5px'}}
+                    >
+                      {val.title}
+                    </span>
+                  ) : (
+                    <span
+                      className="header-category-menus-mobile fw-600"
+                      style={{padding: '5px'}}
+                    >
+                      <img
+                        src={image}
+                        alt="category"
+                        height={40}
+                        width={40}
+                        style={{borderRadius: '50%'}}
+                      />
+                      {val.title}
+                    </span>
+                  )}
+                </NavLink>
+              );
+            })
+          : categoryItems.map((val, index) => {
+              const url =
+                val.url.includes('myshopify.com') ||
+                val.url.includes(publicStoreDomain) ||
+                val.url.includes(primaryDomainUrl)
+                  ? new URL(val.url).pathname
+                  : val.url;
+
+              const image = val?.resource?.image?.url;
+
+              return (
+                <NavLink
+                  key={index}
+                  to={url}
+                  className={`header-menu-item ${
+                    viewport === 'desktop' ? 'nav-link' : 'nav-link-mobile'
+                  }`}
+                  onClick={closeAside}
+                  prefetch="intent"
+                  style={{textDecoration: 'none'}}
+                >
+                  {viewport === 'desktop' ? (
+                    <span
+                      onMouseEnter={() => handleMouseEnter(val.resourceId)}
+                      className="header-category-menus"
+                      style={{padding: '5px'}}
+                    >
+                      {val.title}
+                    </span>
+                  ) : (
+                    <span
+                      className="header-category-menus-mobile fw-600"
+                      style={{padding: '5px'}}
+                    >
+                      <img
+                        src={image}
+                        alt="category"
+                        height={40}
+                        width={40}
+                        style={{borderRadius: '50%'}}
+                      />
+                      {val.title}
+                    </span>
+                  )}
+                </NavLink>
+              );
+            })}
+        {viewport === 'desktop' && remainingItems.length > 0 && (
+          <li className="nav-item nav-dropdown-header ">
+            <span
+              className="nav-link dropdown-toggle-header"
+              id="navbarDropdownMenuLink"
             >
-              {viewport === 'desktop' ? (
-                <span
-                  onMouseEnter={() => handleMouseEnter(val.resourceId)}
-                  className="header-category-menus"
-                  style={{padding: '5px'}}
-                >
-                  {val.title}
-                </span>
-              ) : (
-                <span
-                  className="header-category-menus-mobile fw-600"
-                  style={{padding: '5px'}}
-                >
-                  <img
-                    src={image}
-                    alt="category"
-                    height={40}
-                    width={40}
-                    style={{borderRadius: '50%'}}
-                  />
-                  {val.title}
-                </span>
-              )}
-            </NavLink>
-          );
-        }),
-      );
+              More
+              <img
+                src={IconDownChevron}
+                alt="More"
+                className="dropdown-icon-chevron"
+              />
+            </span>
+            <div className="nav-dropdown-content-header">
+              {remainingItems.map((val, index) => {
+                const url =
+                  val.url.includes('myshopify.com') ||
+                  val.url.includes(publicStoreDomain) ||
+                  val.url.includes(primaryDomainUrl)
+                    ? new URL(val.url).pathname
+                    : val.url;
+
+                const image = val?.resource?.image?.url;
+
+                return (
+                  <NavLink
+                    key={index}
+                    to={url}
+                    className="dropdown-item-header"
+                    onClick={closeAside}
+                    prefetch="intent"
+                    style={{textDecoration: 'none'}}
+                  >
+                    {viewport === 'desktop' ? (
+                      <span
+                        className="header-category-menus"
+                        style={{padding: '5px'}}
+                      >
+                        {val.title}
+                      </span>
+                    ) : (
+                      <span
+                        className="header-category-menus-mobile fw-600"
+                        style={{padding: '5px'}}
+                      >
+                        <img
+                          src={image}
+                          alt="category"
+                          height={40}
+                          width={40}
+                          style={{borderRadius: '50%'}}
+                        />
+                        {val.title}
+                      </span>
+                    )}
+                  </NavLink>
+                );
+              })}
+            </div>
+          </li>
+        )}
+      </>
+    );
+  };
 
   // Render mobile cards
   const renderMobileCards = () => (
