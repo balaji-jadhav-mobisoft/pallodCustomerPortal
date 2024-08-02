@@ -14,7 +14,7 @@ const TrendingLookCarousal = ({
   trendingLooks,
 }) => {
   // Return null if required props are not provided
-  if (!collection) return null;
+  if (!collection || !trendingLookItems) return null;
 
   // State to manage the current start index of the displayed items and items per page
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
@@ -128,51 +128,53 @@ const TrendingLookCarousal = ({
   };
 
   return (
-    <div className="trending-look-carousal-container">
-      <div
-        className={`d-flex justify-content-center mb-3 position-relative trending-look-carousal-header`}
-      >
-        <div className="section-header mb-0">{collection}</div>
-        <Link
-          style={{textDecoration: 'none'}}
-          to={INSTAGRAM_LINK}
-          className="position-absolute bottom-0 end-0 view-all-btn"
+    <>
+      <div className="trending-look-carousal-container">
+        <div
+          className={`d-flex justify-content-center mb-3 position-relative trending-look-carousal-header`}
         >
-          <span>
-            VISIT US{' '}
-            <img
-              style={{marginLeft: '5px'}}
-              src={InstagramIcon}
-              alt="instagram"
-            />
-          </span>
-        </Link>
-      </div>
-
-      <div className={`fluid-container position-relative main-container`}>
-        <div className="row" id="wardrobeItems">
-          {renderTrendingLookItems()}
+          <div className="section-header mb-0">{collection}</div>
+          <Link
+            style={{textDecoration: 'none'}}
+            to={INSTAGRAM_LINK}
+            className="position-absolute bottom-0 end-0 view-all-btn"
+          >
+            <span>
+              VISIT US{' '}
+              <img
+                style={{marginLeft: '5px'}}
+                src={InstagramIcon}
+                alt="instagram"
+              />
+            </span>
+          </Link>
         </div>
-        <img
-          src={leftIcon}
-          height={35}
-          width={35}
-          className="mi-lg mi-chevron_left wh-34 d-inline-block position-absolute left-scroll"
-          id="wardrobe-prev"
-          onClick={handlePrev}
-          alt="Previous"
-        />
-        <img
-          src={rightIcon}
-          height={35}
-          width={35}
-          className="mi-lg mi-chevron_right wh-34 d-inline-block position-absolute right-scroll"
-          id="wardrobe-next"
-          onClick={handleNext}
-          alt="Next"
-        />
+
+        <div className={`fluid-container position-relative main-container`}>
+          <div className="row" id="wardrobeItems">
+            {renderTrendingLookItems()}
+          </div>
+          <img
+            src={leftIcon}
+            height={35}
+            width={35}
+            className="mi-lg mi-chevron_left wh-34 d-inline-block position-absolute left-scroll"
+            id="wardrobe-prev"
+            onClick={handlePrev}
+            alt="Previous"
+          />
+          <img
+            src={rightIcon}
+            height={35}
+            width={35}
+            className="mi-lg mi-chevron_right wh-34 d-inline-block position-absolute right-scroll"
+            id="wardrobe-next"
+            onClick={handleNext}
+            alt="Next"
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -64,6 +64,10 @@ export const quantityArray = [
   '50',
 ];
 
-export const FACEBOOK_LINK = 'https://www.facebook.com/pallodofficial?mibextid=ZbWKwL';
+export const FACEBOOK_LINK =
+  'https://www.facebook.com/pallodofficial?mibextid=ZbWKwL';
 export const INSTAGRAM_LINK =
   'https://www.instagram.com/pallodofficial?igsh=bWV4dmlkd3MwejNt';
+
+export const INSTAGRAM_ACCESS_TOKEN =
+  'IGQWROcUdtRU40SmRuUDhkSmlwYk81NlRSVUoySmRUaW5EV3d4R3Y3aDZAmZAXBCUkhBSHdaeDB5ZAHF3QlhlS0lCWW5YYVdib0JhQ0l1dEpNWFo5bVVzc0NXVnl3bVFzOUs0MWdZAQ1FFZAGo1dWtQMlNZAQnpMdWhLVDAZD';
