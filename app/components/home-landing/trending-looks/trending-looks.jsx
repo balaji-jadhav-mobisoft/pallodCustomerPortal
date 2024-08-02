@@ -1,43 +1,53 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import TrendingImg1 from '~/assets/trending1.png';
 import TrendingImg2 from '~/assets/trending2.png';
 import TrendingImg3 from '~/assets/trending3.png';
 import TrendingImg4 from '~/assets/trending4.png';
-import WardrobeCarousal from '~/components/common/wardrobe-carousal/wardrobe-carousal';
+import Loader from '~/components/common/loader/loader';
+import TrendingLookCarousal from '~/components/common/trending-look-carousal/trending-look-carousal';
 
 const TrendingLooks = () => {
-  // Static images for bottomCollection
   const collection = 'Trending Looks';
-  const bottomCollection = [
-    {
-      src: TrendingImg1,
-      hoverSrc: TrendingImg1,
-      description: '',
-    },
-    {
-      src: TrendingImg2,
-      hoverSrc: TrendingImg2,
-      description: '',
-    },
-    {
-      src: TrendingImg3,
-      hoverSrc: TrendingImg3,
-      description: '',
-    },
-    {
-      src: TrendingImg4,
-      hoverSrc: TrendingImg4,
-      description: '',
-    },
-  ];
+
+  const [trendingLook, setTrendingLook] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const TrendingLookMedia = async () => {
+    try {
+      const response = await fetch(
+        `https://graph.instagram.com/me/media?fields=id,caption,media_type=VIDEO,media_url,permalink,thumbnail_url,timestamp&access_token=IGQWRQaDZAnZAlFUMkIxSzFVTVozTHdieThia1RnWjhETXQycjFWYlFHakpFZAlZAWeFVaNEh4ZA204N1RRNmdhR1QyelBFYmc2Wkh1WklPbm1EY2N4dlFGUkFBVXRoVUQyaS0xUVJ2MjlLZADhvaXo1N1VmNm5qWm9sbTQZD`,
+        {
+          method: 'GET',
+        },
+      );
+
+      const json = await response.json();
+      const trending = json.data.map((item) => ({
+        src: item.thumbnail_url,
+        hoverSrc: item.thumbnail_url,
+        instagramLink: item.permalink,
+      }));
+      setTrendingLook(trending);
+    } catch (error) {
+      console.error('Error fetching Instagram media:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    TrendingLookMedia();
+  }, []);
   return (
     <div>
-      <WardrobeCarousal
-        wardrobeItems={bottomCollection}
-        collection={collection}
-        wishList={false}
-        trendingLooks={true}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <TrendingLookCarousal
+          trendingLookItems={trendingLook}
+          collection={collection}
+        />
+      )}
     </div>
   );
 };
