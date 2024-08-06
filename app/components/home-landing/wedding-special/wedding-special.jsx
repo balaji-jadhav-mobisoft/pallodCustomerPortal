@@ -8,7 +8,11 @@ import {Image} from '@shopify/hydrogen';
 // Component to render individual images
 const WeddingSpecialImage = ({image}) => (
   <div className="col-4 wedding-special-img-container">
-    <Image src={image.url} alt="Wedding Special Image" />
+    <Image
+      src={image.url}
+      alt="Wedding Special Image"
+      sizes="(max-width: 600px) 100vw, 50vw"
+    />
   </div>
 );
 
