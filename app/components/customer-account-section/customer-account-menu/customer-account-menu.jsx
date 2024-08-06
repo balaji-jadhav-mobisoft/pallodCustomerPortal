@@ -77,7 +77,11 @@ const CustomerAccountMenu = ({customer}) => {
   return (
     <div className="">
       <div className="d-flex flex-row mb-4" id="orderListing">
-        <AccountMenu setActivePage={setActivePage} activePage={activePage} />
+        {showSidebar == 'yes' ? (
+          <AccountMenu setActivePage={setActivePage} activePage={activePage} />
+        ) : (
+          ''
+        )}
         <div className="my-orders-list d-flex flex-column flex-grow-1">
           <Outlet context={{customer}} />
         </div>
