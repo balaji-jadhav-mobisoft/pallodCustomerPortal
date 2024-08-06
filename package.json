@@ -13,6 +13,7 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
     "@remix-run/react": "^2.9.2",
     "@remix-run/server-runtime": "^2.9.2",
     "@shopify/cli": "^3.61.2",
