@@ -26,6 +26,7 @@ const WeddingSpecialDetails = ({
       src={unionSVGIcon}
       className="mi-lg wh-40 align-middle d-inline-block me-2"
       alt="Icon"
+      sizes="(max-width: 600px) 100vw, 50vw"
     />
     <h3>{title}</h3>
     <p>{description}</p>

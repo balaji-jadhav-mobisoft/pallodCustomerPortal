@@ -45,7 +45,12 @@ const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
         style={{textDecoration: 'none'}}
       >
         <div className="img-wrapper">
-          <Image src={src} alt={alt} className="zoom-img" />
+          <Image
+            src={src}
+            alt={alt}
+            className="zoom-img"
+            sizes="(max-width: 600px) 100vw, 50vw"
+          />
           <div className="img-caption">{caption}</div>
         </div>
       </NavLink>
@@ -66,7 +71,12 @@ const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
         style={{textDecoration: 'none'}}
       >
         <div className="img-wrapper">
-          <Image src={src} alt={alt} className="zoom-img" />
+          <Image
+            src={src}
+            alt={alt}
+            className="zoom-img"
+            sizes="(max-width: 600px) 100vw, 50vw"
+          />
           <div className="img-caption">{caption}</div>
         </div>
       </NavLink>

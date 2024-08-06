@@ -113,7 +113,7 @@ body::-webkit-scrollbar {
         overflow: visible;
       }
       .zoom-img {
-        width: 200px;
+        width: 150px !important;
         height: 300px;
       }
     }
@@ -144,7 +144,7 @@ body::-webkit-scrollbar {
         margin-bottom: 0px;
       }
       .zoom-img {
-        width: 150px;
+        width: 150px !important;
         height: 200px;
       }
     }

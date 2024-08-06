@@ -1,4 +1,4 @@
-import {CartForm, Image, Money, useOptimisticCart} from '@shopify/hydrogen';
+import {CartForm, Money, useOptimisticCart} from '@shopify/hydrogen';
 import {Link} from '@remix-run/react';
 import {useVariantUrl} from '~/lib/variants';
 import {useEffect, useState} from 'react';

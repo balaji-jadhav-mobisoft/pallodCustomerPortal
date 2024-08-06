@@ -2,7 +2,6 @@ import {Suspense} from 'react';
 import {defer, redirect} from '@shopify/remix-oxygen';
 import {Await, Link, useLoaderData, useLocation} from '@remix-run/react';
 import {
-  Image,
   Money,
   VariantSelector,
   getSelectedProductOptions,

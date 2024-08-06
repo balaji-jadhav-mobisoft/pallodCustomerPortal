@@ -63,7 +63,6 @@ const SareeBanner = () => (
 const EleganceOfSaree = ({collection}) => {
   // Return null if collection is not provided
   if (!collection || !collection.collection) return null;
-  console.log(collection, 'collection====');
 
   const collectionData = collection.collection;
 

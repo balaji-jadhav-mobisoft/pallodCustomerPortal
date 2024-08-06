@@ -46,9 +46,9 @@ export function SearchResult({results, searchTerm}) {
   const keys = Object.keys(results);
   return (
     <div className="search-result w-100 sarees-section">
-      <div class="row" id="productList">
-        <div class="collection-product-container">
-          <div class="row" id="productList">
+      <div className="row" id="productList">
+        <div className="collection-product-container">
+          <div className="row" id="productList">
             <Breadcrumb items={breadcrumbItems} />
             {results &&
               keys.map((type) => {
@@ -92,29 +92,29 @@ export function SearchResult({results, searchTerm}) {
                                       Best Seller
                                     </div>
                                   )}
-                                  <div class="position-absolute wishlist-container">
+                                  <div className="position-absolute wishlist-container">
                                     <img
                                       src={wishListIcon}
-                                      class="mi-lg mi-wishlist wh-20 d-inline-block"
+                                      className="mi-lg mi-wishlist wh-20 d-inline-block"
                                       alt="Wishlist Icon"
                                     />
                                   </div>
-                                  <div class="position-absolute add-to-bag-container">
-                                    <button class="add-to-bag-btn">
-                                      <span class="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                                  <div className="position-absolute add-to-bag-container">
+                                    <button className="add-to-bag-btn">
+                                      <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
                                       Add to Bag
                                     </button>
                                   </div>
                                 </div>
                               </Link>
-                              <div class="image-title-section">
-                                <h6 class="product-title">{product.title}</h6>
-                                <p class="product-description">
+                              <div className="image-title-section">
+                                <h6 className="product-title">{product.title}</h6>
+                                <p className="product-description">
                                   {product.description}
                                 </p>
-                                <div class="d-flex flex-row align-items-center justify-content-between">
-                                  <div class="d-flex align-items-center">
-                                    <div class="discount-price me-1">
+                                <div className="d-flex flex-row align-items-center justify-content-between">
+                                  <div className="d-flex align-items-center">
+                                    <div className="discount-price me-1">
                                       <Money
                                         data={product.variants.nodes[0].price}
                                       />
