@@ -71,6 +71,36 @@ export const COLLECTION_QUERY = `#graphql
      url
      altText
          }
+         collection_banner_images: metafield(
+              key: "collection_banner_images"
+              namespace: "custom"
+            ) {
+              key
+              references(first: 10) {
+                nodes {
+                  ... on MediaImage {
+                    id
+                    image {
+                      url
+                    }
+                  }
+                }
+              }
+            }
+            collection_background_image: metafield(
+              key: "collection_background_image"
+              namespace: "custom"
+            ) {
+              key
+              reference {
+                ... on MediaImage {
+                  image {
+                    id
+                    url
+                  }
+                }
+              }
+            }
       description
       descriptionHtml
       products(

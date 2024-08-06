@@ -10,23 +10,23 @@ const SareeImagesGrid = ({collection}) => {
     return null;
 
   // Extract images from the collection
-  const images = collection.products.nodes[0]?.images?.nodes || [];
+  const images = collection.collection_banner_images?.references?.nodes || [];
 
   return (
     <div className="row">
       <div className="col-6 saree-elegance-img-container">
-        <img src={images[0]?.url} alt="Saree Elegance Image" />
+        <img src={images[0]?.image?.url} alt="Saree Elegance Image" />
       </div>
       <div className="col-6">
         <div className="row">
           <div className="col-12 saree-elegance-img-container mb-4">
-            <img src={images[1]?.url} alt="Saree Elegance Image" />
+            <img src={images[1]?.image?.url} alt="Saree Elegance Image" />
           </div>
           <div className="col-6 saree-elegance-img-container">
-            <img src={images[2]?.url} alt="Saree Elegance Image" />
+            <img src={images[2]?.image?.url} alt="Saree Elegance Image" />
           </div>
           <div className="col-6 saree-elegance-img-container">
-            <img src={images[3]?.url} alt="Saree Elegance Image" />
+            <img src={images[3]?.image?.url} alt="Saree Elegance Image" />
           </div>
         </div>
       </div>
@@ -63,6 +63,7 @@ const SareeBanner = () => (
 const EleganceOfSaree = ({collection}) => {
   // Return null if collection is not provided
   if (!collection || !collection.collection) return null;
+  console.log(collection, 'collection====');
 
   const collectionData = collection.collection;
 

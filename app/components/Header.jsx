@@ -39,9 +39,10 @@ import IconDownChevron from '~/assets/icon_down_chevron.svg';
  */
 export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
   const {shop, menu} = header;
+  const isTopHeaderMenuVisible = false;
   return (
     <>
-      <TopHeader />
+      {isTopHeaderMenuVisible && <TopHeader />}
       <header className="header common">
         <div className="d-grid grid-column-gap-10">
           <div className="header-logo-section d-flex justify-content-between">
@@ -220,7 +221,7 @@ export function HeaderMenu({
       } else if (viewportSize === 'tablet-landscape') {
         return 5;
       } else if (viewportSize === 'tablet') {
-        return 4;
+        return 5;
       } else {
         return categoryItems.length;
       }
@@ -448,7 +449,7 @@ export function HeaderMenu({
       key={menu.id}
       onMouseLeave={handleMouseLeave}
     >
-      {viewport === 'mobile' && renderMobileDropdown()}
+      {/* {viewport === 'mobile' && renderMobileDropdown()} */}
       {renderMenuItems()}
       {viewport === 'mobile' && renderMobileCards()}
       {modalData && <SubMenuModal data={modalData} />}
@@ -605,7 +606,7 @@ function HeaderCtas({isLoggedIn, cart}) {
   return (
     <nav className="header-ctas" role="navigation">
       <SearchForm className="header-search" />
-      <div className="currency-dropdown">
+      {/* <div className="currency-dropdown">
         <button
           className="btn btn-secondary dropdown-toggle font-14 currency-toggle"
           type="button"
@@ -624,7 +625,7 @@ function HeaderCtas({isLoggedIn, cart}) {
             $
           </Link>
         </div>
-      </div>
+      </div> */}
 
       <Suspense fallback="Sign in">
         <Await resolve={isLoggedIn} errorElement="Sign in">
@@ -1434,7 +1435,7 @@ export function SearchForm({searchTerm, className}) {
       }
 
       setDynamicPlaceholder(word.slice(0, currentCharIndex));
-    }, 140);
+    }, 250);
 
     document.addEventListener('keydown', handleKeyDown);
 
@@ -1451,6 +1452,7 @@ export function SearchForm({searchTerm, className}) {
         <input
           defaultValue={searchTerm}
           name="q"
+          // placeholder={`Search for Style, Collections & more`}
           placeholder={`Search for ${dynamicPlaceholder}`}
           ref={inputRef}
           type="search"
@@ -1492,6 +1494,7 @@ function CartBadge({count}) {
 
   return (
     <a
+      className="header-cart-icon"
       href="/cart"
       onClick={(e) => {
         e.preventDefault();
@@ -1505,7 +1508,8 @@ function CartBadge({count}) {
         });
       }}
     >
-      <img src={CartIcon} alt="cart" /> {count}
+      <img src={CartIcon} alt="cart" />{' '}
+      {count > 0 && <span className="header-cart-count">{count}</span>}
     </a>
   );
 }

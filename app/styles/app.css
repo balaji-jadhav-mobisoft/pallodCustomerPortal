@@ -169,6 +169,7 @@ button.reset:hover:not(:has(> *)) {
   top: 0;
   z-index: 2;
   height: 110px;
+  border-bottom: solid 0.5px #e0e0e0;
 }
 
 .header-menu-mobile-toggle {
@@ -188,7 +189,7 @@ button.reset:hover:not(:has(> *)) {
   grid-gap: 1rem;
   @media (min-width: 45em) {
     display: flex;
-    grid-gap: 1.2rem;
+    grid-gap: 1.1rem;
     margin-left: 0rem;
   }
 }
@@ -224,6 +225,7 @@ button.reset:hover:not(:has(> *)) {
 .profile-icon-button {
   background: none !important;
   border: none;
+  padding: 0;
 }
 .dropdown-content {
   /* display: none; */
@@ -945,6 +947,7 @@ body::-webkit-scrollbar {
     left: 10px;
     width: 15px;
     height: 15px;
+    top: 10px;
   }
 
   .search-input {
@@ -955,11 +958,29 @@ body::-webkit-scrollbar {
     border: 1px solid var(--color-light-grey);
     width: 25vw;
     margin-bottom: 0.2rem;
-    margin-top: 0px;
+    margin-top: -1px;
     @media (max-width: 48em) {
       width: 92vw;
     }
   }
+}
+
+.header-cart-icon {
+  position: relative;
+}
+
+.header-cart-count {
+  position: absolute;
+  top: -2px;
+  right: -9px;
+  background-color: #4a4a4a;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  color: white;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .search-input-container-mobile {
@@ -1148,6 +1169,7 @@ body::-webkit-scrollbar {
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  top: 149%;
 }
 
 .nav-dropdown-header:hover .nav-dropdown-content-header {

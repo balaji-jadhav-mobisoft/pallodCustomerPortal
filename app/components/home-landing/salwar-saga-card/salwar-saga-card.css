@@ -17,6 +17,11 @@
     height: 100%;
     object-fit: cover;
   }
+
+  .carousel-item {
+    transition: transform 0.9s ease-in-out;
+  }
+
   .nav-link {
     padding: 0rem;
   }
@@ -101,9 +106,13 @@
     color: #ffcf71;
     margin-top: 10px;
   }
+  /* .carousel-control-next {
+    opacity: 0.9;
+  } */
   .carousel-control-prev,
   .carousel-control-next {
     z-index: 0;
+    opacity: 0.9;
   }
 }
 @media screen and (max-width: 1181px) {

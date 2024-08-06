@@ -1,6 +1,7 @@
 import React from 'react';
 import './our-collection.css';
 import {NavLink} from '@remix-run/react';
+import {Image} from '@shopify/hydrogen';
 
 const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
   if (!menu || !menu?.items || !primaryDomain || !publicStoreDomain)
@@ -44,7 +45,7 @@ const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
         style={{textDecoration: 'none'}}
       >
         <div className="img-wrapper">
-          <img src={src} alt={alt} className="zoom-img" />
+          <Image src={src} alt={alt} className="zoom-img" />
           <div className="img-caption">{caption}</div>
         </div>
       </NavLink>
@@ -65,7 +66,7 @@ const OurCollection = ({menu, primaryDomain, publicStoreDomain}) => {
         style={{textDecoration: 'none'}}
       >
         <div className="img-wrapper">
-          <img src={src} alt={alt} className="zoom-img" />
+          <Image src={src} alt={alt} className="zoom-img" />
           <div className="img-caption">{caption}</div>
         </div>
       </NavLink>
