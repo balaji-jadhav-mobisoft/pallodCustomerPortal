@@ -49,6 +49,7 @@ function AccountMenu({setActivePage, activePage}) {
 const CustomerAccountMenu = ({customer}) => {
   const location = useLocation();
   const [activePage, setActivePage] = useState('MY ORDERS');
+  const [showSidebar, setShowSidebar] = useState('yes');
 
   useEffect(() => {
     switch (location.pathname) {
@@ -61,8 +62,11 @@ const CustomerAccountMenu = ({customer}) => {
       case '/account/profile':
         setActivePage('HELP SUPPORT');
         break;
+      case '/account/wishlist':
+        setShowSidebar('no');
+        break;
       default:
-        setActivePage('MY ORDERS');
+        setShowSidebar('no');
         break;
     }
   }, [location.pathname]);

@@ -2,6 +2,7 @@ import {json, redirect} from '@shopify/remix-oxygen';
 import {useLoaderData} from '@remix-run/react';
 import {Money, Image, flattenConnection} from '@shopify/hydrogen';
 import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
+import {OrderDetails} from '~/components/order-details/order-details';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -70,9 +71,15 @@ export default function OrderRoute() {
     discountPercentage,
     fulfillmentStatus,
   } = useLoaderData();
+
   return (
     <div className="account-order">
-      <h2>Order {order.name}</h2>
+      <OrderDetails
+        order={order}
+        lineItems={lineItems}
+        fulfillmentStatus={fulfillmentStatus}
+      />
+      {/* <h2>Order {order.name}</h2>
       <p>Placed on {new Date(order.processedAt).toDateString()}</p>
       <br />
       <div>
@@ -175,7 +182,7 @@ export default function OrderRoute() {
         <a target="_blank" href={order.statusPageUrl} rel="noreferrer">
           View Order Status →
         </a>
-      </p>
+      </p> */}
     </div>
   );
 }

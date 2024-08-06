@@ -39,7 +39,6 @@ const TrendingLooks = () => {
   useEffect(() => {
     TrendingLookMedia();
   }, []);
-  console.log(trendingLook, 'trendingLook');
   return (
     <div>
       {loading ? (
