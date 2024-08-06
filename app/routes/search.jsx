@@ -3,6 +3,7 @@ import {useLoaderData} from '@remix-run/react';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 
 import {SearchForm, SearchResults, NoSearchResults} from '~/components/Search';
+import {SearchResult} from '~/components/search/search-result';
 
 /**
  * @type {MetaFunction}
@@ -59,15 +60,15 @@ export default function SearchPage() {
 
   return (
     <div className="search">
-      <h1>Search</h1>
-      <SearchForm searchTerm={searchTerm} />
+      {/* <SearchForm searchTerm={searchTerm} /> */}
       {!searchTerm || !searchResults.totalResults ? (
         <NoSearchResults />
       ) : (
-        <SearchResults
-          results={searchResults.results}
-          searchTerm={searchTerm}
-        />
+        // <SearchResults
+        //   results={searchResults.results}
+        //   searchTerm={searchTerm}
+        // />
+        <SearchResult results={searchResults.results} searchTerm={searchTerm} />
       )}
       <Analytics.SearchView data={{searchTerm, searchResults}} />
     </div>
@@ -82,7 +83,9 @@ const SEARCH_QUERY = `#graphql
     publishedAt
     title
     trackingParameters
+    description
     vendor
+    tags
     variants(first: 1) {
       nodes {
         id

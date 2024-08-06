@@ -197,7 +197,7 @@ const WardrobeCarousal = ({
             to={`/collections/${collection?.collection?.handle}`}
             className="position-absolute bottom-0 end-0 view-all-btn"
           >
-            'VIEW ALL'
+            VIEW ALL
           </Link>
         </div>
       )}

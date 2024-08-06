@@ -1445,7 +1445,7 @@ export function SearchForm({searchTerm, className}) {
   }, [currentWord]);
 
   return (
-    <Form method="get" className={className}>
+    <Form method="get" className={className} action="/search">
       <div className={'search-input-container'}>
         <img src={SearchIcon} alt="Search" className="search-icon" />
         <input
