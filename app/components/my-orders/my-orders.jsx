@@ -61,7 +61,7 @@ function OrdersTable({orders}) {
       <div className="nav-section d-flex flex-row justify-content-between align-items-center">
         <h3>My Orders ({orders.nodes.length})</h3>
         <div className="nav-tail d-flex flex-row">
-          <div className="input-group search-order-input">
+          {/* <div className="input-group search-order-input">
             <input
               className="form-control"
               type="text"
@@ -71,8 +71,8 @@ function OrdersTable({orders}) {
             <span className="input-group-append search-icon">
               <i className="mi-lg mi-search wh-18 d-inline-block" />
             </span>
-          </div>
-          <button
+          </div> */}
+          {/* <button
             className="filters-btn d-flex align-items-center"
             data-bs-toggle="modal"
             id="defaultFilterBtn"
@@ -85,7 +85,7 @@ function OrdersTable({orders}) {
               className="mi-lg mi-filter wh-18 d-inline-block"
             />
             FILTER
-          </button>
+          </button> */}
           <button
             className="filters-btn d-none align-items-center"
             data-bs-toggle="modal"
@@ -138,7 +138,9 @@ function OrdersFilter() {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="orderFiltersLabel">Filter Orders</h5>
+              <h5 className="modal-title" id="orderFiltersLabel">
+                Filter Orders
+              </h5>
               <button
                 type="button"
                 className="btn-close"
@@ -156,7 +158,10 @@ function OrdersFilter() {
                     name="statusRadio"
                     id="all"
                   />
-                  <label className="form-check-label" for="all"> All </label>
+                  <label className="form-check-label" for="all">
+                    {' '}
+                    All{' '}
+                  </label>
                 </div>
                 <div className="form-check">
                   <input
@@ -201,7 +206,10 @@ function OrdersFilter() {
                     name="timeRadio"
                     id="anytime"
                   />
-                  <label className="form-check-label" for="all"> Anytime </label>
+                  <label className="form-check-label" for="all">
+                    {' '}
+                    Anytime{' '}
+                  </label>
                 </div>
                 <div className="form-check">
                   <input
@@ -239,10 +247,18 @@ function OrdersFilter() {
               </div>
             </div>
             <div className="modal-footer">
-              <button type="button" className="clear-btn" data-bs-dismiss="modal">
+              <button
+                type="button"
+                className="clear-btn"
+                data-bs-dismiss="modal"
+              >
                 CLEAR FILTER
               </button>
-              <button type="button" className="apply-btn" data-bs-dismiss="modal">
+              <button
+                type="button"
+                className="apply-btn"
+                data-bs-dismiss="modal"
+              >
                 APPLY
               </button>
             </div>
@@ -258,16 +274,16 @@ function OrdersFilter() {
  */
 function OrderLineRows({lineItem}) {
   return (
-        <>
-          {lineItem?.image && (
-              <Image
-                data={lineItem.image}
-                width={lineItem.width}
-                height={lineItem.height}
-                sizes="(min-width: 45em) 20vw, 50vw"
-              />
-          )}
-        </>
+    <>
+      {lineItem?.image && (
+        <Image
+          data={lineItem.image}
+          width={lineItem.width}
+          height={lineItem.height}
+          sizes="(min-width: 45em) 20vw, 50vw"
+        />
+      )}
+    </>
   );
 }
 
@@ -319,12 +335,10 @@ function OrderItem({order}) {
                 <div className="detail-title">Shipped To</div>
                 <div className="detail-content">
                   {order?.shippingAddress ? (
-                  <address>
-                    {order.shippingAddress.name}
-                  </address>
-                ) : (
-                  <p>No shipping address defined</p>
-                )}
+                    <address>{order.shippingAddress.name}</address>
+                  ) : (
+                    <p>No shipping address defined</p>
+                  )}
                 </div>
               </div>
             </div>
