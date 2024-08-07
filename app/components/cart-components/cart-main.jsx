@@ -407,6 +407,7 @@ const CartMainSection = ({
             id="deliveryTime"
           >
             <img
+              style={{marginRight: '10px'}}
               alt="deliver"
               src={DeliveryTruckIcon}
               width={20}
@@ -450,6 +451,7 @@ const CartMainSection = ({
               src={DeliveryIcon}
               width={20}
               height={20}
+              style={{marginRight: '10px'}}
               className="bi bi-truck wh-20 d-inline-block align-bottom"
             ></img>
             Delivered within 8-10 days

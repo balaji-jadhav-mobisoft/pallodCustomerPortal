@@ -297,7 +297,7 @@ const MainCollectionComponent = ({
             {currentCollection.description}
           </div>
           {/* sortByDropdown */}
-          <div className="d-flex flex-row align-items-center sort-by-section">
+          <div className="d-flex flex-row align-items-center sort-by-section justify-content-end">
             <h5 className="mb-0">Sort By:</h5>
             <div className="dropdown ms-2">
               <button
@@ -327,6 +327,7 @@ const MainCollectionComponent = ({
               </ul>
             </div>
             <button
+              style={{display: 'none'}}
               id="onSaleBtn"
               className="on-sale-toggle"
               ref={onSaleButtonRef}
@@ -337,7 +338,12 @@ const MainCollectionComponent = ({
               ></img>
               On Sale
             </button>
-            <button id="newBtn" className="on-sale-toggle" ref={newButtonRef}>
+            <button
+              style={{display: 'none'}}
+              id="newBtn"
+              className="on-sale-toggle"
+              ref={newButtonRef}
+            >
               <img
                 src={NewIcon}
                 className="mi-lg align-text-bottom bg-gold mi-new me-2 wh-18 d-inline-block"

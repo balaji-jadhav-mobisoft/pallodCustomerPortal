@@ -273,7 +273,7 @@ const PRODUCT_FRAGMENT = `#graphql
     }
     productType
     tags
-    metafield(namespace: "custom", key: "size_guide_file") {
+    metafield(namespace: "custom", key: "size_guide_file_") {
       namespace
       key
       value

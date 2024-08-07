@@ -366,19 +366,29 @@ const FilterComponent = ({productFilters, onFilterChange}) => {
     <div className="w-25 filters-section" style={{width: '25%'}}>
       <div className="d-flex justify-content-between align-items-center flex-row filter-header-container">
         <h4 className="filters-header mb-0">Filters</h4>
-        <div
+        {/* <div
           className="clear-filters"
           id="clearFilters"
           role="button"
           onClick={clearAllWebFilters}
         >
           CLEAR FILTERS
-        </div>
+        </div> */}
       </div>
 
       {Object.keys(selectedFilters).length > 0 && (
         <div className="selected-filters">
-          <h4>SELECTED FILTERS</h4>
+          <div className="d-flex justify-content-between">
+            <h4>SELECTED FILTERS</h4>
+            <div
+              className="clear-filters"
+              id="clearFilters"
+              role="button"
+              onClick={clearAllWebFilters}
+            >
+              CLEAR ALL
+            </div>
+          </div>
           {Object.keys(selectedFilters).map((section) =>
             selectedFilters[section].map((filterObj) => (
               <div

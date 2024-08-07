@@ -5,6 +5,7 @@ import rightIcon from '~/assets/icon_right_chevron.svg';
 import wishListIcon from '~/assets/wishList-icon.svg';
 import {Link} from '@remix-run/react';
 import InstagramIcon from '~/assets/instagram-icon-1.svg';
+import PlayIcon from '~/assets/Icon_Play.svg';
 import {INSTAGRAM_LINK} from '../common-constants';
 
 const TrendingLookCarousal = ({
@@ -15,6 +16,7 @@ const TrendingLookCarousal = ({
 }) => {
   // Return null if required props are not provided
   if (!collection || !trendingLookItems) return null;
+
 
   // State to manage the current start index of the displayed items and items per page
   const [currentStartIndex, setCurrentStartIndex] = useState(0);
@@ -122,6 +124,7 @@ const TrendingLookCarousal = ({
           </Link>
           {item.title && <h6 className="product-title">{item.title}</h6>}
           <p className="product-description">{item.description}</p>
+          <img src={PlayIcon} alt="play-icon" className="play-button" />
         </div>
       );
     });

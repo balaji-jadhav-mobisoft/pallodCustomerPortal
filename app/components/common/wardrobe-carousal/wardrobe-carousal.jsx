@@ -191,7 +191,7 @@ const WardrobeCarousal = ({
           }`}
         >
           <div className="section-header mb-0">
-            {productDetails && collection.title}
+            {collection?.collection?.title}
           </div>
           <Link
             to={`/collections/${collection?.collection?.handle}`}

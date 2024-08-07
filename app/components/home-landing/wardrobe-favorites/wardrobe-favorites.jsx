@@ -8,6 +8,7 @@ const WardrobeFavorites = ({collection, primaryDomain, publicStoreDomain}) => {
   // Extract products from the collection
   const products = collection?.collection?.products?.nodes || [];
 
+  console.log(collection, '=======');
   // Map products to wardrobeItems with necessary properties
   const wardrobeItems = products?.map((product) => {
     if (!product) return null;

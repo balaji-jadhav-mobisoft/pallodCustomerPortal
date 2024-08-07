@@ -339,8 +339,8 @@ function ProductForm({
       {selectedVariant?.availableForSale && (
         <>
           <hr
-            className="my-4"
-            style={{marginTop: '1rem', marginBottom: '1rem'}}
+            // className="my-4"
+            style={{marginTop: '0.5rem', marginBottom: '0.5rem'}}
           />
 
           <div
@@ -837,7 +837,7 @@ const ProductDetails = ({
           </div>
           <div className="inclusive-tax">(Inclusive of all taxes)</div>
 
-          <hr />
+          <hr style={{margin: '0px'}} />
           <ProductMain
             selectedVariant={selectedVariant}
             product={product}
@@ -1014,7 +1014,7 @@ const ProductDetails = ({
             )}
           </div>
 
-          <hr className="mb-0" />
+          <hr className="mb-0" style={{margin: '0px'}} />
           {/*  accordions  */}
           <div className="accordion" id="detailsAccordion">
             {/*  Product details Section  */}

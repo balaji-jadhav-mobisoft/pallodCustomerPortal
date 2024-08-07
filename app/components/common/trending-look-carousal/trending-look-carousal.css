@@ -122,6 +122,15 @@
       color: #303030;
       margin-bottom: 10px;
     } */
+
+  .wardrobe-sec {
+    position: relative;
+  }
+  .play-button {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+  }
   .product-description {
     font-size: 16px;
     color: #303030;

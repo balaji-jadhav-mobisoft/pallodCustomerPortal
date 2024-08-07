@@ -27,6 +27,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
+    border-radius: 0px;
   }
   .img-wrapper {
     width: 100%;
@@ -37,6 +38,11 @@
     overflow: hidden;
     position: relative;
     text-align: center;
+  }
+
+  .furnishing-wrapper {
+    height: 450px;
+    border-radius: 0px;
   }
   .img-wrapper::after {
     content: '';
@@ -104,11 +110,19 @@
   }
 }
 
+@media screen and (max-width: 1379px) {
+  .carousal-container {
+    .furnishing-wrapper {
+      height: 400px;
+    }
+  }
+}
 @media screen and (max-width: 1181px) {
   .carousal-container {
     .carousal-header {
       margin: 0px 60px;
     }
+
     .left-scroll {
       left: -5%;
     }
@@ -123,7 +137,7 @@
 
 @media screen and (max-width: 876px) {
   .carousal-container {
-    margin-top: 35%;
+    /* margin-top: 35%; */
     .carousal-header {
       margin: 0px 45px;
     }

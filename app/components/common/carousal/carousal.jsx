@@ -3,9 +3,13 @@ import './carousal.css';
 import {Link, NavLink} from '@remix-run/react';
 import LeftIcon from '~/assets/icon_left_chevron.svg';
 import RightIcon from '~/assets/icon_right_chevron.svg';
-const OccasionItem = ({item, colClass}) => (
+const OccasionItem = ({item, colClass, title}) => (
   <div className={colClass + ' collection-img-container'}>
-    <div className="img-wrapper occasion-img-wrapper">
+    <div
+      className={`img-wrapper occasion-img-wrapper ${
+        title === 'Home Furnishing' ? 'furnishing-wrapper' : ''
+      }`}
+    >
       <img src={item.src} alt={item.alt} className="zoom-img" />
       <div className="img-caption d-flex flex-column">
         <div className="mb-2">{item.title}</div>
@@ -35,7 +39,7 @@ const Carousal = ({
     return occasionItems
       ?.slice(currentStartIndex, currentStartIndex + itemsPerPage)
       ?.map((item, index) => (
-        <OccasionItem key={index} item={item} colClass="col-4" />
+        <OccasionItem key={index} item={item} title={title} colClass="col-4" />
       ));
   };
 

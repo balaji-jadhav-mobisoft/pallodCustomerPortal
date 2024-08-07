@@ -125,7 +125,7 @@
   .product-description {
     font-size: 16px;
     color: #303030;
-    margin-bottom: 10px;
+    margin: 10px 0px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
