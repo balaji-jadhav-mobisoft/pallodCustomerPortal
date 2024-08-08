@@ -4,6 +4,7 @@ import {
   Form,
   Link,
   NavLink,
+  useFetcher,
   useLoaderData,
   useNavigate,
 } from '@remix-run/react';
@@ -37,7 +38,13 @@ import IconDownChevron from '~/assets/icon_down_chevron.svg';
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
+export function Header({
+  header,
+  isLoggedIn,
+  cart,
+  publicStoreDomain,
+  onFilterChange,
+}) {
   const {shop, menu} = header;
   const isTopHeaderMenuVisible = false;
   return (
@@ -65,6 +72,7 @@ export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
               viewport="desktop"
               primaryDomainUrl={header.shop.primaryDomain.url}
               publicStoreDomain={publicStoreDomain}
+              onFilterChange={onFilterChange}
             />
           </div>
         </div>
@@ -86,9 +94,12 @@ export function HeaderMenu({
   primaryDomainUrl,
   viewport,
   publicStoreDomain,
+  onFilterChange,
 }) {
   const [modalData, setModalData] = useState('');
+  const [collectionHandle, setCollectionHandle] = useState('');
   const className = `header-menu-${viewport}`;
+  const fetcher = useFetcher();
 
   const headerMenuMobileCard = [
     {image: StoreIcon, title: 'Store Locator', link: '/'},
@@ -133,7 +144,12 @@ export function HeaderMenu({
   // Handle mouse enter event for showing modal data
   const handleMouseEnter = (resourceId) => {
     const data = menu?.items.filter((item) => item.resourceId === resourceId);
+    const collectionHandle = data[0]?.resource?.handle;
     setModalData(data);
+    setCollectionHandle(collectionHandle);
+    if (collectionHandle) {
+      fetcher.load(`/collections/${collectionHandle}`);
+    }
   };
 
   // Handle mouse leave event for hiding modal data
@@ -452,50 +468,232 @@ export function HeaderMenu({
       {/* {viewport === 'mobile' && renderMobileDropdown()} */}
       {renderMenuItems()}
       {viewport === 'mobile' && renderMobileCards()}
-      {modalData && <SubMenuModal data={modalData} />}
+      {modalData && (
+        <SubMenuModal
+          data={modalData}
+          fetcher={fetcher}
+          onFilterChange={onFilterChange}
+          setModalData={setModalData}
+          collectionHandle={collectionHandle}
+        />
+      )}
     </nav>
   );
 }
 
-const SubModalSection = ({section}) => {
+const handleOptionClick = (
+  filterInput,
+  onFilterChange,
+  setModalData,
+  collectionHandle,
+) => {
+  const selectedFilter = JSON.parse(filterInput);
+  sendFiltersToBackend(
+    [selectedFilter],
+    onFilterChange,
+    setModalData,
+    collectionHandle,
+  );
+};
+
+const sendFiltersToBackend = (
+  filters,
+  onFilterChange,
+  setModalData,
+  collectionHandle,
+) => {
+  const inputsToSend = filters.flat();
+  const modalData = setModalData('');
+  if (typeof onFilterChange === 'function') {
+    onFilterChange(inputsToSend, collectionHandle, modalData);
+  }
+};
+
+const generateOptionHTML = (
+  option,
+  section,
+  onFilterChange,
+  setModalData,
+  collectionHandle,
+) => {
+  return (
+    <div
+      className={`filter-option`}
+      key={option.id}
+      onClick={() =>
+        handleOptionClick(
+          option.input,
+          onFilterChange,
+          setModalData,
+          collectionHandle,
+        )
+      }
+    >
+      <p className="subnav-content-common">{option.label}</p>
+    </div>
+  );
+};
+
+const generateFilterOptionsHTML = (
+  section,
+  index,
+  showAllOptions,
+  setShowAllOptions,
+  onFilterChange,
+  setModalData,
+  collectionHandle,
+) => {
+  const visibleOptions = showAllOptions[section.id]
+    ? section.data
+    : section.data.slice(0, 5);
+
+  return (
+    <>
+      {visibleOptions.map((option) =>
+        generateOptionHTML(
+          option,
+          section,
+          onFilterChange,
+          setModalData,
+          collectionHandle,
+        ),
+      )}
+      {section.data.length > 5 && (
+        <div
+          className="toggle-options"
+          onClick={() =>
+            setShowAllOptions((prev) => ({
+              ...prev,
+              [section.id]: !prev[section.id],
+            }))
+          }
+        >
+          {showAllOptions[section.id] ? 'View Less' : 'View All'}
+        </div>
+      )}
+    </>
+  );
+};
+
+const SubModalSection = ({
+  section,
+  index,
+  showAllOptions,
+  setShowAllOptions,
+  onFilterChange,
+  setModalData,
+  collectionHandle,
+}) => {
   if (!section) return null;
+
   function closeAside(event) {
     event.preventDefault();
     window.location.href = event.currentTarget.href;
   }
   return (
     <div className="me-5">
-      <h5 className="subnav-content-common">{section.title.split('-')[1]}</h5>
-      {section?.items?.map((item, index) => {
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        return (
-          <NavLink
-            to={url}
-            className="sub-nav-link"
-            key={index}
-            prefetch="intent"
-            onClick={closeAside}
-          >
-            <p className="subnav-content-common">{item.title}</p>
-          </NavLink>
-        );
-      })}
+      <h5 className="subnav-content-common">{section.label}</h5>
+      {generateFilterOptionsHTML(
+        section,
+        index,
+        showAllOptions,
+        setShowAllOptions,
+        onFilterChange,
+        setModalData,
+        collectionHandle,
+      )}
     </div>
   );
 };
+// const SubModalSection = ({section}) => {
+//   if (!section) return null;
+//   function closeAside(event) {
+//     event.preventDefault();
+//     window.location.href = event.currentTarget.href;
+//   }
+//   return (
+//     <div className="me-5">
+//       <h5 className="subnav-content-common">{section.title.split('-')[1]}</h5>
+//       {section?.items?.map((item, index) => {
+//         const url =
+//           item.url.includes('myshopify.com') ||
+//           item.url.includes(publicStoreDomain) ||
+//           item.url.includes(primaryDomainUrl)
+//             ? new URL(item.url).pathname
+//             : item.url;
+//         return (
+//           <NavLink
+//             to={url}
+//             className="sub-nav-link"
+//             key={index}
+//             prefetch="intent"
+//             onClick={closeAside}
+//           >
+//             <p className="subnav-content-common">{item.title}</p>
+//           </NavLink>
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
-const SubMenuModal = ({data}) => {
+const SubMenuModal = ({
+  data,
+  fetcher,
+  onFilterChange,
+  setModalData,
+  collectionHandle,
+}) => {
+  const [showAllOptions, setShowAllOptions] = useState({});
   return (
     <>
       {data.map((val, index) => {
         if (!val) return null;
         const [fabricSection, styleSection, occasionSection] = val?.items;
         const image = val?.resource?.image?.url;
+        const productFilters =
+          fetcher.data?.collection && fetcher.data?.collection.products.filters;
+        const transformFilters = (productFilters) => {
+          const filterSections = {};
+
+          productFilters?.forEach((filter) => {
+            let sectionId = '';
+            let sectionLabel = filter.label;
+            let sectionType = filter.type;
+            // Check conditions to exclude specific labels
+            if (filter.type === 'LIST') {
+              if (filter.id.includes('filter.v.option.fabric')) {
+                sectionId = 'fabric';
+              } else if (filter.id.includes('filter.p.m.custom.party')) {
+                sectionId = 'occasion';
+              } else if (filter.id.includes('filter.p.m.custom.style')) {
+                sectionId = 'style';
+              }
+            }
+
+            if (sectionId) {
+              if (!filterSections[sectionId]) {
+                filterSections[sectionId] = {
+                  id: sectionId,
+                  label: sectionLabel,
+                  type: sectionType,
+                  data: [],
+                };
+              }
+
+              filter.values.forEach((value) => {
+                filterSections[sectionId].data.push({
+                  id: value.id,
+                  label: value.label,
+                  input: value.input,
+                });
+              });
+            }
+          });
+
+          return Object.values(filterSections);
+        };
+        const filterSections1 = transformFilters(productFilters);
 
         return (
           <div
@@ -503,10 +701,29 @@ const SubMenuModal = ({data}) => {
             key={index}
           >
             <div className="d-flex flex-row">
-              <SubModalSection section={fabricSection} />
+              {/* <SubModalSection section={fabricSection} />
               <SubModalSection section={styleSection} />
-              <SubModalSection section={occasionSection} />
+              <SubModalSection section={occasionSection} /> */}
+              {filterSections1.map((section, index) => (
+                <div className="" key={index}>
+                  <SubModalSection
+                    onFilterChange={onFilterChange}
+                    section={section}
+                    index={index}
+                    setShowAllOptions={setShowAllOptions}
+                    showAllOptions={showAllOptions}
+                    collectionHandle={collectionHandle}
+                    setModalData={setModalData}
+                  />
+                </div>
+              ))}
             </div>
+            {/* {fetcher.data?.collection && (
+              <div>
+                <h2>{fetcher.data.collection.title}</h2>
+                <p>{fetcher.data.collection.description}</p>
+              </div>
+            )} */}
             <div className="subnav-img">
               <Image
                 src={image}

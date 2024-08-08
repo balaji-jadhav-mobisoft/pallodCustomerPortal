@@ -100,26 +100,47 @@ export default function Collection() {
   const handleFilterChange = async (filters) => {
     setIsLoading(filters.length > 0);
     const newSearchParams = new URLSearchParams(searchParams);
-    newSearchParams.set('filter', JSON.stringify(filters));
+    if (filters.length > 0) {
+      newSearchParams.set('filter', JSON.stringify(filters));
+    } else {
+      newSearchParams.delete('filter');
+    }
+
     navigate(`?${newSearchParams.toString()}`, {replace: true});
     setIsOpen(false);
   };
 
   useEffect(() => {
-    // Remove 'sort' parameter on initial load
+    // Handle the initial load to remove 'filter' if it has an empty array
     if (initialLoad) {
       const urlParams = new URLSearchParams(searchParams);
-      if (urlParams.has('sort')) {
-        urlParams.delete('sort');
-        const newUrl = `${location.pathname}?${urlParams.toString()}`;
-        window.history.replaceState({}, '', newUrl);
+
+      // Check if the 'filter' parameter exists
+      if (urlParams.has('filter')) {
+        const filterValue = urlParams.get('filter');
+        try {
+          const parsedFilterValue = JSON.parse(filterValue);
+          // Remove 'filter' if it is an empty array
+          if (
+            Array.isArray(parsedFilterValue) &&
+            parsedFilterValue.length === 0
+          ) {
+            urlParams.delete('filter');
+            const newUrl = urlParams.toString()
+              ? `${location.pathname}?${urlParams.toString()}`
+              : location.pathname;
+            window.history.replaceState({}, '', newUrl);
+          }
+        } catch (error) {
+          console.error('Error parsing filter parameter:', error);
+        }
       }
+
       setInitialLoad(false);
     }
   }, [initialLoad, searchParams, location.pathname]);
 
   useEffect(() => {
-    // Reset loading state when searchParams change
     if (isLoading) {
       setIsLoading(false);
     }

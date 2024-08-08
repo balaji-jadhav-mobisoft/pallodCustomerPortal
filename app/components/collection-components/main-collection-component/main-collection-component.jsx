@@ -215,7 +215,7 @@ const MainCollectionComponent = ({
               src={NewIcon}
               className="mi-lg align-text-bottom bg-gold mi-new me-2 wh-18 d-inline-block"
             ></img>
-            New
+            New Arrival
           </button>
         </div>
         <img

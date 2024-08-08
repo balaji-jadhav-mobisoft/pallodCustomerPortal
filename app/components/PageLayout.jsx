@@ -22,6 +22,7 @@ export function PageLayout({
   publicStoreDomain,
   footerAbout,
   pallodAboutBlog,
+  onFilterChange,
 }) {
   return (
     <Aside.Provider>
@@ -30,6 +31,7 @@ export function PageLayout({
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
+          onFilterChange={onFilterChange}
           header={header}
           cart={cart}
           isLoggedIn={isLoggedIn}

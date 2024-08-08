@@ -1,4 +1,9 @@
-import {useNonce, getShopAnalytics, Analytics} from '@shopify/hydrogen';
+import {
+  useNonce,
+  getShopAnalytics,
+  Analytics,
+  getPaginationVariables,
+} from '@shopify/hydrogen';
 import {defer} from '@shopify/remix-oxygen';
 import {
   Links,
@@ -10,6 +15,8 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
+  useNavigate,
+  useSearchParams,
 } from '@remix-run/react';
 import favicon from '~/assets/favicon.svg';
 import resetStyles from '~/styles/reset.css?url';
@@ -18,6 +25,7 @@ import {PageLayout} from '~/components/PageLayout';
 import {FOOTER_QUERY, HEADER_QUERY, FOOTER_ABOUT_QUERY} from '~/lib/fragments';
 import {BLOGS_QUERY} from './lib/productBlogs';
 import {CUSTOMER_DETAILS_QUERY} from './graphql/customer-account/CustomerDetailsQuery';
+import {COLLECTION_QUERY} from './lib/single-collection-by-handle';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -115,8 +123,18 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
-async function loadCriticalData({context}) {
+async function loadCriticalData({context, params, request}) {
   const {storefront} = context;
+  const {handle} = params;
+  const searchParams = new URL(request.url).searchParams;
+  const filterParam = searchParams.get('filter');
+
+  let filters = [];
+
+  if (filterParam) {
+    const additionalFilters = JSON.parse(filterParam);
+    filters = [...additionalFilters];
+  }
 
   const [header] = await Promise.all([
     storefront.query(HEADER_QUERY, {
@@ -124,6 +142,12 @@ async function loadCriticalData({context}) {
       variables: {
         headerMenuHandle: 'main-menu', // Adjust to your header menu handle
       },
+    }),
+  ]);
+
+  const [{collection}] = await Promise.all([
+    storefront.query(COLLECTION_QUERY, {
+      variables: {handle, filters},
     }),
   ]);
 
@@ -186,8 +210,21 @@ function loadDeferredData({context}) {
  */
 function Layout({children}) {
   const nonce = useNonce();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   /** @type {RootLoader} */
   const data = useRouteLoaderData('root');
+  const handleFilterChange = async (filters, handle) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    if (filters.length > 0) {
+      newSearchParams.set('filter', JSON.stringify(filters));
+    } else {
+      newSearchParams.delete('filter');
+    }
+    navigate(`/collections/${handle}?${newSearchParams.toString()}`, {
+      replace: true,
+    });
+  };
 
   return (
     <html lang="en">
@@ -204,7 +241,9 @@ function Layout({children}) {
             shop={data.shop}
             consent={data.consent}
           >
-            <PageLayout {...data}>{children}</PageLayout>
+            <PageLayout {...data} onFilterChange={handleFilterChange}>
+              {children}
+            </PageLayout>
           </Analytics.Provider>
         ) : (
           children

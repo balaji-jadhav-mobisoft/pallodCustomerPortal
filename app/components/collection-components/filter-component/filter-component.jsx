@@ -27,6 +27,7 @@ const FilterComponent = ({productFilters, onFilterChange}) => {
   const [initialMaxPrice, setInitialMaxPrice] = useState();
 
   // Function to transform productFilters to filterSections format
+
   const transformFilters = (productFilters) => {
     const filterSections = {};
 
@@ -49,8 +50,10 @@ const FilterComponent = ({productFilters, onFilterChange}) => {
           sectionId = 'size';
         } else if (filter.id.includes('filter.v.option.fabric')) {
           sectionId = 'fabric';
-        } else if (filter.id.includes('filter.v.option.occasion')) {
+        } else if (filter.id.includes('filter.p.m.custom.party')) {
           sectionId = 'occasion';
+        } else if (filter.id.includes('filter.p.m.custom.style')) {
+          sectionId = 'style';
         } else if (filter.id.includes('filter.v.option.print & patterns')) {
           sectionId = 'print-patterns';
         } else if (filter.id.includes('filter.v.availability')) {
