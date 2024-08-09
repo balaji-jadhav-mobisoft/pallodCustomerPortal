@@ -23,18 +23,18 @@ export function OrderDetails({order, lineItems, fulfillmentStatus}) {
         <div class="added-items-container">
           <h3>{fulfillmentStatus}</h3>
 
-          <div class="exchange-window">
+          {/* <div class="exchange-window">
             Exchange window closed on{' '}
             <span class="ms-1">
               {new Date(order.processedAt).toDateString()}
             </span>
-          </div>
+          </div> */}
           <div class="order-consent">
             We've received your order, your order will reach you as per
             estimated delivery dates. Till that time, you can check the delivery
             status with the tracking number below:
           </div>
-          <div class="tracking-details">
+          {/* <div class="tracking-details">
             <div class="title">Tracking / AWB Number:</div>
             <div class="content">BD39402</div>
           </div>
@@ -45,7 +45,7 @@ export function OrderDetails({order, lineItems, fulfillmentStatus}) {
                 Click to track
               </Link>
             </div>
-          </div>
+          </div> */}
 
           <hr class="ruler" />
           <div class="price-summary-container d-none" id="priceSummaryMobile">
@@ -78,9 +78,9 @@ export function OrderDetails({order, lineItems, fulfillmentStatus}) {
 
           <h5 class="details-header">Shipping Address</h5>
           <div class="map-section d-flex flex-column">
-            <div class="map">
+            {/* <div class="map">
               <MapComponent address={order.shippingAddress.formatted} />
-            </div>
+            </div> */}
             <div class="address">
               {order?.shippingAddress ? (
                 <address>
@@ -111,10 +111,10 @@ export function OrderDetails({order, lineItems, fulfillmentStatus}) {
               <div class="user-mail">{order.shippingAddress.name}</div>
               <div class="user-phone">{order.phone}</div>
             </div>
-            <div class="w-50 d-flex flex-column">
+            {/* <div class="w-50 d-flex flex-column">
               <div class="detail-subheader">Payment Information</div>
               <div class="user-mail">Card Payment</div>
-            </div>
+            </div> */}
           </div>
           <div class="billing-section d-flex flex-row">
             <div class="w-50 d-flex flex-column first-node">
@@ -130,7 +130,9 @@ export function OrderDetails({order, lineItems, fulfillmentStatus}) {
                 {order?.shippingAddress ? (
                   <address>
                     {order.shippingAddress.formatted ? (
-                      <p>{order.shippingAddress.formatted}</p>
+                      <p style={{marginRight: '20px'}}>
+                        {order.shippingAddress.formatted}
+                      </p>
                     ) : (
                       ''
                     )}

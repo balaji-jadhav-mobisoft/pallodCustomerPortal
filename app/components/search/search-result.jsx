@@ -6,6 +6,7 @@ import '../../components/collection-components/collection-products/collection-pr
 import '../../components/collection-components/main-collection-component/main-collection-component.css';
 import './search-result.css';
 import wishListIcon from '~/assets/wishList-icon.svg';
+import CartIcon from '~/assets/cart-icon.svg';
 import Breadcrumb from '~/components/common/breadcrumb/breadcrumb';
 
 /**
@@ -101,17 +102,22 @@ export function SearchResult({results, searchTerm}) {
                                   </div>
                                   <div className="position-absolute add-to-bag-container">
                                     <button className="add-to-bag-btn">
-                                      <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                                      <img
+                                        src={CartIcon}
+                                        className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"
+                                      ></img>
                                       Add to Bag
                                     </button>
                                   </div>
                                 </div>
                               </Link>
                               <div className="image-title-section">
-                                <h6 className="product-title">{product.title}</h6>
-                                <p className="product-description">
+                                <h6 className="product-title">
+                                  {product.title}
+                                </h6>
+                                {/* <p className="product-description">
                                   {product.description}
-                                </p>
+                                </p> */}
                                 <div className="d-flex flex-row align-items-center justify-content-between">
                                   <div className="d-flex align-items-center">
                                     <div className="discount-price me-1">
@@ -121,7 +127,7 @@ export function SearchResult({results, searchTerm}) {
                                     </div>
                                   </div>
                                   {isNew && (
-                                    <div className="new-stock">New</div>
+                                    <div className="new-stock">New Arrival</div>
                                   )}
                                 </div>
                               </div>

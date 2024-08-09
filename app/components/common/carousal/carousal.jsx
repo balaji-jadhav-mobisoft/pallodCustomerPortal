@@ -10,16 +10,16 @@ const OccasionItem = ({item, colClass, title}) => (
         title === 'Home Furnishing' ? 'furnishing-wrapper' : ''
       }`}
     >
-      <img src={item.src} alt={item.alt} className="zoom-img" />
-      <div className="img-caption d-flex flex-column">
-        <div className="mb-2">{item.title}</div>
-        {item.subTitle && <div className="fs-25 mb-2">{item.subTitle}</div>}
-        <div className="d-flex justify-content-center">
-          <Link to={item.url} style={{textDecoration: 'none'}}>
+      <Link to={item.url} style={{textDecoration: 'none', cursor: 'pointer'}}>
+        <img src={item.src} alt={item.alt} className="zoom-img" />
+        <div className="img-caption d-flex flex-column">
+          <div className="mb-2">{item.title}</div>
+          {item.subTitle && <div className="fs-25 mb-2">{item.subTitle}</div>}
+          <div className="d-flex justify-content-center">
             <div className="shop-now-link">{item.linkText}</div>
-          </Link>
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   </div>
 );

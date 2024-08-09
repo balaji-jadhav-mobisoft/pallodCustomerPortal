@@ -52,7 +52,7 @@ const FilterComponent = ({productFilters, onFilterChange}) => {
           sectionId = 'fabric';
         } else if (filter.id.includes('filter.p.m.custom.party')) {
           sectionId = 'occasion';
-        } else if (filter.id.includes('filter.p.m.custom.style')) {
+        } else if (filter.id.includes('filter.p.m.custom.Style')) {
           sectionId = 'style';
         } else if (filter.id.includes('filter.v.option.print & patterns')) {
           sectionId = 'print-patterns';

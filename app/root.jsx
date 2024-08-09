@@ -26,6 +26,7 @@ import {FOOTER_QUERY, HEADER_QUERY, FOOTER_ABOUT_QUERY} from '~/lib/fragments';
 import {BLOGS_QUERY} from './lib/productBlogs';
 import {CUSTOMER_DETAILS_QUERY} from './graphql/customer-account/CustomerDetailsQuery';
 import {COLLECTION_QUERY} from './lib/single-collection-by-handle';
+import FavIcon from './assets/Favicon.svg';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -69,7 +70,7 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'icon', type: 'image/svg+xml', href: FavIcon},
   ];
 }
 

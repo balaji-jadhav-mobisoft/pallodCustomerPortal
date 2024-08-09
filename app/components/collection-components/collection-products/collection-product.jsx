@@ -4,7 +4,7 @@ import wishListIcon from '~/assets/wishList-icon.svg';
 import {Image, Pagination} from '@shopify/hydrogen';
 import NoImage from '~/assets/no-img.png';
 import {Link} from '@remix-run/react';
-
+import CartIcon from '~/assets/cart-icon.svg';
 const CollectionProductList = ({collection}) => {
   const [colClass, setColClass] = useState('col-4');
   const [allItems, setAllItems] = useState([]);
@@ -140,7 +140,10 @@ const CollectionProductList = ({collection}) => {
                       </div>
                       <div className="position-absolute add-to-bag-container">
                         <button className="add-to-bag-btn">
-                          <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                          <img
+                            src={CartIcon}
+                            className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"
+                          ></img>
                           Add to Bag
                         </button>
                       </div>
@@ -150,7 +153,7 @@ const CollectionProductList = ({collection}) => {
                     {item.title && (
                       <h6 className="product-title">{item.title}</h6>
                     )}
-                    <p className="product-description">{item.description}</p>
+                    {/* <p className="product-description">{item.description}</p> */}
                     <div className="d-flex flex-row align-items-center justify-content-between">
                       <div className="d-flex align-items-center">
                         {item.discountPrice && (
@@ -175,7 +178,9 @@ const CollectionProductList = ({collection}) => {
                           <div className="discount">{item.discount}</div>
                         )}
                       </div>
-                      {item.isNew && <div className="new-stock">New</div>}
+                      {item.isNew && (
+                        <div className="new-stock">New Arrival</div>
+                      )}
                     </div>
                   </div>
                 </div>

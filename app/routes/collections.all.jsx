@@ -12,7 +12,7 @@ import {useVariantUrl} from '~/lib/variants';
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Products`}];
+  return [{title: `Pallod | Products`}];
 };
 
 /**

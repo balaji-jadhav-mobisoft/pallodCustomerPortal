@@ -6,7 +6,7 @@ import {Image, Pagination, getPaginationVariables} from '@shopify/hydrogen';
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+  return [{title: `Pallod | ${data?.blog.title ?? ''} blog`}];
 };
 
 /**

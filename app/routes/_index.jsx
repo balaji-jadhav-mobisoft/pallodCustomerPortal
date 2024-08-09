@@ -10,7 +10,7 @@ import HomePageComponent from '~/components/home-landing/home-page/home-page';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'Pallod'}];
 };
 
 /**

@@ -192,7 +192,7 @@ const FooterSection = ({
               </div>
               <div className="col-6 footer-container">
                 <h5>Get The Pallod Store app</h5>
-                <p style={{color: 'rgba(30, 30, 30, 0.75'}}>
+                {/* <p style={{color: 'rgba(30, 30, 30, 0.75'}}>
                   We will send you a link on your selected media, open it on
                   your phone & download the app.
                 </p>
@@ -245,7 +245,7 @@ const FooterSection = ({
                 />
                 <button className="mt-2 share-app-link-btn">
                   SHARE APP LINK
-                </button>
+                </button> */}
                 <div className="d-flex flex-row mt-4">
                   <div className="me-3">
                     <img

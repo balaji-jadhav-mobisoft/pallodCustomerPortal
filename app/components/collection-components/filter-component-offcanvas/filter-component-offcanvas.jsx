@@ -326,7 +326,7 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
               />
             </div>
           </div>
-          <div className="price-slider">
+          <div className="price-slider price-slider-vertical">
             <input
               type="range"
               id="min-slider"
@@ -335,6 +335,7 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
               value={minPrice}
               step="10"
               onChange={(e) => onMinPriceChange(e)}
+              className="slider-vertical"
             />
             <input
               type="range"
@@ -344,6 +345,7 @@ const FilterComponentOffcanvas = ({productFilters, onFilterChange}) => {
               value={maxPrice}
               onChange={(e) => onMaxPriceChange(e)}
               step="10"
+              className="slider-vertical"
             />
           </div>
           <div className="slider-labels d-flex justify-content-between">

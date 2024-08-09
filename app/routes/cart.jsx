@@ -9,7 +9,7 @@ import Loader from '~/components/common/loader/loader';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Cart`}];
+  return [{title: `Pallod | Cart`}];
 };
 
 /**

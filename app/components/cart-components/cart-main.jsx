@@ -309,6 +309,7 @@ const CartMainSection = ({
             alt={title}
             data={image}
             loading="lazy"
+            style={{borderRadius: '0px'}}
           />
         )}
         {!availableForSale && (
@@ -361,7 +362,7 @@ const CartMainSection = ({
                 className="bi bi-chevron-down wh-18 d-inline-block ms-2"
               />
             </button> */}
-            <div className="dropdown" id="sizeDropdown">
+            {/* <div className="dropdown" id="sizeDropdown">
               <ul>
                 {selectedOptions.map((option) => (
                   <li key={option.name}>
@@ -381,8 +382,8 @@ const CartMainSection = ({
                   </li>
                 ))}
               </ul>
-            </div>
-            {selectedSize && (
+            </div> */}
+            {/* {selectedSize && (
               <button
                 onClick={() => setMobileSizeModal(true)}
                 className="size-dropdown d-none align-items-center bg-white"
@@ -400,9 +401,9 @@ const CartMainSection = ({
                   className="bi bi-chevron-down wh-18 d-inline-block ms-2"
                 />
               </button>
-            )}
+            )} */}
           </div>
-          <div
+          {/* <div
             className="delivery-time d-none mt-2 mb-0 align-content-center"
             id="deliveryTime"
           >
@@ -415,7 +416,7 @@ const CartMainSection = ({
               className="mi-lg wh-20 d-inline-block align-bottom"
             ></img>
             Delivered within 8-10 days
-          </div>
+          </div> */}
         </div>
         <div className="d-flex flex-column delivery-details justify-content-between">
           <div className="price d-flex flex-column">
@@ -445,7 +446,7 @@ const CartMainSection = ({
             </div>
             <div className="d-flex flex-row align-items-center"></div>
           </div>
-          <div className="delivery-time d-flex">
+          {/* <div className="delivery-time d-flex">
             <img
               alt="deliver"
               src={DeliveryIcon}
@@ -455,7 +456,7 @@ const CartMainSection = ({
               className="bi bi-truck wh-20 d-inline-block align-bottom"
             ></img>
             Delivered within 8-10 days
-          </div>
+          </div> */}
         </div>
       </div>
       {/* sizeOffcanvas offcanvas  */}
@@ -570,7 +571,7 @@ const CartMain = ({cart, layout, hidden}) => {
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [lineIdsToRemove, setLineIdsToRemove] = useState([]);
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   const renderCartItems = () => {
     return (
@@ -623,7 +624,7 @@ const CartMain = ({cart, layout, hidden}) => {
                 </h3>
               )}
               <div id="cartItems">{renderCartItems()}</div>
-              <div className="cart-policy d-flex flex-column" id="cartPolicy">
+              {/* <div className="cart-policy d-flex flex-column" id="cartPolicy">
                 <p>
                   *Once your order has been placed no subsequent changes can be
                   made in it.
@@ -647,7 +648,7 @@ const CartMain = ({cart, layout, hidden}) => {
                     CONTACT US
                   </a>
                 </div>
-              </div>
+              </div> */}
               <div className="continue-shopping-responsive d-none">
                 <button className="continue-shopping">
                   <Link to="/" style={{textDecoration: 'none'}}>

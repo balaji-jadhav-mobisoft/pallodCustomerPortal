@@ -666,7 +666,7 @@ const SubMenuModal = ({
                 sectionId = 'fabric';
               } else if (filter.id.includes('filter.p.m.custom.party')) {
                 sectionId = 'occasion';
-              } else if (filter.id.includes('filter.p.m.custom.style')) {
+              } else if (filter.id.includes('filter.p.m.custom.Style')) {
                 sectionId = 'style';
               }
             }

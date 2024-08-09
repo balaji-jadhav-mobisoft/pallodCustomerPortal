@@ -27,80 +27,81 @@ import {Await, Link, useNavigate} from '@remix-run/react';
 import {
   Analytics,
   CartForm,
+  Image,
   Money,
   useAnalytics,
   VariantSelector,
 } from '@shopify/hydrogen';
 import {useAside} from '../Aside';
 
-const wardrobeItems = [
-  {
-    src: WardrobeImage1,
-    hoverSrc: WardrobeImage11,
-    title: 'Pallod',
-    description: 'Ivory Georgette Hand Embroidered',
-    discountPrice: '₹27200',
-    // productPrice: '₹30500',
-    // discount: '15%OFF',
-    isBestSeller: true,
-    isNew: false,
-  },
-  {
-    src: WardrobeImage2,
-    hoverSrc: WardrobeImage22,
-    title: 'Pallod',
-    description: 'Ivory Georgette Hand Embroidered',
-    discountPrice: '₹27200',
-    // productPrice: '₹30500',
-    // discount: '15%OFF',
-    isBestSeller: false,
-    isNew: true,
-  },
-  {
-    src: WardrobeImage3,
-    hoverSrc: WardrobeImage33,
-    title: 'Pallod',
-    description: 'Ivory Georgette Hand Embroidered',
-    discountPrice: '₹27200',
-    // productPrice: '₹30500',
-    // discount: '15%OFF',
-    isBestSeller: true,
-    isNew: false,
-  },
-  {
-    src: WardrobeImage4,
-    hoverSrc: WardrobeImage44,
-    title: 'Pallod',
-    description: 'Ivory Georgette Hand Embroidered',
-    discountPrice: '₹27200',
-    // productPrice: '₹30500',
-    // discount: '15%OFF',
-    isBestSeller: false,
-    isNew: true,
-  },
-  {
-    src: WardrobeImage4,
-    hoverSrc: WardrobeImage44,
-    title: 'Pallod',
-    description: 'Ivory Georgette Hand Embroidered',
-    discountPrice: '₹27200',
-    // productPrice: '₹30500',
-    // discount: '15%OFF',
-    isBestSeller: false,
-    isNew: true,
-  },
-  {
-    src: WardrobeImage3,
-    hoverSrc: WardrobeImage33,
-    title: 'Pallod',
-    description: 'Ivory Georgette Hand Embroidered',
-    discountPrice: '₹27200',
-    // productPrice: '₹30500',
-    // discount: '15%OFF',
-    isBestSeller: true,
-    isNew: false,
-  },
-];
+// const wardrobeItems = [
+//   {
+//     src: WardrobeImage1,
+//     hoverSrc: WardrobeImage11,
+//     title: 'Pallod',
+//     description: 'Ivory Georgette Hand Embroidered',
+//     discountPrice: '₹27200',
+//     // productPrice: '₹30500',
+//     // discount: '15%OFF',
+//     isBestSeller: true,
+//     isNew: false,
+//   },
+//   {
+//     src: WardrobeImage2,
+//     hoverSrc: WardrobeImage22,
+//     title: 'Pallod',
+//     description: 'Ivory Georgette Hand Embroidered',
+//     discountPrice: '₹27200',
+//     // productPrice: '₹30500',
+//     // discount: '15%OFF',
+//     isBestSeller: false,
+//     isNew: true,
+//   },
+//   {
+//     src: WardrobeImage3,
+//     hoverSrc: WardrobeImage33,
+//     title: 'Pallod',
+//     description: 'Ivory Georgette Hand Embroidered',
+//     discountPrice: '₹27200',
+//     // productPrice: '₹30500',
+//     // discount: '15%OFF',
+//     isBestSeller: true,
+//     isNew: false,
+//   },
+//   {
+//     src: WardrobeImage4,
+//     hoverSrc: WardrobeImage44,
+//     title: 'Pallod',
+//     description: 'Ivory Georgette Hand Embroidered',
+//     discountPrice: '₹27200',
+//     // productPrice: '₹30500',
+//     // discount: '15%OFF',
+//     isBestSeller: false,
+//     isNew: true,
+//   },
+//   {
+//     src: WardrobeImage4,
+//     hoverSrc: WardrobeImage44,
+//     title: 'Pallod',
+//     description: 'Ivory Georgette Hand Embroidered',
+//     discountPrice: '₹27200',
+//     // productPrice: '₹30500',
+//     // discount: '15%OFF',
+//     isBestSeller: false,
+//     isNew: true,
+//   },
+//   {
+//     src: WardrobeImage3,
+//     hoverSrc: WardrobeImage33,
+//     title: 'Pallod',
+//     description: 'Ivory Georgette Hand Embroidered',
+//     discountPrice: '₹27200',
+//     // productPrice: '₹30500',
+//     // discount: '15%OFF',
+//     isBestSeller: true,
+//     isNew: false,
+//   },
+// ];
 
 function getImagesByColor(product) {
   const colorOptions = product?.options?.find(
@@ -149,6 +150,7 @@ function ProductOptions({option, product}) {
                       border: valueObj.isActive ? '1px solid #000' : 'none',
                       width: '100px',
                       height: 'auto',
+                      borderRadius: '3px',
                     }}
                   />
                 </div>
@@ -162,23 +164,28 @@ function ProductOptions({option, product}) {
           <div className="size-header d-flex flex-row justify-content-between">
             <h5 className="product-detail-headers">Size</h5>
             {product?.metafield?.reference?.image?.url && (
-              <Link
-                target="_blank"
-                to={product?.metafield?.reference?.image?.url}
+              // <Link
+              //   target="_blank"
+              //   to={product?.metafield?.reference?.image?.url}
+              // >
+              <h5
+                style={{cursor: 'pointer'}}
+                className="size-guide d-flex align-items-center"
+                data-bs-toggle="modal"
+                data-bs-target="#Sizeguide"
               >
-                <h5 className="size-guide d-flex align-items-center">
-                  Size Guide
-                  <img
-                    src={SizeGuideIcon}
-                    className="mi-lg mi-size_guide wh-18 d-inline-block"
-                  ></img>
-                </h5>
-              </Link>
+                Size Guide
+                <img
+                  src={SizeGuideIcon}
+                  className="mi-lg mi-size_guide wh-18 d-inline-block"
+                ></img>
+              </h5>
+              // </Link>
             )}
           </div>
-          <div className="size-validation">
+          {/* <div className="size-validation">
             Select preferred size before proceeding to add item in bag
-          </div>
+          </div> */}
           <div className="product-options-grid">
             {option.values.map(({value, isAvailable, isActive, to}) => {
               return (
@@ -213,6 +220,35 @@ function ProductOptions({option, product}) {
                 </Link>
               );
             })}
+          </div>
+          {/* <!-- Size Guide modal --> */}
+          <div
+            className="modal fade"
+            id="Sizeguide"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabIndex="-1"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  {/* <img src={product?.metafield?.reference?.image?.url} alt="" /> */}
+                  <Image
+                    src={product?.metafield?.reference?.image?.url}
+                    alt=""
+                  ></Image>
+                </div>
+              </div>
+            </div>
           </div>
         </>
       )}
@@ -714,7 +750,7 @@ const ProductDetails = ({
       {/* <!-- breadcrumb --> */}
       <Breadcrumb items={breadcrumbItems} />
       {/* more from similar color offcanvas */}
-      <div
+      {/* <div
         className="offcanvas offcanvas-bottom"
         tabIndex="-1"
         id="offcanvasColorItems"
@@ -732,7 +768,7 @@ const ProductDetails = ({
             />
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* <!-- products images carousel for mobile view --> */}
       <div id="productCarousel" className="carousel slide d-none mb-1">
@@ -800,7 +836,7 @@ const ProductDetails = ({
                     // ref={imgRef}
                   />
                 </div>
-                <div className="d-flex justify-content-center">
+                {/* <div className="d-flex justify-content-center">
                   <button
                     id="similarColorButton"
                     data-bs-toggle="offcanvas"
@@ -810,7 +846,7 @@ const ProductDetails = ({
                   >
                     MORE FROM SIMILAR COLOR
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </>
@@ -828,7 +864,7 @@ const ProductDetails = ({
             {isNew && <div className="new-tag">New</div>}
             {isBestSeller && <div className="best-seller-top">Best Seller</div>}
           </div>
-          <div className="brand">{product?.vendor}</div>
+          {/* <div className="brand">{product?.vendor}</div> */}
           <div className="product-name">{product?.title}</div>
           <div className="d-flex flex-row price-section align-items-center">
             <div className="discount-price me-2">
@@ -1073,7 +1109,7 @@ const ProductDetails = ({
           similarProduct={true}
         />
       </div>
-      <div className="similar-product">
+      {/* <div className="similar-product">
         <WardrobeCarousal
           wardrobeItems={wardrobeItems}
           collection={collection}
@@ -1081,7 +1117,7 @@ const ProductDetails = ({
           moreColorProducts={true}
           similarProduct={true}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

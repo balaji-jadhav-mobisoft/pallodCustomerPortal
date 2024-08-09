@@ -9,7 +9,7 @@ import {SearchResult} from '~/components/search/search-result';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Search`}];
+  return [{title: `Pallod | Search`}];
 };
 
 /**

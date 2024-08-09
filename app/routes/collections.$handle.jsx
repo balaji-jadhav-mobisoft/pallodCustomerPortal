@@ -12,7 +12,7 @@ import Loader from '~/components/common/loader/loader';
 import {COLLECTION_QUERY} from '~/lib/single-collection-by-handle';
 
 export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.collection.title ?? ''} Collection`}];
+  return [{title: `Pallod | ${data?.collection.title ?? ''} Collection`}];
 };
 
 export async function loader(args) {
@@ -90,6 +90,8 @@ export default function Collection() {
   const [initialLoad, setInitialLoad] = useState(true);
 
   const handleSortChange = async (sortBy) => {
+    console.log(sortBy, 'sortBy');
+
     setIsLoading(true);
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('sort', sortBy);

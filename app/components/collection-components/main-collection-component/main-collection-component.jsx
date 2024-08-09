@@ -348,7 +348,7 @@ const MainCollectionComponent = ({
                 src={NewIcon}
                 className="mi-lg align-text-bottom bg-gold mi-new me-2 wh-18 d-inline-block"
               ></img>
-              New
+              New Arrival
             </button>
           </div>
           {/* product-listing */}
@@ -356,15 +356,15 @@ const MainCollectionComponent = ({
             <CollectionProductList collection={currentCollection} />
           </div>
 
-          <hr />
-          <div className="popular-search-container">
+          {/* <hr /> */}
+          {/* <div className="popular-search-container">
             <h3>Popular Search</h3>
             <div id="popularSearchButtons">
               {buttonLabels.map((label, index) => (
                 <button key={index}>{label}</button>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

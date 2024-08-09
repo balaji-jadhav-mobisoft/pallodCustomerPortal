@@ -7,6 +7,9 @@
     transition: visibility 0.1s, opacity 0.1s linear;
     opacity: 0;
   }
+  .btn-close {
+    box-shadow: none !important;
+  }
 
   .out-of-stock-container {
     display: flex;
@@ -388,7 +391,7 @@
   .size-btns-container {
     overflow: scroll;
     scrollbar-width: none;
-    padding: 15px 0px 0px;
+    /* padding: 15px 0px 0px; */
   }
   .size-guide {
     font-size: 14px;
