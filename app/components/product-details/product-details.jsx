@@ -740,7 +740,7 @@ const ProductDetails = ({
   };
   const similarProductCollection = {
     collection: {
-      title: 'Similar Product',
+      title: 'Similar Products',
       handle: collectionHandle,
     },
   };

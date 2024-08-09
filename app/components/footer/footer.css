@@ -13,6 +13,13 @@
         }
       }
     }
+
+    .btn-close:focus {
+      box-shadow: none;
+    }
+    .btn-close:active {
+      box-shadow: none;
+    }
     .offcanvas-body {
       padding: 20px 16px;
       .currency-dropdown {

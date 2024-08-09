@@ -12,8 +12,21 @@ import AmericanExpress from '~/assets/american-express.svg';
 import PayPalIcon from '~/assets/paypal_icon.webp';
 import MastercardIcon from '~/assets/master_card.webp';
 import VisaIcon from '~/assets/Visa_Icon.webp';
-import {NavLink} from '@remix-run/react';
-import {FACEBOOK_LINK, INSTAGRAM_LINK} from '../common/common-constants';
+import {Link, NavLink} from '@remix-run/react';
+import {
+  FACEBOOK_LINK,
+  INSTAGRAM_LINK,
+  PALLOD_MAHABALESHWAR_SHOP_LINK,
+  PALLOD_PUNE_SHOP_LINK,
+} from '../common/common-constants';
+import chevron_right from '~/assets/icon_right_chevron.svg';
+import back_arrowIcon from '~/assets/Icon_Back_Arrow.svg';
+import callIcon from '~/assets/call.svg';
+import whatsappIcon from '~/assets/whatsapp.svg';
+import mailIcon from '~/assets/mail.svg';
+import PallodPuneImage from '~/assets/pallod-pune.png';
+import PallodMahabaleshwarImage from '~/assets/pallod-mahabaleshwar.png';
+import DirectionIcon from '~/assets/direction_icon.svg';
 
 const FooterSection = ({
   menu,
@@ -24,6 +37,7 @@ const FooterSection = ({
 }) => {
   const [contactInputValue, setContactInputValue] = useState('');
   const [contactMethod, setContactMethod] = useState('email');
+  const [selectedStore, setSelectedStore] = useState('Pallod Pune');
   useEffect(() => {
     const sets = [
       {
@@ -82,6 +96,11 @@ const FooterSection = ({
     setContactInputValue(event.target.value);
   };
 
+  // Function to handle store selection
+  const handleStoreSelection = (storeName) => {
+    setSelectedStore(storeName);
+  };
+
   return (
     <div className="footer-container-main">
       <div
@@ -117,15 +136,28 @@ const FooterSection = ({
                           {item.title}
                         </a>
                       ) : (
-                        <NavLink
-                          style={{textDecoration: 'none'}}
-                          end
-                          key={index}
-                          prefetch="intent"
-                          to={url}
-                        >
-                          <p>{item.title}</p>
-                        </NavLink>
+                        <>
+                          {item.title === 'Store Locator' ? (
+                            <p
+                              data-bs-toggle="offcanvas"
+                              data-bs-target="#storeListOffcanvas"
+                              aria-controls="storeListOffcanvas"
+                              style={{cursor: 'pointer'}}
+                            >
+                              Store Locator
+                            </p>
+                          ) : (
+                            <NavLink
+                              style={{textDecoration: 'none'}}
+                              end
+                              key={index}
+                              prefetch="intent"
+                              to={url}
+                            >
+                              <p>{item.title}</p>
+                            </NavLink>
+                          )}
+                        </>
                       );
                     })}
                   </div>
@@ -191,7 +223,7 @@ const FooterSection = ({
                 </p>
               </div>
               <div className="col-6 footer-container">
-                <h5>Get The Pallod Store app</h5>
+                {/* <h5>Get The Pallod Store app</h5> */}
                 {/* <p style={{color: 'rgba(30, 30, 30, 0.75'}}>
                   We will send you a link on your selected media, open it on
                   your phone & download the app.
@@ -266,7 +298,187 @@ const FooterSection = ({
             </div>
           </div>
         </div>
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex={-1}
+          id="storeListOffcanvas"
+          aria-labelledby="storeListOffcanvasLabel"
+        >
+          <div className="offcanvas-header">
+            <h5 id="storeListOffcanvasLabel">Store Locator</h5>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            />
+          </div>
+          <div className="offcanvas-body">
+            <div
+              className="pallod-store"
+              data-bs-toggle="offcanvas"
+              role="button"
+              data-bs-target="#pallodDetailOffcanvas"
+              aria-controls="pallodDetailOffcanvas"
+              onClick={() => handleStoreSelection('Pallod Pune')}
+            >
+              <div className="store-img">
+                <img src={PallodPuneImage} alt="Pallod Store" />
+              </div>
+              <div className="store-location d-flex flex-row justify-content-between">
+                Pallod Pune
+                <img
+                  src={chevron_right}
+                  className="mi-lg mi-chevron_right wh-20 d-inline-block"
+                />
+              </div>
+            </div>
+            <div
+              className="pallod-store"
+              data-bs-toggle="offcanvas"
+              role="button"
+              data-bs-target="#pallodDetailOffcanvas"
+              aria-controls="pallodDetailOffcanvas"
+              onClick={() => handleStoreSelection('Pallod Mahabaleshwar')}
+            >
+              <div className="store-img">
+                <img src={PallodMahabaleshwarImage} alt="Pallod Store" />
+              </div>
+              <div className="store-location d-flex flex-row justify-content-between">
+                Pallod Mahabaleshwar
+                <img
+                  src={chevron_right}
+                  className="mi-lg mi-chevron_right wh-20 d-inline-block"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
+        {/* Pallod details offcanvas */}
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex={-1}
+          id="pallodDetailOffcanvas"
+          aria-labelledby="pallodDetailOffcanvasLabel"
+        >
+          <div className="offcanvas-header">
+            <h5
+              id="pallodDetailOffcanvasLabel"
+              className="d-flex flex-row align-items-center"
+            >
+              <img
+                src={back_arrowIcon}
+                className="mi-back_arrow mi-lg wh-24 me-3 d-inline-block"
+                data-bs-toggle="offcanvas"
+                role="button"
+                data-bs-target="#storeListOffcanvas"
+                aria-controls="storeListOffcanvas"
+              />
+              {selectedStore}
+            </h5>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            />
+          </div>
+          <div className="offcanvas-body">
+            {selectedStore === 'Pallod Pune' ? (
+              <>
+                <div className="store-detail-img">
+                  <img src={PallodPuneImage} alt="Pallod Store Pune" />
+                </div>
+                <div className="address">
+                  Pallod, Ground Floor, Shop No 1, Suma Heritage, Bhandarkar Rd,
+                  Deccan Gymkhana, Pune, Maharashtra 411004
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={callIcon}
+                    className="mi-lg mi-phone wh-20 d-inline-block me-2"
+                  />
+                  +91 76206 39918
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={whatsappIcon}
+                    className="mi-lg mi-whatsapp wh-20 d-inline-block me-2"
+                  />
+                  +91 84590 60317
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={mailIcon}
+                    className="mi-lg mi-mail wh-20 d-inline-block me-2"
+                  />
+                  pallodcreation@gmail.com
+                </div>
+                <a
+                  href={PALLOD_PUNE_SHOP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="get-directions">
+                    <img
+                      src={DirectionIcon}
+                      className="mi-lg mi-get_directions d-inline-block wh-20 me-2"
+                    />
+                    GET DIRECTIONS
+                  </button>
+                </a>
+              </>
+            ) : (
+              <>
+                <div className="store-detail-img">
+                  <img
+                    src={PallodMahabaleshwarImage}
+                    alt="Pallod Store Mahabaleshwar"
+                  />
+                </div>
+                <div className="address">
+                  PALLOD Mahabaleshwar, 63, Dr Sabne Rd, main market,
+                  Mahabaleshwar, Maharashtra 412806
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={callIcon}
+                    className="mi-lg mi-phone wh-20 d-inline-block me-2"
+                  />
+                  +91 76206 39919
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={whatsappIcon}
+                    className="mi-lg mi-whatsapp wh-20 d-inline-block me-2"
+                  />
+                  +91 84590 60318
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={mailIcon}
+                    className="mi-lg mi-mail wh-20 d-inline-block me-2"
+                  />
+                  mahabaleshwarstore@gmail.com
+                </div>
+                <a
+                  href={PALLOD_MAHABALESHWAR_SHOP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="get-directions">
+                    <img
+                      src={DirectionIcon}
+                      className="mi-lg mi-get_directions d-inline-block wh-20 me-2"
+                    />
+                    GET DIRECTIONS
+                  </button>
+                </a>
+              </>
+            )}
+          </div>
+        </div>
         <div className="accordion d-none" id="footerAccordion">
           <div className="accordion-item">
             {['Quick Links', 'More Links', 'Customer Care'].map(
@@ -319,15 +531,28 @@ const FooterSection = ({
                                 {item.title}
                               </a>
                             ) : (
-                              <NavLink
-                                style={{textDecoration: 'none'}}
-                                end
-                                key={idx}
-                                prefetch="intent"
-                                to={url}
-                              >
-                                <p>{item.title}</p>
-                              </NavLink>
+                              <>
+                                {item.title === 'Store Locator' ? (
+                                  <p
+                                    data-bs-toggle="offcanvas"
+                                    data-bs-target="#storeListOffcanvas"
+                                    aria-controls="storeListOffcanvas"
+                                    style={{cursor: 'pointer'}}
+                                  >
+                                    Store Locator
+                                  </p>
+                                ) : (
+                                  <NavLink
+                                    style={{textDecoration: 'none'}}
+                                    end
+                                    key={index}
+                                    prefetch="intent"
+                                    to={url}
+                                  >
+                                    <p>{item.title}</p>
+                                  </NavLink>
+                                )}
+                              </>
                             );
                           })}
                         </ul>
@@ -428,8 +653,8 @@ const FooterSection = ({
 
           {/* <!-- Get Pallod App Section --> */}
           <div className="footer-container mt-3 ms-1">
-            <h5 style={{fontWeight: 600}}>Get Pallod app</h5>
-            <p style={{color: 'rgba(30, 30, 30, 0.75)'}}>
+            {/* <h5 style={{fontWeight: 600}}>Get Pallod app</h5> */}
+            {/* <p style={{color: 'rgba(30, 30, 30, 0.75)'}}>
               We will send you a link on your selected media, open it on your
               phone & download the app.
             </p>
@@ -474,7 +699,7 @@ const FooterSection = ({
               }
               onChange={handleContactInputChange}
             />
-            <button className="mt-2 share-app-link-btn">SHARE APP LINK</button>
+            <button className="mt-2 share-app-link-btn">SHARE APP LINK</button> */}
             <div className="d-flex flex-row mt-4">
               <div className="me-3 play-store-img">
                 <img src={PlayStoreLogo} alt="pallod" className="zoom-img" />

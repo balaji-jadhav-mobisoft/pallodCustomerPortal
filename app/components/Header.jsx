@@ -32,9 +32,21 @@ import HelpIcon from '~/assets/icon_help.svg';
 import CheckIcon from '~/assets/Icon_Check.svg';
 import BackArrowIcon from '~/assets/Icon_Back_Arrow.svg';
 import HeaderMobileOffcanvas from './common/header-profile-offcanvas/header-profile-offcanvas';
-import {FACEBOOK_LINK, INSTAGRAM_LINK} from './common/common-constants';
+import {
+  FACEBOOK_LINK,
+  INSTAGRAM_LINK,
+  PALLOD_MAHABALESHWAR_SHOP_LINK,
+  PALLOD_PUNE_SHOP_LINK,
+} from './common/common-constants';
 import IconDownChevron from '~/assets/icon_down_chevron.svg';
-
+import PallodPuneImage from '~/assets/pallod-pune.png';
+import PallodMahabaleshwarImage from '~/assets/pallod-mahabaleshwar.png';
+import DirectionIcon from '~/assets/direction_icon.svg';
+import chevron_right from '~/assets/icon_right_chevron.svg';
+import back_arrowIcon from '~/assets/Icon_Back_Arrow.svg';
+import callIcon from '~/assets/call.svg';
+import whatsappIcon from '~/assets/whatsapp.svg';
+import mailIcon from '~/assets/mail.svg';
 /**
  * @param {HeaderProps}
  */
@@ -410,53 +422,261 @@ export function HeaderMenu({
   };
 
   // Render mobile cards
-  const renderMobileCards = () => (
-    <div>
-      {headerMenuMobileCard.map((card, index) => (
-        <Link
-          style={{textDecoration: 'none'}}
-          to={card.link}
-          key={index}
-          onClick={closeAside}
-          className="row border justify-content-between header-menu-mobile-card-container"
-        >
-          <div className="d-flex col-9">
-            <img src={card.image} alt={card.title} />
-            <div className="ml-15 fw-600">{card.title}</div>
-          </div>
-          <div className="col-2 mobile-card-right-icon">
-            <img src={RightIcon} alt="right arrow" />
-          </div>
-        </Link>
-      ))}
+  const renderMobileCards = () => {
+    const [selectedStore, setSelectedStore] = useState('Pallod Pune');
+
+    const handleStoreSelection = (storeName) => {
+      setSelectedStore(storeName);
+    };
+    return (
       <div>
-        {headerMenuMobileTermsAndPrivacyPage.map((val, index) => (
-          <Link
-            style={{display: 'block'}}
-            to={val.link}
-            onClick={closeAside}
-            key={index}
-            className="m-10 mt-20 mobile-menu text-decoration-none"
-          >
-            {val.title}
-          </Link>
+        {headerMenuMobileCard.map((card, index) => (
+          <>
+            {card.title === 'Store Locator' ? (
+              <Link
+                key={index}
+                data-bs-toggle="offcanvas"
+                data-bs-target="#hamburgerStoreListOffcanvas"
+                aria-controls="hamburgerStoreListOffcanvas"
+                className="row border justify-content-between header-menu-mobile-card-container"
+              >
+                <div className="d-flex col-9">
+                  <img src={card.image} alt={card.title} />
+                  <div className="ml-15 fw-600">{card.title}</div>
+                </div>
+                <div className="col-2 mobile-card-right-icon">
+                  <img src={RightIcon} alt="right arrow" />
+                </div>
+              </Link>
+            ) : (
+              <Link
+                style={{textDecoration: 'none'}}
+                to={card.link}
+                key={index}
+                onClick={closeAside}
+                className="row border justify-content-between header-menu-mobile-card-container"
+              >
+                <div className="d-flex col-9">
+                  <img src={card.image} alt={card.title} />
+                  <div className="ml-15 fw-600">{card.title}</div>
+                </div>
+                <div className="col-2 mobile-card-right-icon">
+                  <img src={RightIcon} alt="right arrow" />
+                </div>
+              </Link>
+            )}
+          </>
         ))}
-        <div className="d-flex">
-          {headerMenuMobileSocialMediaIcon.map((val, index) => (
-            <a
-              target="_blank"
-              href={val.link}
+        <div>
+          {headerMenuMobileTermsAndPrivacyPage.map((val, index) => (
+            <Link
+              style={{display: 'block'}}
+              to={val.link}
               onClick={closeAside}
               key={index}
-              className="m-10 text-decoration-none"
+              className="m-10 mt-20 mobile-menu text-decoration-none"
             >
-              {<img className="d-flex" src={val.image} alt="social" />}
-            </a>
+              {val.title}
+            </Link>
           ))}
+          <div className="d-flex">
+            {headerMenuMobileSocialMediaIcon.map((val, index) => (
+              <a
+                target="_blank"
+                href={val.link}
+                onClick={closeAside}
+                key={index}
+                className="m-10 text-decoration-none"
+              >
+                {<img className="d-flex" src={val.image} alt="social" />}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex={-1}
+          id="hamburgerStoreListOffcanvas"
+          aria-labelledby="storeListOffcanvasLabel"
+        >
+          <div className="offcanvas-header">
+            <h5 id="storeListOffcanvasLabel">Store Locator</h5>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            />
+          </div>
+          <div className="offcanvas-body">
+            <div
+              className="pallod-store"
+              data-bs-toggle="offcanvas"
+              role="button"
+              data-bs-target="#hamburgerPallodDetailOffcanvas"
+              aria-controls="hamburgerPallodDetailOffcanvas"
+              onClick={() => handleStoreSelection('Pallod Pune')}
+            >
+              <div className="store-img">
+                <img src={PallodPuneImage} alt="Pallod Store" />
+              </div>
+              <div className="store-location d-flex flex-row justify-content-between">
+                Pallod Pune
+                <img
+                  src={chevron_right}
+                  className="mi-lg mi-chevron_right wh-20 d-inline-block"
+                />
+              </div>
+            </div>
+            <div
+              className="pallod-store"
+              data-bs-toggle="offcanvas"
+              role="button"
+              data-bs-target="#hamburgerPallodDetailOffcanvas"
+              aria-controls="hamburgerPallodDetailOffcanvas"
+              onClick={() => handleStoreSelection('Pallod Mahabaleshwar')}
+            >
+              <div className="store-img">
+                <img src={PallodMahabaleshwarImage} alt="Pallod Store" />
+              </div>
+              <div className="store-location d-flex flex-row justify-content-between">
+                Pallod Mahabaleshwar
+                <img
+                  src={chevron_right}
+                  className="mi-lg mi-chevron_right wh-20 d-inline-block"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="offcanvas offcanvas-end"
+          tabIndex={-1}
+          id="hamburgerPallodDetailOffcanvas"
+          aria-labelledby="pallodDetailOffcanvasLabel"
+        >
+          <div className="offcanvas-header">
+            <h5
+              id="pallodDetailOffcanvasLabel"
+              className="d-flex flex-row align-items-center"
+            >
+              <img
+                src={back_arrowIcon}
+                className="mi-back_arrow mi-lg wh-24 me-3 d-inline-block"
+                data-bs-toggle="offcanvas"
+                role="button"
+                data-bs-target="#hamburgerStoreListOffcanvas"
+                aria-controls="hamburgerStoreListOffcanvas"
+              />
+              {selectedStore}
+            </h5>
+            <button
+              type="button"
+              className="btn-close text-reset"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            />
+          </div>
+          <div className="offcanvas-body">
+            {selectedStore === 'Pallod Pune' ? (
+              <>
+                <div className="store-detail-img">
+                  <img src={PallodPuneImage} alt="Pallod Store Pune" />
+                </div>
+                <div className="address">
+                  Pallod, Ground Floor, Shop No 1, Suma Heritage, Bhandarkar Rd,
+                  Deccan Gymkhana, Pune, Maharashtra 411004
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={callIcon}
+                    className="mi-lg mi-phone wh-20 d-inline-block me-2"
+                  />
+                  +91 76206 39918
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={whatsappIcon}
+                    className="mi-lg mi-whatsapp wh-20 d-inline-block me-2"
+                  />
+                  +91 84590 60317
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={mailIcon}
+                    className="mi-lg mi-mail wh-20 d-inline-block me-2"
+                  />
+                  pallodcreation@gmail.com
+                </div>
+                <a
+                  href={PALLOD_PUNE_SHOP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="get-directions">
+                    <img
+                      src={DirectionIcon}
+                      className="mi-lg mi-get_directions d-inline-block wh-20 me-2"
+                    />
+                    GET DIRECTIONS
+                  </button>
+                </a>
+              </>
+            ) : (
+              <>
+                <div className="store-detail-img">
+                  <img
+                    src={PallodMahabaleshwarImage}
+                    alt="Pallod Store Mahabaleshwar"
+                  />
+                </div>
+                <div className="address">
+                  PALLOD Mahabaleshwar, 63, Dr Sabne Rd, main market,
+                  Mahabaleshwar, Maharashtra 412806
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={callIcon}
+                    className="mi-lg mi-phone wh-20 d-inline-block me-2"
+                  />
+                  +91 76206 39919
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={whatsappIcon}
+                    className="mi-lg mi-whatsapp wh-20 d-inline-block me-2"
+                  />
+                  +91 84590 60318
+                </div>
+                <div className="contact-section">
+                  <img
+                    src={mailIcon}
+                    className="mi-lg mi-mail wh-20 d-inline-block me-2"
+                  />
+                  mahabaleshwarstore@gmail.com
+                </div>
+                <a
+                  href={PALLOD_MAHABALESHWAR_SHOP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="get-directions">
+                    <img
+                      src={DirectionIcon}
+                      className="mi-lg mi-get_directions d-inline-block wh-20 me-2"
+                    />
+                    GET DIRECTIONS
+                  </button>
+                </a>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <nav

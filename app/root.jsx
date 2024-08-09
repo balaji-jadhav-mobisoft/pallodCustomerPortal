@@ -127,6 +127,7 @@ export async function loader(args) {
 async function loadCriticalData({context, params, request}) {
   const {storefront} = context;
   const {handle} = params;
+
   const searchParams = new URL(request.url).searchParams;
   const filterParam = searchParams.get('filter');
 
@@ -148,7 +149,11 @@ async function loadCriticalData({context, params, request}) {
 
   const [{collection}] = await Promise.all([
     storefront.query(COLLECTION_QUERY, {
-      variables: {handle, filters},
+      variables: {
+        handle: handle !== undefined ? handle : '',
+        filters,
+        first: 250,
+      },
     }),
   ]);
 
