@@ -76,6 +76,10 @@ export default function SearchPage() {
 }
 
 const SEARCH_QUERY = `#graphql
+  fragment ImageFragment on Image {
+    url
+    altText
+  }
   fragment SearchProduct on Product {
     __typename
     handle
@@ -86,6 +90,35 @@ const SEARCH_QUERY = `#graphql
     description
     vendor
     tags
+    featuredImage {
+      id
+      altText
+      url
+      width
+      height
+    }
+    images(first: 10) {
+      edges {
+        node {
+          ...ImageFragment
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+        startCursor
+      }
+    }
+    collections(first: 1) {
+      edges {
+        node {
+          id
+          handle
+          title
+        }
+      }
+    }
     variants(first: 1) {
       nodes {
         id
