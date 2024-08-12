@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Link, Form, useParams, useFetcher, useRouteLoaderData} from '@remix-run/react';
+import {Link, Form, useParams, useFetcher} from '@remix-run/react';
 import {Image, Money, Pagination} from '@shopify/hydrogen';
 import {applyTrackingParams} from '~/lib/search';
 import '../../components/collection-components/collection-products/collection-products.css';
@@ -8,7 +8,6 @@ import './search-result.css';
 import wishListIcon from '~/assets/wishList-icon.svg';
 import CartIcon from '~/assets/cart-icon.svg';
 import Breadcrumb from '~/components/common/breadcrumb/breadcrumb';
-import ProductChecker from '~/components/ProductChecker';
 
 /**
  * @param {Pick<SearchQuery, 'products'> & {searchTerm: string}}
@@ -16,13 +15,6 @@ import ProductChecker from '~/components/ProductChecker';
 export function SearchResult({results, searchTerm}) {
   const breadcrumbItems = [{name: 'Home', href: '/'}, {name: 'Search'}];
   const [colClass, setColClass] = useState('col-3');
-
-  /** @type {RootLoader} */
-  const loaderData = useRouteLoaderData('root');
-  let customerId = null;
-  if (loaderData) {
-    customerId = loaderData?.customer?.id;
-  }
 
   if (!results) {
     return null;
@@ -72,61 +64,53 @@ export function SearchResult({results, searchTerm}) {
                           const trackingParams = applyTrackingParams(
                             product,
                             `q=${encodeURIComponent(searchTerm)}`,
-                          )+"&collectionHandle="+ product?.collections?.edges[0]?.node?.handle;
+                          );
 
                           const isBestSeller =
                             product.tags.includes('Best Seller');
                           const isNew = product.tags.includes('New');
-                          const imageUrl = product.images.edges[0].node.url;  
-                          
+
                           return (
                             <div
                               className={`${colClass} product-container`}
                               key={product.id}
                             >
-                              
+                              <Link
+                                prefetch="intent"
+                                to={`/products/${product.handle}${trackingParams}`}
+                              >
                                 <div className="product-img-wrapper position-relative">
-                                  <Link
-                                    prefetch="intent"
-                                    to={`/products/${product.handle}${trackingParams}`}
-                                  >
-                                    {product.variants.nodes[0].image && (
-                                      <Image
-                                        data={product.variants.nodes[0].image}
-                                        alt={product.title}
-                                        className="zoom-img zoom-img-section"
-                                        sizes="(max-width: 600px) 201vw, 334vw"
-                                      />
-                                    )}
-                                    {isBestSeller && (
-                                      <div className="position-absolute top-0 start-0 best-seller">
-                                        Best Seller
-                                      </div>
-                                    )}
-                                  </Link>
+                                  {product.variants.nodes[0].image && (
+                                    <Image
+                                      data={product.variants.nodes[0].image}
+                                      alt={product.title}
+                                      className="zoom-img zoom-img-section"
+                                      sizes="(max-width: 600px) 201vw, 334vw"
+                                    />
+                                  )}
+                                  {isBestSeller && (
+                                    <div className="position-absolute top-0 start-0 best-seller">
+                                      Best Seller
+                                    </div>
+                                  )}
                                   <div className="position-absolute wishlist-container">
-                                    {/* <img
+                                    <img
                                       src={wishListIcon}
                                       className="mi-lg mi-wishlist wh-20 d-inline-block"
                                       alt="Wishlist Icon"
-                                    /> */}
-                                    <ProductChecker shopifyProductId={product.id} customerId={customerId} product={product} collectionHandle={product?.collections?.edges[0]?.node?.handle} collectionId={product?.collections?.edges[0]?.node?.id} imageUrl={imageUrl} price={product.variants.nodes[0].price.amount} variantId={product.variants.nodes[0].id} isPdp={false} />
+                                    />
                                   </div>
-                                  <Link
-                                    prefetch="intent"
-                                    to={`/products/${product.handle}${trackingParams}`}
-                                  >
-                                    <div className="position-absolute add-to-bag-container">
-                                      <button className="add-to-bag-btn">
-                                        <img
-                                          src={CartIcon}
-                                          className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"
-                                        ></img>
-                                        Add to Bag
-                                      </button>
-                                    </div>
-                                  </Link>
+                                  <div className="position-absolute add-to-bag-container">
+                                    <button className="add-to-bag-btn">
+                                      <img
+                                        src={CartIcon}
+                                        className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"
+                                      ></img>
+                                      Add to Bag
+                                    </button>
+                                  </div>
                                 </div>
+                              </Link>
                               <div className="image-title-section">
                                 <h6 className="product-title">
                                   {product.title}
@@ -256,4 +240,3 @@ export function SearchResult({results, searchTerm}) {
 /** @typedef {import('storefrontapi.generated').PredictiveArticleFragment} PredictiveArticleFragment */
 /** @typedef {import('storefrontapi.generated').SearchQuery} SearchQuery */
 /** @typedef {import('../routes/api.predictive-search').PredictiveSearchAPILoader} PredictiveSearchAPILoader */
-/** @typedef {LoaderReturnData} RootLoader */
