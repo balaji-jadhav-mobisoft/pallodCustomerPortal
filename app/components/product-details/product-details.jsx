@@ -23,7 +23,7 @@ import Breadcrumb from '../common/breadcrumb/breadcrumb';
 import FAQ from './faq/faq';
 import ShippingAndReturn from './shipping-and-returns/shipping-and-return';
 import ProductDetailsSection from './product-details-section/product-details-section';
-import {Await, Link, useNavigate} from '@remix-run/react';
+import {Await, Link, useNavigate, useRouteLoaderData} from '@remix-run/react';
 import {
   Analytics,
   CartForm,
@@ -33,6 +33,7 @@ import {
   VariantSelector,
 } from '@shopify/hydrogen';
 import {useAside} from '../Aside';
+import ProductChecker from '~/components/ProductChecker';
 
 // const wardrobeItems = [
 //   {
@@ -262,8 +263,11 @@ function ProductMain({
   setProductOutOfStock,
   isRemoved,
   handleButtonClick,
+  collectionHandle,
+  collectionData,
 }) {
   const {title, descriptionHtml} = product;
+  
   return (
     <>
       <Suspense
@@ -275,6 +279,8 @@ function ProductMain({
             setProductOutOfStock={setProductOutOfStock}
             handleButtonClick={handleButtonClick}
             isRemoved={isRemoved}
+            collectionHandle={collectionHandle}
+            collectionData={collectionData}
           />
         }
       >
@@ -290,6 +296,8 @@ function ProductMain({
               setProductOutOfStock={setProductOutOfStock}
               handleButtonClick={handleButtonClick}
               isRemoved={isRemoved}
+              collectionHandle={collectionHandle}
+              collectionData={collectionData}
             />
           )}
         </Await>
@@ -305,7 +313,9 @@ function ProductForm({
   setProductOutOfStock,
   isRemoved,
   handleButtonClick,
-}) {
+  collectionHandle,
+  collectionData,
+}) { 
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
   const navigate = useNavigate();
@@ -359,6 +369,15 @@ function ProductForm({
         },
       ]
     : [];
+
+  /** @type {RootLoader} */
+  const loaderData = useRouteLoaderData('root');
+  let customerId = null;
+  if (loaderData) {
+    customerId = loaderData?.customer?.id;
+  }
+  const isPdp = true;
+  
 
   return (
     <div className="product-form">
@@ -424,7 +443,7 @@ function ProductForm({
                 className="mi-lg mi-right_arrow wh-18 d-inline-block ms-2"
               />
             </button>
-            <button
+            {/* <button
               className={`wishlist bg-white ${isRemoved ? 'remove' : ''}`}
               id="wishlistBtn"
               onClick={handleButtonClick}
@@ -436,7 +455,8 @@ function ProductForm({
                 }`}
               />
               {isRemoved ? 'REMOVE' : 'WISHLIST'}
-            </button>
+            </button> */}
+            <ProductChecker shopifyProductId={product.id} customerId={customerId} product={product} collectionHandle={collectionHandle} collectionId={collectionData.collection.id} imageUrl={product.images.nodes[0].url} price={product.selectedVariant.price.amount} variantId={product.selectedVariant.id} isPdp={isPdp} />
           </div>
         </>
       )}
@@ -551,6 +571,7 @@ const ProductDetails = ({
   collectionHandle,
   shippingReturnBlog,
   faqBlog,
+  collectionData,
 }) => {
   if (!product || !variants || !selectedVariant || !recommendedProducts)
     return null;
@@ -573,7 +594,7 @@ const ProductDetails = ({
       name: product.title,
     },
   ];
-
+  
   // Map products to wardrobeItems with necessary properties
   const wardrobeItems1 = recommendedProducts?.productRecommendations?.map(
     (product) => {
@@ -599,6 +620,11 @@ const ProductDetails = ({
         isBestSeller: product.tags.includes('Best Seller'),
         isNew: product.tags.includes('New'),
         handle: product.handle,
+        id: product.id,
+        tags: product.tags,
+        collectionHandle: collectionHandle,
+        collectionId: collectionData.collection.id,
+        variantId: selectedVariant.id
       };
     },
   );
@@ -881,6 +907,8 @@ const ProductDetails = ({
             setProductOutOfStock={setProductOutOfStock}
             handleButtonClick={handleButtonClick}
             isRemoved={isRemoved}
+            collectionHandle={collectionHandle}
+            collectionData={collectionData}
           />
           <Analytics.ProductView
             data={{
@@ -1123,3 +1151,5 @@ const ProductDetails = ({
 };
 
 export default ProductDetails;
+
+/** @typedef {LoaderReturnData} RootLoader */
