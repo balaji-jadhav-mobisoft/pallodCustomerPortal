@@ -132,7 +132,7 @@
   }
   .wishlist-container {
     right: 12px;
-    top: 12px;
+    bottom: 12px;
     background: white;
     border-radius: 50%;
     width: 28px;

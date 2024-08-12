@@ -2,7 +2,6 @@ import {Link, Form, useParams, useFetcher} from '@remix-run/react';
 import {Image, Money, Pagination} from '@shopify/hydrogen';
 import React, {useRef, useEffect} from 'react';
 import {applyTrackingParams} from '~/lib/search';
-import Empty_Result from '~/assets/Empty_Result.svg';
 
 export const NO_PREDICTIVE_SEARCH_RESULTS = [
   {type: 'queries', items: []},
@@ -210,23 +209,7 @@ function SearchResultArticleGrid({articles}) {
 }
 
 export function NoSearchResults() {
-  return (
-    <div class="empty-search-container d-flex justify-content-center align-items-center">
-      <div className="empty-search-section d-flex flex-column align-items-center justify-content-center">
-        <div class="empty-plp-section">
-          <div class="empty-img">
-            <img src={Empty_Result} alt="Empty Result" />
-          </div>
-          <div class="header">No Results</div>
-          <div class="content">
-            We couldn't find any products matching your search criteria. Please
-            try adjusting your filters or search again.
-          </div>
-          <Link to={'/'}><button class="back-to-home">BACK TO HOME</button></Link>
-        </div>
-      </div>
-    </div>
-  );
+  return <p>No results, try a different search.</p>;
 }
 
 /**

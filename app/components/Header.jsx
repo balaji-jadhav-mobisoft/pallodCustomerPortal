@@ -1835,9 +1835,7 @@ function HeaderCtas({isLoggedIn, cart}) {
         </Await>
       </Suspense>
 
-      <Link to={'/account/wishlist'}>
-        <img src={WishListIcon} alt="wishList" />
-      </Link>
+      <img src={WishListIcon} alt="wishList" />
 
       <CartToggle cart={cart} />
     </nav>

@@ -21,8 +21,6 @@ const WardrobeFavorites = ({collection, primaryDomain, publicStoreDomain}) => {
     const discountPercentage =
       ((originalPrice - discountedPrice) / originalPrice) * 100;
 
-    const {variants} = product;
-
     return {
       src: product.images.nodes[0]?.url,
       hoverSrc: product.images.nodes[1]?.url,
@@ -34,11 +32,6 @@ const WardrobeFavorites = ({collection, primaryDomain, publicStoreDomain}) => {
       isBestSeller: product.tags.includes('Best Seller'),
       isNew: product.tags.includes('New'),
       handle: product.handle,
-      id: product.id,
-      tags: product?.tags,
-      vendor: product?.vendor,
-      variantId: variants?.nodes[0]?.id,
-      collectionId: collection?.collection?.id
     };
   });
 
