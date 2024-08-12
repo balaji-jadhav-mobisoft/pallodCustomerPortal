@@ -151,7 +151,9 @@ const CollectionProductList = ({collection}) => {
                   </div>
                   <div className="image-title-section">
                     {item.title && (
-                      <h6 className="product-title">{item.title}</h6>
+                      <h6 className="product-title ellipsis-text">
+                        {item.title}
+                      </h6>
                     )}
                     {/* <p className="product-description">{item.description}</p> */}
                     <div className="d-flex flex-row align-items-center justify-content-between">
@@ -160,7 +162,9 @@ const CollectionProductList = ({collection}) => {
                           <div className="discount-price me-1">
                             <span
                               dangerouslySetInnerHTML={{
-                                __html: `&#8377 ${item.discountPrice}`,
+                                __html: `&#8377 ${item.discountPrice.toLocaleString(
+                                  'en-IN',
+                                )}`,
                               }}
                             />
                           </div>

@@ -82,7 +82,7 @@ const Carousal = ({
           <NavLink
             to={url}
             prefetch="intent"
-            style={{textDecoration: 'none'}}
+            // style={{textDecoration: 'none'}}
             className={`position-absolute bottom-0 end-0 view-all-btn carousal-view-all ${
               dazzling ? 'mt-20' : ''
             }`}

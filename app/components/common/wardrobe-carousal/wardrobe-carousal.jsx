@@ -14,6 +14,7 @@ const WardrobeCarousal = ({
   productDetails,
   similarProduct,
   moreColorProducts,
+  wardrobe,
 }) => {
   // Return null if required props are not provided
   if (!collection) return null;
@@ -92,7 +93,7 @@ const WardrobeCarousal = ({
   };
 
   // Render the wardrobe items to be displayed
-  const renderWardrobeItems = () => {
+  const renderWardrobeItems = (wardrobe) => {
     const itemsToDisplay = wardrobeItems.slice(
       currentStartIndex,
       currentStartIndex + itemsPerPage,
@@ -151,7 +152,9 @@ const WardrobeCarousal = ({
               )}
             </div>
           </Link>
-          {item.title && <h6 className="product-title">{item.title}</h6>}
+          {item.title && !wardrobe && (
+            <h6 className="product-title">{item.title}</h6>
+          )}
           <p className="product-description">{item.description}</p>
           <div className="d-flex flex-row align-items-center justify-content-between">
             <div className="d-flex align-items-center">
@@ -207,7 +210,7 @@ const WardrobeCarousal = ({
         }`}
       >
         <div className="row" id="wardrobeItems">
-          {renderWardrobeItems()}
+          {renderWardrobeItems(wardrobe)}
         </div>
         <img
           src={leftIcon}

@@ -41,6 +41,7 @@ const WardrobeFavorites = ({collection, primaryDomain, publicStoreDomain}) => {
         wardrobeItems={wardrobeItems}
         collection={collection}
         wishList={true}
+        wardrobe={true}
       />
     </>
   );

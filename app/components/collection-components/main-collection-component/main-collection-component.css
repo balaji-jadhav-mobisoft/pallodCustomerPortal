@@ -184,7 +184,7 @@ h4 {
   -webkit-appearance: none;
   appearance: none;
   width: 80%;
-  border: 1px solid black;
+  border: 0px solid black;
   border-radius: 20px !important;
   margin: 10px 20px 0px 0px;
   pointer-events: none;
@@ -216,7 +216,7 @@ h4 {
   background: #000;
   border-radius: 50%;
   cursor: pointer;
-  margin-top: -6px;
+  margin-top: -8px;
 }
 
 .price-slider input[type='range']::-moz-range-thumb {
