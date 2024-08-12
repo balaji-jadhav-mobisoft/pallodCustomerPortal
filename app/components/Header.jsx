@@ -362,7 +362,7 @@ export function HeaderMenu({
               className="nav-link dropdown-toggle-header"
               id="navbarDropdownMenuLink"
             >
-              More
+              <span className="category-more">More</span>
               <img
                 src={IconDownChevron}
                 alt="More"

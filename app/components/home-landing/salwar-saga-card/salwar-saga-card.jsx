@@ -87,13 +87,12 @@ const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
         </div>
 
         {/* Carousel controls */}
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#imageCarousel"
-          data-bs-slide="prev"
-        >
-          <div className="carousel-control-icon">
+        <button className="carousel-control-prev" type="button">
+          <div
+            className="carousel-control-icon"
+            data-bs-target="#imageCarousel"
+            data-bs-slide="prev"
+          >
             <img
               src={IconLeftChevron}
               className="mi-lg mi-chevron_left wh-24 d-inline-block"
@@ -101,13 +100,12 @@ const SalwarSagaCard = ({menu, primaryDomain, publicStoreDomain}) => {
             />
           </div>
         </button>
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#imageCarousel"
-          data-bs-slide="next"
-        >
-          <div className="carousel-control-icon">
+        <button className="carousel-control-next" type="button">
+          <div
+            className="carousel-control-icon"
+            data-bs-target="#imageCarousel"
+            data-bs-slide="next"
+          >
             <img
               src={IconRightChevron}
               className="mi-lg mi-chevron_right wh-24 d-inline-block"

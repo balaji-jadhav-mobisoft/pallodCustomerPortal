@@ -33,6 +33,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   .carousel-indicators {
     position: inherit;
@@ -109,10 +110,17 @@
   /* .carousel-control-next {
     opacity: 0.9;
   } */
+  .carousel-control-prev {
+    left: -40px;
+  }
+  .carousel-control-next {
+    right: -40px;
+  }
   .carousel-control-prev,
   .carousel-control-next {
     z-index: 0;
     opacity: 0.9;
+    cursor: auto;
   }
 }
 @media screen and (max-width: 1181px) {
