@@ -17,6 +17,7 @@ const TrendingKurtis = ({collection}) => {
       hoverSrc: product.images.nodes[0]?.url,
       description: product.description,
       handle: product.handle,
+      title: product.title,
     };
   });
 
