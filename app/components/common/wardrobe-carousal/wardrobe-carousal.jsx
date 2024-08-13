@@ -115,11 +115,11 @@ const WardrobeCarousal = ({
           }`}
           key={item.src}
         >
-            <div
-              className={`position-relative ${
-                productDetails ? 'product-img-wrapper1' : 'product-img-wrapper'
-              }`}
-            >
+          <div
+            className={`position-relative ${
+              productDetails ? 'product-img-wrapper1' : 'product-img-wrapper'
+            }`}
+          >
             <Link to={linkNavigator} key={item.src}>
               {item.src && (
                 <img
@@ -132,38 +132,48 @@ const WardrobeCarousal = ({
                   onMouseOut={handleMouseOut}
                 />
               )}
-              </Link>
-              {item.isBestSeller && (
-                <div className="position-absolute top-0 start-0 best-seller">
-                  Best Seller
-                </div>
-              )}
-              {wishList && (
-                <div
-                  className={`position-absolute wishlist-container ${
-                    moreColorProducts ? 'wishlist-container1' : ''
-                  }`}
-                >
-                  {/* <img
+            </Link>
+            {item.isBestSeller && (
+              <div className="position-absolute top-0 start-0 best-seller">
+                Best Seller
+              </div>
+            )}
+            {wishList && (
+              <div
+                className={`position-absolute wishlist-container ${
+                  moreColorProducts ? 'wishlist-container1' : ''
+                }`}
+              >
+                {/* <img
                     src={wishListIcon}
                     className="mi-lg mi-wishlist wh-20 d-inline-block"
                     alt="Wishlist Icon"
                   /> */}
-                  <ProductChecker shopifyProductId={item.id} customerId={customerId} product={item} collectionHandle={collection?.collection?.handle} collectionId={item.collectionId} imageUrl={item.src} price={item.discountPrice} variantId={item.variantId} isPdp={false} />
+                <ProductChecker
+                  shopifyProductId={item.id}
+                  customerId={customerId}
+                  product={item}
+                  collectionHandle={collection?.collection?.handle}
+                  collectionId={item.collectionId}
+                  imageUrl={item.src}
+                  price={item.discountPrice}
+                  variantId={item.variantId}
+                  isPdp={false}
+                />
+              </div>
+            )}
+            {moreColorProducts && (
+              <Link to={linkNavigator} key={item.src}>
+                <div className="position-absolute add-to-bag-container">
+                  <button className="add-to-bag-btn">
+                    <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                    Add to Bag
+                  </button>
                 </div>
-              )}
-              {moreColorProducts && (
-                <Link to={linkNavigator} key={item.src}>
-                  <div className="position-absolute add-to-bag-container">
-                    <button className="add-to-bag-btn">
-                      <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
-                      Add to Bag
-                    </button>
-                  </div>
-                </Link>
-              )}
-            </div>
-            
+              </Link>
+            )}
+          </div>
+
           <p className="product-description">{item.title}</p>
           <div className="d-flex flex-row align-items-center justify-content-between">
             <div className="d-flex align-items-center">
@@ -187,7 +197,7 @@ const WardrobeCarousal = ({
               )}
               {item.discount && <div className="discount">{item.discount}</div>}
             </div>
-            {item.isNew && <div className="new-stock">New</div>}
+            {item.isNew && <div className="new-stock">New Arrival</div>}
           </div>
         </div>
       );

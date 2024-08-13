@@ -6,6 +6,14 @@
     transition: transform 0.3s;
     border-radius: 0px;
   }
+  .new-stock-top {
+    padding: 5px 9px 5px 7px;
+    background-color: #000;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    border-bottom-right-radius: 15px;
+  }
   .img-wrapper {
     width: 100%;
     height: 100%;

@@ -18,7 +18,6 @@ const RemoveFromWishlistButton = ({ product, customerId, isPdp, customAppUrl }) 
       setLoading(false);
     }
   };
-  console.log("PDP status ", isPdp);
   
 
 

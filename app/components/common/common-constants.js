@@ -76,4 +76,4 @@ export const PALLOD_PUNE_SHOP_LINK =
   'https://www.google.com/maps/dir//Ground+Floor,+Shop+No+1,+Suma+Heritage,+Bhandarkar+Rd,+Deccan+Gymkhana,+Pune,+Maharashtra+411004/@18.5201045,73.8161727,13.7z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bc2bf8635411ba7:0x4ddb1e805394c61c!2m2!1d73.838889!2d18.518129?entry=ttu';
 
 export const PALLOD_MAHABALESHWAR_SHOP_LINK =
-  'https://www.google.com/maps/dir/18.5597952,73.7804288/mahabaleshwar+pallod/@18.2544331,73.5123855,10z/data=!3m1!4b1!4m9!4m8!1m1!4e1!1m5!1m1!1s0x3bc2655224f7c533:0x91a4a74d727548f8!2m2!1d73.6590298!2d17.9240382?entry=ttu';
+  'IGQWROc1l0aUt5dmpfQWpkNGx6NFhNZAmRlVWRTTDJWbktwYXRXemllMllraWdvSlNRelhTWTlwdTJMNUdraEo0VDRRNjVJS0J0ZADd0ZAUZAIQldZAS2ZARdU1wemFLZADBnOThDRUcxa3RYRFpzbE0ycTZAaUEdCZA2ZAIdU0ZD';

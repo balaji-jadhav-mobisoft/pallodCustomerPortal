@@ -99,8 +99,6 @@ async function loadCriticalData({context, params, request}) {
     }),
   ]);
 
-
-
   return {
     product,
     recommendedProducts,
@@ -156,16 +154,19 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, recommendedProducts, shippingReturnBlog, faqBlog, collectionData} =
-    useLoaderData();
+  const {
+    product,
+    variants,
+    recommendedProducts,
+    shippingReturnBlog,
+    faqBlog,
+    collectionData,
+  } = useLoaderData();
   const {selectedVariant} = product;
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const collectionHandle = searchParams.get('collectionHandle');
 
-  console.log("Collection Detail ", collectionData);
-  
-  
   return (
     <>
       <div className="collection-main">

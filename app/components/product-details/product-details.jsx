@@ -152,6 +152,7 @@ function ProductOptions({option, product}) {
                       width: '100px',
                       height: 'auto',
                       borderRadius: '3px',
+                      objectFit: 'fill',
                     }}
                   />
                 </div>
@@ -175,7 +176,7 @@ function ProductOptions({option, product}) {
                 data-bs-toggle="modal"
                 data-bs-target="#Sizeguide"
               >
-                Size Guide
+                SIZE GUIDE
                 <img
                   src={SizeGuideIcon}
                   className="mi-lg mi-size_guide wh-18 d-inline-block"
@@ -267,7 +268,7 @@ function ProductMain({
   collectionData,
 }) {
   const {title, descriptionHtml} = product;
-  
+
   return (
     <>
       <Suspense
@@ -315,7 +316,7 @@ function ProductForm({
   handleButtonClick,
   collectionHandle,
   collectionData,
-}) { 
+}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
   const navigate = useNavigate();
@@ -379,7 +380,6 @@ function ProductForm({
     customerId = loaderData?.customer?.id;
   }
   const isPdp = true;
-  
 
   return (
     <div className="product-form">
@@ -462,7 +462,17 @@ function ProductForm({
               />
               {isRemoved ? 'REMOVE' : 'WISHLIST'}
             </button> */}
-            <ProductChecker shopifyProductId={product.id} customerId={customerId} product={product} collectionHandle={collectionHandle} collectionId={collectionData.collection.id} imageUrl={product.images.nodes[0].url} price={product.selectedVariant.price.amount} variantId={product.selectedVariant.id} isPdp={isPdp} />
+            <ProductChecker
+              shopifyProductId={product.id}
+              customerId={customerId}
+              product={product}
+              collectionHandle={collectionHandle}
+              collectionId={collectionData.collection.id}
+              imageUrl={product.images.nodes[0].url}
+              price={product.selectedVariant.price.amount}
+              variantId={product.selectedVariant.id}
+              isPdp={isPdp}
+            />
           </div>
         </>
       )}
@@ -600,7 +610,7 @@ const ProductDetails = ({
       name: product.title,
     },
   ];
-  
+
   // Map products to wardrobeItems with necessary properties
   const wardrobeItems1 = recommendedProducts?.productRecommendations?.map(
     (product) => {
@@ -630,7 +640,7 @@ const ProductDetails = ({
         tags: product.tags,
         collectionHandle: collectionHandle,
         collectionId: collectionData.collection.id,
-        variantId: selectedVariant.id
+        variantId: selectedVariant.id,
       };
     },
   );
@@ -893,7 +903,7 @@ const ProductDetails = ({
           ></div>
 
           <div className="d-flex flex-row">
-            {isNew && <div className="new-tag">New</div>}
+            {isNew && <div className="new-tag">New Arrival</div>}
             {isBestSeller && <div className="best-seller-top">Best Seller</div>}
           </div>
           {/* <div className="brand">{product?.vendor}</div> */}

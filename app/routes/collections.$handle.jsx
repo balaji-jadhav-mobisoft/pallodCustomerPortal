@@ -90,8 +90,6 @@ export default function Collection() {
   const [initialLoad, setInitialLoad] = useState(true);
 
   const handleSortChange = async (sortBy) => {
-    console.log(sortBy, 'sortBy');
-
     setIsLoading(true);
     const newSearchParams = new URLSearchParams(searchParams);
     newSearchParams.set('sort', sortBy);

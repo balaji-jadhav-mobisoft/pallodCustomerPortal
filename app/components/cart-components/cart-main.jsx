@@ -670,7 +670,7 @@ const CartMain = ({cart, layout, hidden}) => {
                   )}
                 </div>
               </div>
-              <div className="d-flex flex-row justify-content-between price-content">
+              {/* <div className="d-flex flex-row justify-content-between price-content">
                 <div>Tax</div>
                 <div>
                   {cart?.cost?.totalTaxAmount?.amount ? (
@@ -679,7 +679,7 @@ const CartMain = ({cart, layout, hidden}) => {
                     '-'
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="d-flex flex-row justify-content-between price-content">
                 <div>Shipping</div>
                 <div>Free</div>

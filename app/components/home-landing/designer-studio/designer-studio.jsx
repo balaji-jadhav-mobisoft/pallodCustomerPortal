@@ -106,7 +106,7 @@ const DesignerStudio = ({menu, primaryDomain, publicStoreDomain}) => {
           <NavLink
             to={designerCollectionUrl}
             prefetch="intent"
-            style={{textDecoration: 'none'}}
+            // style={{textDecoration: 'none'}}
             className="position-absolute view-all-btn designer-studio-view-all"
           >
             VIEW ALL

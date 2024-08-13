@@ -96,7 +96,6 @@ export async function loader(args) {
     }
     customerData = data.customer;
   }
-  console.log("Session ", args.context);
   
   return defer(
     {
