@@ -108,7 +108,6 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
     tags
     variants(first: 1) {
       nodes {
-        id
         selectedOptions {
           name
           value

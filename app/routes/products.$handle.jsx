@@ -13,7 +13,6 @@ import {getVariantUrl} from '~/lib/variants';
 import {useAside} from '~/components/Aside';
 import ProductDetails from '~/components/product-details/product-details';
 import {BLOGS_QUERY} from '~/lib/productBlogs';
-import {COLLECTION_ID_QUERY} from '~/lib/collectionIdByHandle';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -91,22 +90,11 @@ async function loadCriticalData({context, params, request}) {
     variables: {handle: 'product-details-faq'},
   });
 
-  const collectionHandle = searchParams.get('collectionHandle');
-
-  const [collectionData] = await Promise.all([
-    storefront.query(COLLECTION_ID_QUERY, {
-      variables: {handle: collectionHandle},
-    }),
-  ]);
-
-
-
   return {
     product,
     recommendedProducts,
     shippingReturnBlog,
     faqBlog,
-    collectionData,
   };
 }
 
@@ -156,16 +144,13 @@ function redirectToFirstVariant({product, request}) {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, variants, recommendedProducts, shippingReturnBlog, faqBlog, collectionData} =
+  const {product, variants, recommendedProducts, shippingReturnBlog, faqBlog} =
     useLoaderData();
   const {selectedVariant} = product;
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const collectionHandle = searchParams.get('collectionHandle');
 
-  console.log("Collection Detail ", collectionData);
-  
-  
   return (
     <>
       <div className="collection-main">
@@ -177,7 +162,6 @@ export default function Product() {
           collectionHandle={collectionHandle}
           shippingReturnBlog={shippingReturnBlog}
           faqBlog={faqBlog}
-          collectionData={collectionData}
         />
       </div>
     </>

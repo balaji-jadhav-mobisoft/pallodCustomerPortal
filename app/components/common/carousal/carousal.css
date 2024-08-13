@@ -85,17 +85,18 @@
     font-size: 14px;
     font-weight: 600;
     color: #fff;
+    font-family: Mulish;
     border-bottom: 1.5px solid #fff;
     /* color: rgba(255, 255, 255, 0.6);
     border-bottom: 1.5px solid rgba(255, 255, 255, 0.6); */
   }
   .right-scroll {
-    top: 35%;
+    top: 43%;
     right: -6%;
     cursor: pointer;
   }
   .left-scroll {
-    top: 35%;
+    top: 43%;
     left: -6%;
     cursor: pointer;
   }

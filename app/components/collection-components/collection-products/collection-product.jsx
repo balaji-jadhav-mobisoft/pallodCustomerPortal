@@ -4,24 +4,11 @@ import wishListIcon from '~/assets/wishList-icon.svg';
 import {Image, Pagination} from '@shopify/hydrogen';
 import NoImage from '~/assets/no-img.png';
 import {Link} from '@remix-run/react';
-import wishlistAPI from '~/wishlistAPI';
-import { useRouteLoaderData } from '@remix-run/react';
-import {redirect} from '@shopify/remix-oxygen';
-import ProductChecker from '~/components/ProductChecker';
 import CartIcon from '~/assets/cart-icon.svg';
-
 const CollectionProductList = ({collection}) => {
   const [colClass, setColClass] = useState('col-4');
   const [allItems, setAllItems] = useState([]);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [wishlisted, setWishlisted] = useState([]);
-
-  /** @type {RootLoader} */
-    const loaderData = useRouteLoaderData('root');
-    let customerId = null;
-    if (loaderData) {
-      customerId = loaderData?.customer?.id;
-    }
 
   useEffect(() => {
     function getColClass() {
@@ -78,8 +65,6 @@ const CollectionProductList = ({collection}) => {
           productPrice = originalPrice;
         }
 
-         const {variants} = product;
-        
         const productData = {
           src: product?.images?.edges[0]?.node?.url,
           handle: product?.handle,
@@ -89,10 +74,6 @@ const CollectionProductList = ({collection}) => {
           discountPrice: discountedPrice,
           isBestSeller: product.tags.includes('Best Seller'),
           isNew: product.tags.includes('New'),
-          id: product.id,
-          tags: product?.tags,
-          vendor: product?.vendor,
-          variantId: variants?.nodes[0]?.id,
         };
 
         if (discountPercentage > 0) {
@@ -150,15 +131,13 @@ const CollectionProductList = ({collection}) => {
                           Best Seller
                         </div>
                       )}
-                      </Link>
-                      
                       <div className="position-absolute wishlist-container">
-                        <ProductChecker shopifyProductId={item.id} customerId={customerId} product={item} collectionHandle={collection.handle} collectionId={collection.id} imageUrl={item.src} price={item.discountPrice} variantId={item.variantId} isPdp={false} />
+                        <img
+                          src={wishListIcon}
+                          className="mi-lg mi-wishlist wh-20 d-inline-block"
+                          alt="Wishlist Icon"
+                        />
                       </div>
-                      <Link
-                      to={`/products/${item.handle}/?collectionHandle=${collection.handle}`}
-                      key={item.src}
-                    >
                       <div className="position-absolute add-to-bag-container">
                         <button className="add-to-bag-btn">
                           <img
@@ -168,11 +147,13 @@ const CollectionProductList = ({collection}) => {
                           Add to Bag
                         </button>
                       </div>
-                      </Link>
+                    </Link>
                   </div>
                   <div className="image-title-section">
                     {item.title && (
-                      <h6 className="product-title">{item.title}</h6>
+                      <h6 className="product-title ellipsis-text">
+                        {item.title}
+                      </h6>
                     )}
                     {/* <p className="product-description">{item.description}</p> */}
                     <div className="d-flex flex-row align-items-center justify-content-between">
@@ -181,7 +162,9 @@ const CollectionProductList = ({collection}) => {
                           <div className="discount-price me-1">
                             <span
                               dangerouslySetInnerHTML={{
-                                __html: `&#8377 ${item.discountPrice}`,
+                                __html: `&#8377 ${item.discountPrice.toLocaleString(
+                                  'en-IN',
+                                )}`,
                               }}
                             />
                           </div>
@@ -229,5 +212,3 @@ const CollectionProductList = ({collection}) => {
 };
 
 export default CollectionProductList;
-
-/** @typedef {LoaderReturnData} RootLoader */

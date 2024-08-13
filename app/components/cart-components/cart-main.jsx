@@ -425,12 +425,12 @@ const CartMainSection = ({
                 <CartLinePrice line={line} as="span" />
               </div>
               <div style={{display: 'flex', alignItems: 'center'}}>
-                {/* <img
+                <img
                   src={Wishlist}
                   height={22}
                   width={22}
                   className="bi-lg bi-heart wh-22 d-inline-block me-3"
-                ></img> */}
+                ></img>
                 {/* <CartLineRemoveButton lineIds={[id]} /> */}
                 <img
                   onClick={handleRemoveClick}
@@ -795,13 +795,13 @@ const CartMain = ({cart, layout, hidden}) => {
                           REMOVE
                         </button>
                       </CartLineRemoveButton>
-                      {/* <button
+                      <button
                         type="button"
                         className="move-btn"
                         data-bs-dismiss="modal"
                       >
                         MOVE TO WISHLIST
-                      </button> */}
+                      </button>
                     </div>
                   </div>
                 </div>

@@ -110,8 +110,6 @@ export async function loader(args) {
         storefrontAccessToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       },
       customer: customerData,
-      customAppUrl: env.CUSTOM_APP_URL,
-      customerAppUrl: env.CUSTOMER_APP_URL
     },
     {
       headers: {

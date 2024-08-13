@@ -110,7 +110,7 @@ const FooterSection = ({
         <div className="row" id="defaultFooter">
           <div className="col-6">
             <div className="row">
-              {['Quick Links', 'More Links', 'Customer Care'].map((title) => {
+              {['Quick Links', 'More Links', 'Customer Policies'].map((title) => {
                 const items =
                   menu?.items.find((item) => item.title === title)?.items || [];
 
@@ -481,7 +481,7 @@ const FooterSection = ({
         </div>
         <div className="accordion d-none" id="footerAccordion">
           <div className="accordion-item">
-            {['Quick Links', 'More Links', 'Customer Care'].map(
+            {['Quick Links', 'More Links', 'Customer Policies'].map(
               (title, index) => {
                 const items =
                   menu?.items.find((item) => item.title === title)?.items || [];
@@ -781,7 +781,7 @@ const FooterSection = ({
             </div>
           </div>
           <div className="d-flex justify-content-center mt-5 footer-content font-16">
-            © 2009 - 2024 Pallod Store All Rights Reserved.
+            ©2024 Pallod Store All Rights Reserved.
           </div>
         </div>
       </div>

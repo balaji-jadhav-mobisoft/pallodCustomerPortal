@@ -37,7 +37,7 @@ export function CartEmpty({hidden = false}) {
   return (
     <div hidden={hidden} className="empty-bag-section">
       <img src={EmptyBagIcon} alt="empty-bag" />
-      <span className="empty-cart-span1">Your bag is empty!</span>
+      <span className="empty-cart-span1">Your Bag is empty!</span>
       <span className="empty-cart-span">
         Looks like you haven't added anything to your cart yet.
       </span>
