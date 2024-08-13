@@ -152,10 +152,10 @@ const WardrobeCarousal = ({
               )}
             </div>
           </Link>
-          {item.title && !wardrobe && (
+          {/* {item.title && !wardrobe && (
             <h6 className="product-title">{item.title}</h6>
-          )}
-          <p className="product-description">{item.description}</p>
+          )} */}
+          <p className="product-description">{item.title}</p>
           <div className="d-flex flex-row align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               {item.discountPrice && (

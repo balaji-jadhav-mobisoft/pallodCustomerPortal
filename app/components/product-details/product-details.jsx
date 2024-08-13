@@ -325,7 +325,9 @@ function ProductForm({
 
   // Function to decrement quantity, minimum 0
   const decrementQuantity = () => {
-    setQuantity((prev) => (prev > 0 ? prev - 1 : 0));
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
   };
 
   // Function to handle quantity change from input
@@ -388,6 +390,10 @@ function ProductForm({
                 src={MinusIcon}
                 className="mi-lg mi-minus wh-18 d-inline-block me-3"
                 onClick={decrementQuantity}
+                style={{
+                  cursor: quantity === 1 ? 'not-allowed' : 'pointer',
+                  opacity: quantity === 1 ? '0.2' : '',
+                }}
               />
               <input
                 type="text"
