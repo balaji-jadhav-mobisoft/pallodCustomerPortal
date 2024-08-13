@@ -3,8 +3,9 @@ import './wardrobe-carousal.css';
 import leftIcon from '~/assets/icon_left_chevron.svg';
 import rightIcon from '~/assets/icon_right_chevron.svg';
 import wishListIcon from '~/assets/wishList-icon.svg';
-import {Link} from '@remix-run/react';
+import {Link, useRouteLoaderData} from '@remix-run/react';
 import InstagramIcon from '~/assets/instagram-icon-1.svg';
+import ProductChecker from '~/components/ProductChecker';
 
 const WardrobeCarousal = ({
   collection,
@@ -94,6 +95,13 @@ const WardrobeCarousal = ({
 
   // Render the wardrobe items to be displayed
   const renderWardrobeItems = (wardrobe) => {
+    /** @type {RootLoader} */
+    const loaderData = useRouteLoaderData('root');
+    let customerId = null;
+    if (loaderData) {
+      customerId = loaderData?.customer?.id;
+    }
+
     const itemsToDisplay = wardrobeItems.slice(
       currentStartIndex,
       currentStartIndex + itemsPerPage,
@@ -107,12 +115,12 @@ const WardrobeCarousal = ({
           }`}
           key={item.src}
         >
-          <Link to={linkNavigator} key={item.src}>
             <div
               className={`position-relative ${
                 productDetails ? 'product-img-wrapper1' : 'product-img-wrapper'
               }`}
             >
+            <Link to={linkNavigator} key={item.src}>
               {item.src && (
                 <img
                   src={item.src}
@@ -124,6 +132,7 @@ const WardrobeCarousal = ({
                   onMouseOut={handleMouseOut}
                 />
               )}
+              </Link>
               {item.isBestSeller && (
                 <div className="position-absolute top-0 start-0 best-seller">
                   Best Seller
@@ -135,26 +144,26 @@ const WardrobeCarousal = ({
                     moreColorProducts ? 'wishlist-container1' : ''
                   }`}
                 >
-                  <img
+                  {/* <img
                     src={wishListIcon}
                     className="mi-lg mi-wishlist wh-20 d-inline-block"
                     alt="Wishlist Icon"
-                  />
+                  /> */}
+                  <ProductChecker shopifyProductId={item.id} customerId={customerId} product={item} collectionHandle={collection?.collection?.handle} collectionId={item.collectionId} imageUrl={item.src} price={item.discountPrice} variantId={item.variantId} isPdp={false} />
                 </div>
               )}
               {moreColorProducts && (
-                <div className="position-absolute add-to-bag-container">
-                  <button className="add-to-bag-btn">
-                    <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
-                    Add to Bag
-                  </button>
-                </div>
+                <Link to={linkNavigator} key={item.src}>
+                  <div className="position-absolute add-to-bag-container">
+                    <button className="add-to-bag-btn">
+                      <span className="me-2 mi-lg mi-checkout align-text-bottom wh-20 d-inline-block"></span>
+                      Add to Bag
+                    </button>
+                  </div>
+                </Link>
               )}
             </div>
-          </Link>
-          {/* {item.title && !wardrobe && (
-            <h6 className="product-title">{item.title}</h6>
-          )} */}
+            
           <p className="product-description">{item.title}</p>
           <div className="d-flex flex-row align-items-center justify-content-between">
             <div className="d-flex align-items-center">
@@ -236,3 +245,5 @@ const WardrobeCarousal = ({
 };
 
 export default WardrobeCarousal;
+
+/** @typedef {LoaderReturnData} RootLoader */
