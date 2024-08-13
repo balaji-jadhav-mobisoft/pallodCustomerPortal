@@ -104,6 +104,7 @@ Disallow: /*/*?*ls%3D*%3Fls%3D*
 Disallow: /*/*?*ls%3d*%3fls%3d*
 Disallow: /search
 Allow: /search/
+Allow: /account/wishlist
 Disallow: /search/?*
 Disallow: /apple-app-site-association
 Disallow: /.well-known/shopify/monorail
